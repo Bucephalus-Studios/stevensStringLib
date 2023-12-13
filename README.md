@@ -3,7 +3,7 @@
 Welcome to stevensStringLib! This is a simple C++ library full of useful functions for working with std::strings.
 
 To get started, add the following to the top of your .cpp file:
-`include "<PATH TO STEVENSSTRINGLIB.H HERE>/stevensStringLib.h"`
+`include "<insert path to the repo folder here>/stevensStringLib.h"`
 
 Give the library namespace a short, catchy name:
 `namespace strlib = stevensStringLib;`
