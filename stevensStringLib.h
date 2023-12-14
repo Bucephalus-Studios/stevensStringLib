@@ -3,6 +3,12 @@
  *
  * Defines the stevensStringLib namespace, a library meant to provide useful functions to expand interactions with the standard string type.
  */
+
+//Include guard
+#ifndef _STEVENSSTRINGLIB_
+
+#define _STEVENSSTRINGLIB_
+
 #include<iostream>
 #include<algorithm>
 #include<vector>
@@ -119,7 +125,7 @@ namespace stevensStringLib
     {
         if(input.length() > 0)
         {
-            input[0] = toupper(input[0]);
+            input[0] = std::toupper(input[0]);
         }
         return input;
     }
@@ -153,14 +159,22 @@ namespace stevensStringLib
         Detects whether or not the user input is in the form of a number
         ***Uses isdigit function from cctype library***
         input:
-            const std::string & userInput - a string of input received by the cin stream
+            const std::string & str - The
         output:
             a boolean indicating whether or not the input string is a number
     */
-    bool isNumber(  const std::string & userInput   )
+    bool isNumber(  const std::string & str   )
     {
         for (int charIndex = 0; charIndex < userInput.length(); charIndex++)
         {
+            //The first index has the possibility of having a negative sign
+            if(charIndex == 0)
+            {
+                if(str[charIndex] == '-')
+                {
+                    continue;
+                }
+            }
             if (!isdigit(userInput[charIndex]))
             {
                 return false;
@@ -298,7 +312,7 @@ namespace stevensStringLib
 
 
     /**
-     * Removes all tabs and spaces from an input string.
+     * Removes all tabs, spaces, and carriage returns from an input string.
      * 
      * From Michael Steller: https://stackoverflow.com/questions/83439/remove-spaces-from-stdstring-in-c
      * 
@@ -505,7 +519,8 @@ namespace stevensStringLib
      *  std::string str - The string which we wish to wrap to a certain width.
      *  int wrapWidth - The width in number of characters we wish to wrap.
      * 
-     * Output:
+     * Returns:
+     *  
     */
     std::string wrapAround( std::string str,
                             int wrapWidth   )
@@ -680,31 +695,31 @@ namespace stevensStringLib
      * Returns:
      *  std::string - A string representing the character c.
     */
-    std::string char_to_string( char c )
+    std::string char_to_string( const char & c )
     {
         std::string s(1, c);
         return s;
     }
 
 
-    /**
-     * Predicate for eraseNonNumericChars. Determines if a character is non-numeric (true) or numeric (false)
-    */
-    static bool isNonNumeric( char c )
-    {
-        std::unordered_map<char,bool> numericCharacters = { {'0',   0},
-                                                            {'1',   0},
-                                                            {'2',   0},
-                                                            {'3',   0},
-                                                            {'4',   0},
-                                                            {'5',   0},
-                                                            {'6',   0},
-                                                            {'7',   0},
-                                                            {'8',   0},
-                                                            {'9',   0}  };
+    // /**
+    //  * Predicate for eraseNonNumericChars. Determines if a character is non-numeric (true) or numeric (false)
+    // */
+    // static bool isNonNumeric( char c )
+    // {
+    //     std::unordered_map<char,bool> numericCharacters = { {'0',   0},
+    //                                                         {'1',   0},
+    //                                                         {'2',   0},
+    //                                                         {'3',   0},
+    //                                                         {'4',   0},
+    //                                                         {'5',   0},
+    //                                                         {'6',   0},
+    //                                                         {'7',   0},
+    //                                                         {'8',   0},
+    //                                                         {'9',   0}  };
         
-        return !numericCharacters.contains(c);
-    }
+    //     return !numericCharacters.contains(c);
+    // }
 
 
     /**
@@ -718,11 +733,48 @@ namespace stevensStringLib
     */
     std::string eraseNonNumericChars( std::string str )
     {
-        //std::cout << "str befor eraseNonNumericChars:" << str << std::endl;
-        str.erase(std::remove_if(str.begin(), str.end(), isNonNumeric), str.end());
-        //std::cout << "str after eraseNonNumericChars: " << str << std::endl; 
+        str.erase(std::remove_if(str.begin(), str.end(), !isdigit), str.end());
         return str;
     }
 
 
+    /**
+     * Reverses the order of a string's characters using std::reverse().
+     * 
+     * Parameter:
+     *  std::string & str - The string we would like to reverse.
+     * 
+     * Returns:
+     *  std::string - The reversed string.
+    */
+    std::string reverse( std::string str )
+    {
+        std::reverse(str.begin(),str.end());
+        return str;
+    }
+
+
+    /**
+     * Checks to see if a std::string is a palindrime or not (the reversed order of characters equals the order of characters).
+     * 
+     * Credit: https://stackoverflow.com/a/8362657/16511184
+     * 
+     * Parameter:
+     *  std::string str - The string we would like to check.
+     * 
+     * Returns:
+     *  bool - true if str is a palindrome, false otherwise.
+    */
+    bool isPalindrome( const std::string & str )
+    {
+        if( std::equal(str.begin(), str.begin() + str.size()/2, str.rbegin()) )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
+#endif
