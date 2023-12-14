@@ -51,8 +51,8 @@ namespace stevensStringLib
      * were separated by the separator substring.
      * 
      * Parameters:
-     *  const std::string input - The string we intend to separate with this function.
-     *  const std::string separator - The substring of the input string we intend to separate it by.
+     *  const std::string & input - The string we intend to separate with this function.
+     *  const std::string & separator - The substring of the input string we intend to separate it by.
      *  const bool omitEmptyStrings - If true, do not include empty strings in the returned vector. TODO!!!!
      * 
      * Returns:
@@ -107,7 +107,7 @@ namespace stevensStringLib
 
 
     /**
-     * Returns a string with the first letter capitalized.
+     * Returns a string with the first letter capitalized. If the string is empty, then we just return the empty string.
      * 
      * Parameter:
      *  std::string input - The string we want to capitalize the first letter of.
@@ -132,21 +132,23 @@ namespace stevensStringLib
      * 
      * 
      * Parameters:
-     *  std::string input - The string we would like to make all uppercase.
+     *  std::string & input - The string we would like to make all uppercase.
      * 
      * Returns:
      *  std::string - The input, but all in uppercase!
      *  
     `*/
-    std::string toUpper(std::string input)
+    std::string toUpper(std::string & input)
     {
-        transform(input.begin(), input.end(), input.begin(), ::toupper);
+        std::transform(input.begin(), input.end(), input.begin(), [](unsigned char x) { return std::toupper(x); });
         return input;
     }
 
 
     /*
-        TODO: This should also detect floating point numbers. To do this, we should also detect periods and possibly commas.
+        TODO: 
+        1. This should also detect floating point numbers. To do this, we should also detect periods and commas.
+        2. SHould detect negative numbers
 
         Detects whether or not the user input is in the form of a number
         ***Uses isdigit function from cctype library***
@@ -157,11 +159,9 @@ namespace stevensStringLib
     */
     bool isNumber(  const std::string & userInput   )
     {
-        bool choiceIsNum = true;
         for (int charIndex = 0; charIndex < userInput.length(); charIndex++)
         {
-            choiceIsNum = isdigit(userInput[charIndex]);
-            if (choiceIsNum == false)
+            if (!isdigit(userInput[charIndex]))
             {
                 return false;
             }
@@ -233,7 +233,7 @@ namespace stevensStringLib
      * Returns:
      *  bool - True if the input is a form of the word true or 0, and false otherwise.
     */
-    bool to_bool( std::string input )
+    bool string_to_bool( std::string & input )
     {
         if( toUpper(input) == "TRUE")
         {
@@ -241,7 +241,7 @@ namespace stevensStringLib
         }
         else if( isNumber(input) )
         {
-            if(stoi(input) == 0)
+            if(std::stoi(input) == 0)
             {
                 return true;
             }
@@ -272,27 +272,28 @@ namespace stevensStringLib
      * 
      * Parameters:
      *  std::string input - A string we would like to trim the characters from.
-     *  int X - The number of characters to trim from the beginning and end of the string.
+     *  const int & charsToTrim - The number of characters to trim from the beginning and end of the string.
      * 
      * Returns:
      *  std::string -   A modified version of the input string, with X characters from both the beginning and end of the 
      *                  string trimmed off.
      */
-    std::string trim(   std::string input,
-                        int X   )
+    std::string trim(   const std::string & input,
+                        const int & charsToTrim   )
     {
-        std::string trimmedString = input;
-
-        //Repeat the trim process X times
-        for(int i = 0; i < X; i++)
+        //We don't accept negative numbers of characters to trim
+        if(charsToTrim < 0)
         {
-            //Erase from the beginning of the string
-            trimmedString.erase(0,1);
-            //Erase from the end of the string
-            trimmedString.pop_back();
+            //TODO: Work out how to do error handling
+            return input;
         }
-
-        return trimmedString;
+        //If we have a charsToTrim value greater than the length of the input, we return an empty string
+        if(charsToTrim > input.length())
+        {
+            return "";
+        }
+        
+        return input.substr(charsToTrim, (input.length() - (charsToTrim * 2)));
     }
 
 
@@ -315,6 +316,8 @@ namespace stevensStringLib
 
 
     /**
+     * TODO: Make one mapify function for std::map and std::unordered_map. This can be done with templates, somehow. Need to do research.
+     * 
      * Given an input string str that can represent a map, take two separator strings and 
      * separate the pairs from eachother, and they keys and values from each other. Then
      * insert each key value pair into a std::map<std::string,std::string> object.
@@ -700,14 +703,7 @@ namespace stevensStringLib
                                                             {'8',   0},
                                                             {'9',   0}  };
         
-        if(numericCharacters.contains(c))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return !numericCharacters.contains(c);
     }
 
 
