@@ -3,7 +3,7 @@
 Welcome to stevensStringLib! This is a simple C++ library full of convenient functions for working with std::strings. 
 
 ## Demo
-Separate a string:
+#### Separate a string:
 ```
 std::string myString = "Charmander,Squirtle,Bulbasaur";
 std::vector<std::string> myVector = separate( myString, "," );

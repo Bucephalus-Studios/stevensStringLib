@@ -14,7 +14,10 @@
 #include<vector>
 #include<string>
 #include<sstream>
+#include<istream>
 #include<cctype>
+#include<locale>
+#include<charconv>
 #include<map>
 #include<unordered_map>
 
@@ -151,52 +154,33 @@ namespace stevensStringLib
     }
 
 
-    /*
-        TODO: 
-        1. This should also detect floating point numbers. To do this, we should also detect periods and commas.
-        2. SHould detect negative numbers
-
-        Detects whether or not the user input is in the form of a number
-        ***Uses isdigit function from cctype library***
-        input:
-            const std::string & str - The
-        output:
-            a boolean indicating whether or not the input string is a number
-    */
+    /**
+     *  Detects whether or not the user input is in the form of an integer or floating point number. 
+     *  Does not work for mathematical expressions!
+     *
+     *  Parameter:
+     *       const std::string & str - The string we are checking to see if it represents a number.
+     *  Returns:
+     *      bool - True if the string represents a number. False if otherwise.
+     *    
+     */
     bool isNumber(  const std::string & str   )
     {
-        for (int charIndex = 0; charIndex < userInput.length(); charIndex++)
-        {
-            //The first index has the possibility of having a negative sign
-            if(charIndex == 0)
-            {
-                if(str[charIndex] == '-')
-                {
-                    continue;
-                }
-            }
-            if (!isdigit(userInput[charIndex]))
-            {
-                return false;
-            }
-        }
-        return true;
+        return ( isInteger(str) || isFloat(str) );
     }
 
 
     /**
-     * 
      * Detects if a string is in the form of an integer.
      * 
      * Parameter:
-     *  std::string str - A string we are checking to see if it represents an integer.
+     *  const std::string & str - A string we are checking to see if it represents an integer.
      * 
      * Returns:
-     *  bool - true if the string represents an integer, false otherwise.
+     *  bool - true if the string str represents an integer, false otherwise.
     */
     bool isInteger( const std::string & str )
     {
-        bool choiceIsInt = true;
         for (int charIndex = 0; charIndex < str.length(); charIndex++)
         {
             //The first index has the possibility of having a negative sign
@@ -208,27 +192,95 @@ namespace stevensStringLib
                 }
             }
             //Check to see if the character is a numerical digit
-            choiceIsInt = isdigit(str[charIndex]);
-            if (choiceIsInt == false)
+            if (!isdigit(str[charIndex]))
             {
                 return false;
             }
         }
         
         //Now that we're sure we have a string that contains only digits and possibly a negative sign, we check
-        //to see if the integer will underflow or overflow if converted.
-        try
+        //to see if converting the string to an integer will cause errors 
+        int value = 0;
+        const auto res = std::from_chars(   str.data(), 
+                                            str.data() + str.size(), 
+                                            value );
+        if (res.ec == std::errc::invalid_argument)
         {
-            std::stoi(str);
-        }
-        catch(std::out_of_range)
-        {
-            //Return false if we can't represent the string as a C++ integer.
+            //Invalid argument for std::from_chars()
             return false;
         }
-        catch(std::invalid_argument)
+        else if (res.ec == std::errc::result_out_of_range)
         {
-            //We'll probably receive this if we get an empty string. Empty strings aren't integers, so return false.
+            //Overflow/underflow has occurred
+            return false;
+        }
+
+        //Otherwise, return true
+        return true;
+    }
+
+
+    /**
+     * Detects if a string is in the form of a floating point number.
+     * 
+     * Parameter:
+     *  const std::string & str - A string we are checking to see if it represents a floating point number.
+     * 
+     * Returns:
+     *  bool - true if the string str represents a floating point number. False otherwise.
+    */
+    bool isFloat( const std::string & str )
+    {
+        //Let's keep track of if we've seen the decimal point or not
+        bool seenDecimalPoint = false;
+        char point = std::use_facet< std::numpunct<char> >(std::cout.getloc()).decimal_point();
+        for (int charIndex = 0; charIndex < str.length(); charIndex++)
+        {
+            //The first index has the possibility of having a negative sign
+            if(charIndex == 0)
+            {
+                if(str[charIndex] == '-')
+                {
+                    continue;
+                }
+            }
+            if(!seenDecimalPoint)
+            {
+                if(str[charIndex] == point)
+                {
+                    seenDecimalPoint = true;
+                    continue;
+                }
+            }
+            //Check to see if the character is a numerical digit
+            if(!isdigit(str[charIndex]))
+            {
+                return false;
+            }
+        }
+
+        //If we've looked at the whole string and not found a decimal point, then we couldn't be looking at a floating point number.
+        if(!seenDecimalPoint)
+        {
+            return false;
+        }
+
+        //Now that we're sure we have digits with a decimal point, and possibly a negative sign in front, we convert the string to
+        //a floating point number using std::from_chars to see if we run into any problems.
+        double value = 0;
+        const auto format = std::chars_format::general;
+        const auto res = std::from_chars(   str.data(), 
+                                            str.data() + str.size(), 
+                                            value, 
+                                            format  );
+        if (res.ec == std::errc::invalid_argument)
+        {
+            //Invalid argument
+            return false;
+        }
+        else if (res.ec == std::errc::result_out_of_range)
+        {
+            //Overflow/unverflow has occurred
             return false;
         }
 
@@ -322,7 +374,7 @@ namespace stevensStringLib
      * Returns:
      *  std::string - The input string but with all of the tabs and spaces removed
      */
-    std::string removeWhitespace( std::string str)
+    std::string removeWhitespace( std::string str )
     {
         str.erase(std::remove_if(str.begin(), str.end(), [](unsigned char x) { return std::isspace(x); }), str.end());
         return str;
@@ -469,7 +521,7 @@ namespace stevensStringLib
      * Parameter:
      *  std::string str - The string which we wish to count the number of lines of.
      * 
-     * Output:
+     * Returns:
      *  int - The integer count of the number of lines that the string str has.
     */
     int countLines(std::string str)
@@ -702,26 +754,6 @@ namespace stevensStringLib
     }
 
 
-    // /**
-    //  * Predicate for eraseNonNumericChars. Determines if a character is non-numeric (true) or numeric (false)
-    // */
-    // static bool isNonNumeric( char c )
-    // {
-    //     std::unordered_map<char,bool> numericCharacters = { {'0',   0},
-    //                                                         {'1',   0},
-    //                                                         {'2',   0},
-    //                                                         {'3',   0},
-    //                                                         {'4',   0},
-    //                                                         {'5',   0},
-    //                                                         {'6',   0},
-    //                                                         {'7',   0},
-    //                                                         {'8',   0},
-    //                                                         {'9',   0}  };
-        
-    //     return !numericCharacters.contains(c);
-    // }
-
-
     /**
      * Erases all non-numeric characters from a string and returns it.
      * 
@@ -767,14 +799,7 @@ namespace stevensStringLib
     */
     bool isPalindrome( const std::string & str )
     {
-        if( std::equal(str.begin(), str.begin() + str.size()/2, str.rbegin()) )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return std::equal(str.begin(), str.begin() + str.size()/2, str.rbegin());
     }
 }
 #endif
