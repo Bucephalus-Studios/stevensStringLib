@@ -43,3 +43,6 @@ And then you're good to go!
 
 
 More changes and updates to come soon! Just establishing the github page as of now. Feel free to make any changes and make pull requests!
+
+## Documentation / User Manual
+To be created with an automatic documentation tool.
