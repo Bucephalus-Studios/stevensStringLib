@@ -1,6 +1,6 @@
 # stevensStringLib
 
-Welcome to stevensStringLib! This is a simple C++ library full of convenient functions for working with std::strings. 
+Welcome to stevensStringLib! This is a simple C++ library full of convenient functions for working with strings. It was created to make C++ more accessible and read more like easy-to-understand English.
 
 ## Demo
 #### Separate a string:
