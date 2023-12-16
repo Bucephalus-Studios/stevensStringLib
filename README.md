@@ -6,6 +6,7 @@ Welcome to stevensStringLib! This is a simple C++ library full of convenient fun
 #### Separate a string:
 ```
 std::string myString = "Charmander,Squirtle,Bulbasaur";
+
 std::vector<std::string> myVector = separate( myString, "," );
 
 for(int i=0; i < myVector.size(); i++)
@@ -19,7 +20,6 @@ Charmander
 Squirtle
 Bulbasaur
 ```
-
 
 
 
