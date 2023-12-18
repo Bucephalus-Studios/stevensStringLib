@@ -1,15 +1,25 @@
 # stevensStringLib
 
-Welcome to stevensStringLib! This is a simple C++ library full of convenient functions for working with std::strings. 
+Welcome to stevensStringLib! This is a simple C++ library full of convenient functions for working with strings. It was created to make C++ more accessible and read more like plain English.
 
 ## Demo
 #### Separate a string:
 ```
 std::string myString = "Charmander,Squirtle,Bulbasaur";
-std::vector<std::string> myVector = separate( myString, "," );
-// Value of myVector after separate() == {"Charmander","Squirtle","Bulbasaur"};
-```
 
+std::vector<std::string> myVector = separate( myString, "," );
+
+for(int i=0; i < myVector.size(); i++)
+{
+  std::cout << myVector[i] << std::endl;
+}
+```
+Output:
+```
+Charmander
+Squirtle
+Bulbasaur
+```
 
 
 
@@ -33,3 +43,6 @@ And then you're good to go!
 
 
 More changes and updates to come soon! Just establishing the github page as of now. Feel free to make any changes and make pull requests!
+
+## Documentation / User Manual
+To be created with an automatic documentation tool.
