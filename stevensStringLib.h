@@ -14,7 +14,7 @@
 #include<vector>
 #include<string>
 #include<sstream>
-#include<istream>
+#include<fstream>
 #include<cctype>
 #include<locale>
 #include<charconv>
@@ -29,17 +29,17 @@ namespace stevensStringLib
      * within it.
      * 
      * Parameters:
-     *  const std::string & input - The string we are examining to see if it contains the substring.
-     *  const std::string & substring - The substring we are trying to see if it is contained in the input string.
+     *  const std::string & str - The string we are examining to see if it contains the substring.
+     *  const std::string & substring - The substring we are trying to see if it is contained in str.
      * 
      *  Returns:
      *  bool - Boolean indicating that input string contains the substring (true) or not (false).
      */
-    bool contains(  const std::string & input,
+    bool contains(  const std::string & str,
                     const std::string & substring)
     {
-        int result = input.find(substring);
-        if((result >= 0) && (result <= input.length()))
+        int result = str.find(substring);
+        if((result >= 0) && (result <= str.length()))
         {
             return true;
         }
@@ -49,7 +49,7 @@ namespace stevensStringLib
         }
         else
         {
-            std::cout << "stevensStringLibrary notification: Use of contains(" + input + "," + substring + ") has returned an unexpected value: " + std::to_string(result);
+            std::cout << "stevensStringLibrary notification: Use of contains(" + str + "," + substring + ") has returned an unexpected value: " + std::to_string(result);
             return false;
         }
     }
@@ -154,23 +154,7 @@ namespace stevensStringLib
     }
 
 
-    /**
-     *  Detects whether or not the user input is in the form of an integer or floating point number. 
-     *  Does not work for mathematical expressions!
-     *
-     *  Parameter:
-     *       const std::string & str - The string we are checking to see if it represents a number.
-     *  Returns:
-     *      bool - True if the string represents a number. False if otherwise.
-     *    
-     */
-    bool isNumber(  const std::string & str   )
-    {
-        return ( isInteger(str) || isFloat(str) );
-    }
-
-
-    /**
+        /**
      * Detects if a string is in the form of an integer.
      * 
      * Parameter:
@@ -286,6 +270,23 @@ namespace stevensStringLib
 
         //Otherwise, return true
         return true;
+    }
+
+
+
+    /**
+     *  Detects whether or not the user input is in the form of an integer or floating point number. 
+     *  Does not work for mathematical expressions!
+     *
+     *  Parameter:
+     *       const std::string & str - The string we are checking to see if it represents a number.
+     *  Returns:
+     *      bool - True if the string represents a number. False if otherwise.
+     *    
+     */
+    bool isNumber(  const std::string & str   )
+    {
+        return ( isInteger(str) || isFloat(str) );
     }
 
 
@@ -547,7 +548,7 @@ namespace stevensStringLib
      * Returns:
      *  int - The integer number of lines that the file contains.
     */
-    int countFileLines(std::string filePath)
+    int countFileLines(const std::string & filePath)
     {
         //Create an input stream from the file we are trying to print
         std::ifstream input_file(filePath);
@@ -755,6 +756,21 @@ namespace stevensStringLib
 
 
     /**
+     * Predicate function for eraseNonNumericChars. It performs a logical not operation on the result of the isdigit() function.
+     * 
+     * Parameter:
+     *  const char & c - The character we'd like to check to see if it is not a digit.
+     * 
+     * Returns:
+     *  bool - True if c is not a digit, false otherwise.
+    */
+    bool isNotDigit(    const char & c  )
+    {
+        return !(isdigit(c));
+    }
+
+
+    /**
      * Erases all non-numeric characters from a string and returns it.
      * 
      * Parameter:
@@ -765,7 +781,7 @@ namespace stevensStringLib
     */
     std::string eraseNonNumericChars( std::string str )
     {
-        str.erase(std::remove_if(str.begin(), str.end(), !isdigit), str.end());
+        str.erase(std::remove_if(str.begin(), str.end(), isNotDigit), str.end());
         return str;
     }
 
