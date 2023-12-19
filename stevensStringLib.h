@@ -62,13 +62,14 @@ namespace stevensStringLib
      * Parameters:
      *  const std::string & input - The string we intend to separate with this function.
      *  const std::string & separator - The substring of the input string we intend to separate it by.
-     *  const bool omitEmptyStrings - If true, do not include empty strings in the returned vector. TODO!!!!
+     *  const bool omitEmptyStrings - If true, do not include empty strings in the returned vector.
      * 
      * Returns:
      *  vector<std::string> - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
      */
     std::vector<std::string> separate(  const std::string & input,
-                                        const std::string & separator = "," )
+                                        const std::string & separator = ",",
+                                        const bool & omitEmptyStrings = true)
     {
         std::vector<std::string> separatedStrings = {};
         std::string word = "";
@@ -110,6 +111,11 @@ namespace stevensStringLib
             separatedStrings.push_back(word);
         }
         
+        //If we are omitting empty strings in our result, erase all of that we found
+        if(omitEmptyStrings)
+        {
+            separatedStrings.erase(std::remove(separatedStrings.begin(), separatedStrings.end(), ""), separatedStrings.end());
+        }
 
         return separatedStrings;
     }
@@ -154,8 +160,8 @@ namespace stevensStringLib
     }
 
 
-        /**
-     * Detects if a string is in the form of an integer.
+    /**
+     * Detects if a string is in the form of a valid c++ integer.
      * 
      * Parameter:
      *  const std::string & str - A string we are checking to see if it represents an integer.
@@ -205,7 +211,7 @@ namespace stevensStringLib
 
 
     /**
-     * Detects if a string is in the form of a floating point number.
+     * Detects if a string is in the form of a valid c++ floating point number.
      * 
      * Parameter:
      *  const std::string & str - A string we are checking to see if it represents a floating point number.
@@ -308,10 +314,7 @@ namespace stevensStringLib
         }
         else if( isNumber(input) )
         {
-            if(std::stoi(input) == 0)
-            {
-                return true;
-            }
+            return !(std::stoi(input) == 0);
         }
         return false;
     }
@@ -354,8 +357,8 @@ namespace stevensStringLib
             //TODO: Work out how to do error handling
             return input;
         }
-        //If we have a charsToTrim value greater than the length of the input, we return an empty string
-        if(charsToTrim > input.length())
+        //If we have a charsToTrim value greater than half the the length of the input string, we return an empty string
+        if(charsToTrim >= (input.length()/2))
         {
             return "";
         }
@@ -365,15 +368,16 @@ namespace stevensStringLib
 
 
     /**
-     * Removes all tabs, spaces, and carriage returns from an input string.
+     * Removes all tabs, spaces, newlines, and anything else from a string that is defined as whitespace in the current locale.
      * 
-     * From Michael Steller: https://stackoverflow.com/questions/83439/remove-spaces-from-stdstring-in-c
+     * Learn what is defined as whitespace: https://en.cppreference.com/w/cpp/string/byte/isspace
+     * Solution from Michael Steller: https://stackoverflow.com/questions/83439/remove-spaces-from-stdstring-in-c
      * 
      * Paraemter:
      *  std::string str - The string from which we wish to remove all the whitespace from.
      * 
      * Returns:
-     *  std::string - The input string but with all of the tabs and spaces removed
+     *  std::string - The input string but with all of the whitespace removed
      */
     std::string removeWhitespace( std::string str )
     {
@@ -575,7 +579,7 @@ namespace stevensStringLib
      * Returns:
      *  
     */
-    std::string wrapAround( std::string str,
+    std::string wrapToWidth( std::string str,
                             int wrapWidth   )
     {
         std::istringstream in(str);
@@ -803,7 +807,10 @@ namespace stevensStringLib
 
 
     /**
-     * Checks to see if a std::string is a palindrime or not (the reversed order of characters equals the order of characters).
+     * Checks to see if a std::string is a palindrime or not (the reversed order of characters equals the original order of characters).
+     * Note well that character case, spacing, and punctuation present in classic English palindromes like "A man, a plan, a canal, panama"
+     * prevent them from being valid C++ palindromes with this function, as the reverse order of this exact string is "amanap ,lanac a ,nalp a ,nam A" is
+     * not equivalent to the original order of characters.
      * 
      * Credit: https://stackoverflow.com/a/8362657/16511184
      * 
@@ -817,5 +824,15 @@ namespace stevensStringLib
     {
         return std::equal(str.begin(), str.begin() + str.size()/2, str.rbegin());
     }
+
+
+    //replace
+
+
+    //eraseAll
+
+
+    //scramble
+
 }
 #endif

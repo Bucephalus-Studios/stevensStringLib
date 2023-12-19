@@ -318,7 +318,7 @@ TEST(isFloat, check_negative_1point5)
     ASSERT_TRUE(result);
 }
 
-TEST(isFloat, check_for_one_decimal_point)
+TEST(isFloat, check_for_only_one_decimal_point)
 {
     //Arrange
     std::string string = "7.0.0";
@@ -353,15 +353,198 @@ TEST(isFloat, too_precise_of_number)
 
 
 /*** string_to_bool ***/
+TEST(stringToBool, check_true)
+{
+    //Arrange
+    std::string string = "true";
+    //Act
+    bool result = string_to_bool(string);
+    //Assert
+    ASSERT_TRUE(result);
+}
+
+TEST(stringToBool, check_false)
+{
+    //Arrange
+    std::string string = "false";
+    //Act
+    bool result = string_to_bool(string);
+    //Assert
+    ASSERT_FALSE(result);
+}
+
+TEST(stringToBool, check_TRUE)
+{
+    //Arrange
+    std::string string = "TRUE";
+    //Act
+    bool result = string_to_bool(string);
+    //Assert
+    ASSERT_TRUE(result);
+}
+
+TEST(stringToBool, check_FALSE)
+{
+    //Arrange
+    std::string string = "FALSE";
+    //Act
+    bool result = string_to_bool(string);
+    //Assert
+    ASSERT_FALSE(result);
+}
+
+TEST(stringToBool, check_true_alternating_caps)
+{
+    //Arrange
+    std::string string = "tRuE";
+    //Act
+    bool result = string_to_bool(string);
+    //Assert
+    ASSERT_TRUE(result);
+}
+
+TEST(stringToBool, check_0)
+{
+    //Arrange
+    std::string string = "0";
+    //Act
+    bool result = string_to_bool(string);
+    //Assert
+    ASSERT_FALSE(result);
+}
+
+TEST(stringToBool, check_9001)
+{
+    //Arrange
+    std::string string = "9001";
+    //Act
+    bool result = string_to_bool(string);
+    //Assert
+    ASSERT_TRUE(result);
+}
 
 
 /*** bool_to_string ***/
+TEST(boolToString, check_true)
+{
+    //Arrange
+    bool myBool = true;
+    //Act
+    std::string result = bool_to_string(myBool);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "true");
+}
+
+TEST(boolToString, check_false)
+{
+    //Arrange
+    bool myBool = false;
+    //Act
+    std::string result = bool_to_string(myBool);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "false");
+}
+
+TEST(boolToString, check_9001)
+{
+    //Arrange
+    int myInt = 9001;
+    //Act
+    std::string result = bool_to_string(myInt);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "true");
+}
+
+TEST(boolToString, check_0)
+{
+    //Arrange
+    int myInt = 0;
+    //Act
+    std::string result = bool_to_string(myInt);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "false");
+}
 
 
 /*** trim ***/
+TEST(trim, trim_1_from_hello_world)
+{
+    //Arrange
+    std::string string = "Hello, world!";
+    //Act
+    std::string result = trim(string, 1);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "ello, world");
+}
+
+TEST(trim, trim_both_halves_of_string)
+{
+    //Arrange
+    std::string string = "[1st half][2nd half]";
+    //Act
+    std::string result = trim(string, 10);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "");
+}
+
+TEST(trim, trim_nothing)
+{
+    //Arrange
+    std::string string = "Heavy weight, one more stone. Leaving flaming arrow.";
+    //Act
+    std::string result = trim(string, 0);
+    //Assert
+    ASSERT_STREQ(result.c_str(), string.c_str());
+}
+
+TEST(trim, trim_whole_length_of_string)
+{
+    //Arrange
+    std::string string = "How could we wake up with what we know?";
+    //Act
+    std::string result = trim(string, string.length());
+    //Assert
+    ASSERT_STREQ(result.c_str(), "");
+}
 
 
 /*** removeWhitespace ***/
+TEST(removeWhitespace, hello_world)
+{
+    //Arrange
+    std::string string = "Hello, world!";
+    //Act
+    std::string result = removeWhitespace(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "Hello,world!");
+}
+
+TEST(removeWhitespace, remove_whitespace_from_multiline_string)
+{
+    //Arrange
+    std::string string = "All\tof\tyour\tfears\tare\twell-founded\tand\ttrue\n"
+                         "All of my hands are callous and cruel\n"
+                         "All\rof\rmy\rarrows\rthat\rriddle\ryou\rthrough\n"
+                         "Are\vbullets\vthat\ffire\fme\fback into you";
+    std::string modelResult = "Allofyourfearsarewell-foundedandtrue"
+                              "Allofmyhandsarecallousandcruel"
+                              "Allofmyarrowsthatriddleyouthrough"
+                              "Arebulletsthatfiremebackintoyou";
+    //Act
+    std::string result = removeWhitespace(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
+
+TEST(removeWhitespace, empty_string)
+{
+    //Arrange
+    std::string string = "";
+    //Act
+    std::string result = removeWhitespace(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(),"");
+}
 
 
 /*** mapifyString ***/
@@ -386,6 +569,29 @@ TEST(isFloat, too_precise_of_number)
 
 
 /*** findAll ***/
+TEST(findAll, prospect_for_gold)
+{
+    //Arrange
+    std::string mine = "rock,iron,rock,clay,gold,rock,rock,rock,clay,topaz,rock,gold,gold,rock";
+    std::string gold = "gold";
+    std::vector<size_t> modelGoldLocations = {20, 56, 61};
+    //Act
+    std::vector<size_t> foundGoldLocations = findAll(mine, gold);
+    //Assert
+    EXPECT_EQ(foundGoldLocations.size(), 3);
+    ASSERT_EQ( foundGoldLocations, modelGoldLocations);
+}
+
+TEST(findAll, find_all_chars)
+{
+    //Arrange
+    std::string string = "xxxxxxxxxx";
+    std::string x = "x";
+    //Act
+    std::vector<size_t> result = findAll(string, x);
+    //Assert
+    ASSERT_EQ(result.size(), 10);
+}
 
 
 /*** trimWhitespace ***/
@@ -401,9 +607,80 @@ TEST(isFloat, too_precise_of_number)
 
 
 /*** reverse ***/
+TEST(reverse, check_hello_world)
+{
+    //Arrange
+    std::string string = "Hello, world!";
+    std::string modelResult = "!dlrow ,olleH";
+    //Act
+    std::string result = reverse(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
+
+TEST(reverse, check_empty_string)
+{
+    //Arrange
+    std::string string = "";
+    std::string modelResult = "";
+    //Act
+    std::string result = reverse(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
 
 
 /*** isPalindrome ***/
+TEST(isPalindrome, check_racecar)
+{
+    //Arrange
+    std::string string = "racecar";
+    //Act
+    bool result = isPalindrome(string);
+    //Assert
+    ASSERT_TRUE(result);   
+}
+
+TEST(isPalindrome, check_go_hang_a_salami)
+{
+    //Arrange
+    std::string string = "gohangasalamiimalasagnahog";
+    //Act
+    bool result = isPalindrome(string);
+    //Assert
+    ASSERT_TRUE(result);
+}
+
+TEST(isPalindrome, check_punctuated_english_palindrome)
+{
+    //Arrange
+    std::string string = "A man, a plan, a canal, panama";
+    //Act
+    bool result = isPalindrome(string);
+    //Assert
+    ASSERT_FALSE(result);
+}
+
+TEST(isPalindrome, check_empty_string)
+{
+    //Arrange
+    std::string string = "";
+    //Act
+    bool result = isPalindrome(string);
+    //Assert
+    ASSERT_TRUE(result);
+}
+
+TEST(isPalindrome, check_non_palindrome)
+{
+    //Arrange
+    std::string string = "There was an anchor, there was a silver, sweet refrain";
+    //Act
+    bool result = isPalindrome(string);
+    //Assert
+    ASSERT_FALSE(result);
+}
+
 
 
 int main(   int argc,
