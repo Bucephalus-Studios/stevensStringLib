@@ -550,22 +550,175 @@ TEST(removeWhitespace, empty_string)
 /*** mapifyString ***/
 
 
+
 /*** stringifyMap ***/
+//TEST(stringifyMap, )
 
 
 /*** countLines ***/
+TEST(countLines, 3_line_string)
+{
+    //Arrange
+    std::string string = "firstline\nsecondline\nthirdline\n";
+    //Act
+    int lineCount =  countLines(string);
+    //Assert
+    ASSERT_EQ(lineCount, 3);
+}
+
+TEST(countLines, emptyString)
+{
+    //Arrange
+    std::string string = "";
+    //Act
+    int lineCount =  countLines(string);
+    //Assert
+    ASSERT_EQ(lineCount, 0);
+}
+
 
 
 /*** countFileLines ***/
+// TEST(countFileLines, )
+// {
+
+// }
 
 
 /*** wrapToWidth ***/
+TEST(wrapToWidth, wrap_to_width_3)
+{
+    //Arrange
+    std::string string = "111222333";
+    int width = 3;
+    std::string modelResult = "111\n222\n333\n";
+    //Act
+    std::string result = wrapToWidth(string, width);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
+
+TEST(wrapToWidth, wrap_to_width_0)
+{
+    //Arrange
+    std::string string = "111222333";
+    int width = 0;
+    std::string modelResult = "";
+    //Act
+    std::string result = wrapToWidth(string, width);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
+
+TEST(wrapToWidth, wrap_to_width_5)
+{
+    //Arrange
+    std::string string = "111112";
+    int width = 5;
+    std::string modelResult = "11111\n2";
+    //Act
+    std::string result = wrapToWidth(string, width);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
+
+TEST(wrapToWidth, wrap_empty_string)
+{
+    //Arrange
+    std::string string = "";
+    int width = 10;
+    std::string modelResult = "";
+    //Act
+    std::string result = wrapToWidth(string, width);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
 
 
 /*** circularIndex ***/
+TEST(circularIndex, normal_indexing)
+{
+    //Arrange
+    std::string string = "resonance!";
+    //Act
+    char result = circularIndex(string, 0);
+    //Assert
+    ASSERT_EQ(result, 'r');
+}
+
+TEST(circularIndex, last_index)
+{
+    //Arrange
+    std::string string = "resonance!";
+    //Act
+    char result = circularIndex(string, 9);
+    //Assert
+    ASSERT_EQ(result, '!');
+}
+
+TEST(circularIndex, loop_around_once)
+{
+    //Arrange
+    std::string string = "resonance!";
+    //Act
+    char result = circularIndex(string, 15);
+    //Assert
+    ASSERT_EQ(result, 'a');
+}
+
+TEST(circularIndex, loop_around_100_times)
+{
+    //Arrange
+    std::string string = "resonance!";
+    //Act
+    char result = circularIndex(string, 105);
+    //Assert
+    ASSERT_EQ(result, 'a');
+}
 
 
 /*** eraseCharsFromEnd ***/
+TEST(eraseCharsFromEnd, erase_1_from_end)
+{
+    //Arrange
+    std::string string = "She pushed her feet across the board walk She keeps the sunset right with movement in her eyes.";
+    std::string modelResult = "She pushed her feet across the board walk She keeps the sunset right with movement in her eyes";
+    //Act
+    std::string result = eraseCharsFromEnd(string, 1);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
+
+TEST(eraseCharsFromEnd, erase_whole_string)
+{
+    //Arrange
+    std::string string = "She pushed her feet across the board walk She keeps the sunset right with movement in her eyes.";
+    //Act
+    std::string result = eraseCharsFromEnd(string, string.length());
+    //Assert
+    ASSERT_STREQ(result.c_str(), "");
+}
+
+TEST(eraseCharsFromEnd, erase_nothing)
+{
+    //Arrange
+    std::string string = "She pushed her feet across the board walk She keeps the sunset right with movement in her eyes.";
+    //Act
+    std::string result = eraseCharsFromEnd(string, 0);
+    //Assert
+    ASSERT_STREQ(string.c_str(), result.c_str());
+}
+
+TEST(eraseCharsFromEnd, erase_from_empty_string)
+{
+    //Arrange
+    std::string string = "";
+    //Act
+    std::string result = eraseCharsFromEnd(string, 3);
+    std::cout << result << std::endl;
+    //Assert
+    ASSERT_STREQ(result.c_str(), "");
+}
 
 
 /*** findAll ***/
@@ -612,19 +765,71 @@ TEST(findAll, find_empty_string)
     //Act
     std::vector<size_t> result = findAll(string, substr);
     //Assert
+    //The empty string is a subset of every string, so we get a match for each character.
     ASSERT_EQ( result.size(), 49 );
 }
 
 
 /*** getWhitespaceString ***/
-TEST(getWhitespaceString, get_whitespace_string_for_my_locale)
+//These are all of the whitespace characters in the test environment locale: "\t\n\v\f\r "
+TEST(getWhitespaceString, has_tab)
 {
     //Arrange
-
+    std::string targetChar = "\t";
     //Act
-    getWhitespaceString();
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
     //Assert
-    SUCCEED();
+    ASSERT_TRUE( contains(whitespaceString, targetChar) );
+}
+
+TEST(getWhitespaceString, has_newline)
+{
+    //Arrange
+    std::string targetChar = "\n";
+    //Act
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
+    //Assert
+    ASSERT_TRUE( contains(whitespaceString, targetChar) );
+}
+
+TEST(getWhitespaceString, has_vert_tab)
+{
+    //Arrange
+    std::string targetChar = "\v";
+    //Act
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
+    //Assert
+    ASSERT_TRUE( contains(whitespaceString, targetChar) );
+}
+
+TEST(getWhitespaceString, has_form_feed)
+{
+    //Arrange
+    std::string targetChar = "\f";
+    //Act
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
+    //Assert
+    ASSERT_TRUE( contains(whitespaceString, targetChar) );
+}
+
+TEST(getWhitespaceString, has_carriage_return)
+{
+    //Arrange
+    std::string targetChar = "\r";
+    //Act
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
+    //Assert
+    ASSERT_TRUE( contains(whitespaceString, targetChar) );
+}
+
+TEST(getWhitespaceString, has_space)
+{
+    //Arrange
+    std::string targetChar = " ";
+    //Act
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
+    //Assert
+    ASSERT_TRUE( contains(whitespaceString, targetChar) );
 }
 
 

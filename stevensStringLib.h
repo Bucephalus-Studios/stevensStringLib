@@ -13,6 +13,7 @@
 #include<algorithm>
 #include<vector>
 #include<string>
+#include<limits>
 #include<sstream>
 #include<fstream>
 #include<cctype>
@@ -577,10 +578,12 @@ namespace stevensStringLib
      *  int wrapWidth - The width in number of characters we wish to wrap.
      * 
      * Returns:
+     *  std::string - A modified version of the parameter str, with newlines added to it so that it fits within
+     *                a certain character width.
      *  
     */
-    std::string wrapToWidth( std::string str,
-                            int wrapWidth   )
+    std::string wrapToWidth(    std::string str,
+                                int wrapWidth   )
     {
         std::istringstream in(str);
         std::string line;
@@ -676,11 +679,17 @@ namespace stevensStringLib
      *  int n - The number of characters we want to erase
      * 
      * Returns:
-     *  std::string - The string str which we erased characters from 
+     *  std::string - The string str having n characters erased from the end of it.
     */
     std::string eraseCharsFromEnd(  std::string str,
                                     int n   )
     {
+        //Can't erase from empty string
+        if(str.empty())
+        {
+            return "";
+        }
+
         str.erase(str.size() - n);
         return str;
     }
@@ -716,20 +725,45 @@ namespace stevensStringLib
 
 
     /**
-     * Remove all leading and trailing whitespace from a string (spaces and tabs), then return it.
+     * Given a locale, return all of the whitespace characters for that locale in a string.
+     * 
+     * Credit: https://stackoverflow.com/a/36311304/16511184
+     * 
+     * Parameter:
+     *  const std::locale & loc - The locale which we want to obtain a string of all whitespace characters for.
+     * 
+     * Returns:
+     *  std::string - A string of all whitespace characters defined in the given locale.
+    */
+    std::string getWhitespaceString(const std::locale & loc)
+    {
+        std::string whitespace;
+        for (char ch = std::numeric_limits<char>::min(); ch < std::numeric_limits<char>::max(); ch++)
+            if (std::isspace(ch, loc))
+                whitespace += ch;
+        // to avoid infinte loop check char max outside the for loop.
+        if (std::isspace(std::numeric_limits<char>::max(), std::locale(loc)))
+            whitespace += std::numeric_limits<char>::max();
+        return whitespace;
+    }
+
+
+    /**
+     * Remove all leading and trailing whitespace from a string (spaces, tabs, newlines, etc.), then return it.
      * 
      * Based on: https://stackoverflow.com/a/1798170
      * 
      * Parameter:
      *  std::string str - The string to remove all of the leading and trailing whitespaces from.
-     *  std::string whiteSpace - A string containing all of the whitespace characters to trim from the string
      * 
      * Returns:
-     *  std::string - str modified by removing all of its leading and trailing whitespaces
+     *  std::string - str modified by removing all of its leading and trailing whitespaces.
     */
-    std::string trimWhitespace( std::string str,
-                                std::string whitespace = " \t"  )
+    std::string trimWhitespace( std::string str )
     {
+        //Get a string of all of the whitespace characters in the current locale
+        std::string whitespace = getWhitespaceString(std::locale(""));
+        
         const auto strBegin = str.find_first_not_of(whitespace);
         if (strBegin == std::string::npos)
         {
@@ -741,6 +775,9 @@ namespace stevensStringLib
 
         return str.substr(strBegin, strRange);
     }
+
+
+    //trimAllOf
 
 
     /**
