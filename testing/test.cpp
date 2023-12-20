@@ -593,17 +593,192 @@ TEST(findAll, find_all_chars)
     ASSERT_EQ(result.size(), 10);
 }
 
+TEST(findAll, substr_not_in_string)
+{
+    //Arrange
+    std::string string = "You're never awake, but don't seem to sleep at all";
+    std::string substr = "mtns.";
+    //Act
+    std::vector<size_t> result = findAll(string, substr);
+    //Assert
+    ASSERT_EQ( result.size(), 0 );
+}
+
+TEST(findAll, find_empty_string)
+{
+    //Arrange
+    std::string string = "You tried to disappear. So long, I followed you.";
+    std::string substr = "";
+    //Act
+    std::vector<size_t> result = findAll(string, substr);
+    //Assert
+    ASSERT_EQ( result.size(), 49 );
+}
+
+
+/*** getWhitespaceString ***/
+TEST(getWhitespaceString, get_whitespace_string_for_my_locale)
+{
+    //Arrange
+
+    //Act
+    getWhitespaceString();
+    //Assert
+    SUCCEED();
+}
+
 
 /*** trimWhitespace ***/
+TEST(trimWhitespace, trim_extra_space)
+{
+    //Arrange
+    std::string string = " The click of the lock, the chime of the bell. ";
+    std::string modelResult = "The click of the lock, the chime of the bell.";
+    //Act
+    std::string result = trimWhitespace(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
+
+TEST(trimWhitespace, trim_a_lot_of_whitespace)
+{
+    //Arrange
+    std::string string = " \n\t\r\v\f Hello, world! \n\t\r\v\f";
+    std::string modelResult = "Hello, world!";
+    //Act
+    std::string result = trimWhitespace(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
+
+TEST(trimWhitespace, trim_one_side)
+{
+    //Arrange
+    std::string string = "  \rdata";
+    std::string modelResult = "data";
+    //Act
+    std::string result = trimWhitespace(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
+
+TEST(trimWhitespace, nothing_to_trim)
+{
+    //Arrange
+    std::string string = "Smitty Werbenjaegermanjensen";
+    //Act
+    std::string result = trimWhitespace(string);
+    //Assert
+    ASSERT_STREQ(string.c_str(), result.c_str());
+}
 
 
 /*** char_to_string ***/
+TEST(charToString, check_a)
+{
+    //Arrange
+    char myChar = 'a';
+    //Act
+    std::string string = char_to_string(myChar);
+    //Assert
+    ASSERT_STREQ(string.c_str(), "a");
+}
+
+TEST(charToString, check_newline)
+{
+    //Arrange
+    char myChar = '\n';
+    //Act
+    std::string string = char_to_string(myChar);
+    //Assert
+    ASSERT_STREQ(string.c_str(), "\n");
+}
+
+TEST(charToString, check_number)
+{
+    //Arrange
+    char myChar = 90;
+    //Act
+    std::string string = char_to_string(myChar);
+    //Assert
+    ASSERT_STREQ(string.c_str(), "Z");
+}
 
 
 /*** isNotDigit ***/
+TEST(isNotDigit, check_empty_char)
+{
+    //Arrange
+    const char emptyChar = '\0';
+    //Act
+    bool result = isNotDigit(emptyChar);
+    //Assert
+    ASSERT_TRUE(result);
+}
+
+TEST(isNotDigit, check_digit)
+{
+    //Arrange
+    const char myChar = '4';
+    //Act
+    bool result = isNotDigit(myChar);
+    //Assert
+    ASSERT_FALSE(result);
+}
+
+TEST(isNotDigit, check_non_digit)
+{
+    //Arrange
+    const char myChar = 'd';
+    //Act
+    bool result = isNotDigit(myChar);
+    //Assert
+    ASSERT_TRUE(result);
+}
 
 
 /*** eraseNonNumericChars ***/
+TEST(eraseNonNumericChars, all_numeric_chars)
+{
+    //Arrange
+    std::string string = "0123456789";
+    //Act
+    std::string result = eraseNonNumericChars(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), string.c_str());
+}
+
+TEST(eraseNonNumericChars, no_numeric_chars)
+{
+    //Arrange
+    std::string string = "Savior, forever threadbare and faded. Drunken and arcane. Curse the day.";
+    //Act
+    std::string result = eraseNonNumericChars(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "");
+}
+
+TEST(eraseNonNumericChars, mix_of_numeric_and_non_numeric)
+{
+    //Arrange
+    std::string string = "1 pumpkin, 5 eggplant, 3 squash, 9001 nappa cabbage";
+    std::string modelResult = "1539001";
+    //Act
+    std::string result = eraseNonNumericChars(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
+
+TEST(eraseNonNumericChars, empty_string)
+{
+    //Arrange
+    std::string string = "";
+    std::string modelResult = "";
+    //Act
+    std::string result = eraseNonNumericChars(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
 
 
 /*** reverse ***/
@@ -680,6 +855,7 @@ TEST(isPalindrome, check_non_palindrome)
     //Assert
     ASSERT_FALSE(result);
 }
+
 
 
 
