@@ -552,7 +552,17 @@ TEST(removeWhitespace, empty_string)
 
 
 /*** stringifyMap ***/
-//TEST(stringifyMap, )
+// TEST(stringifyMap, stringify_3_pair_map)
+// {
+//     //Arrange
+//     std::map<std::string,std::string> map = {   {"Warsim","Huw Milward"},
+//                                                 {"CultGame","Jeff Stevens"},
+//                                                 {"Kindred Fates","Rob Cravens"}   };
+//     //Act
+//     std::string stringifiedMap = stringifyMap(map);
+//     //Assert
+
+// }
 
 
 /*** countLines ***/
@@ -576,13 +586,47 @@ TEST(countLines, emptyString)
     ASSERT_EQ(lineCount, 0);
 }
 
+TEST(countLines, frankenstein)
+{
+    //Arrange
+        //Using the frankenstein_fulltext string from the global scope
+    //Act
+    int lineCount = countLines(frankenstein_fulltext);
+    //Assert
+    ASSERT_EQ(lineCount, 7742);
+}
 
 
 /*** countFileLines ***/
-// TEST(countFileLines, )
-// {
+TEST(countFileLines, load_frankenstein_and_count_lines)
+{
+    //Arrange
+    std::string filePath = "test_string_files/frankenstein.txt";
+    //Act
+    int lineCount = countFileLines(filePath);
+    //Assert
+    ASSERT_EQ(lineCount, 7742);
+}
 
+// TEST(countFileLines, load_non_existent_file)
+// {
+//     //Arrange
+//     std::string filePath = "test_string_files/loonymcfloonyloo.txt";
+//     //Act
+
+//     //Assert
+    
 // }
+
+TEST(countFileLines, load_empty_file)
+{
+    //Arrange
+    std::string filePath = "emptyFile.txt";
+    //Act
+    int lineCount = countFileLines(filePath);
+    //Assert
+    ASSERT_EQ(lineCount, 0);
+}
 
 
 /*** wrapToWidth ***/
@@ -1068,7 +1112,7 @@ int main(   int argc,
             char * argv[]   )
 {
     //We'll use the text of Frankenstein as a large string to run our functions on
-    std::ifstream input_file("testing_string_frankenstein.txt");
+    std::ifstream input_file("test_string_files/frankenstein.txt");
     if (!input_file.is_open())
     {
         //Error if we cannot successfully print the file

@@ -67,6 +67,8 @@ namespace stevensStringLib
      * 
      * Returns:
      *  vector<std::string> - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
+     * 
+     * TODO: Create alias `sep`
      */
     std::vector<std::string> separate(  const std::string & input,
                                         const std::string & separator = ",",
@@ -524,6 +526,8 @@ namespace stevensStringLib
      * Given a string, count how many lines are in that string and return the integer count.
      * Solution from: https://stackoverflow.com/questions/3482064/counting-the-number-of-lines-in-a-text-file
      * 
+     * TODO: Concerned with line counting problems presented here: https://stackoverflow.com/a/843484/16511184
+     * 
      * Parameter:
      *  std::string str - The string which we wish to count the number of lines of.
      * 
@@ -655,6 +659,8 @@ namespace stevensStringLib
      * Returns:
      *  char - A character found in str that has been circularly indexed to at position circ_i
      * 
+     * 
+     * TODO: Create aliases ci and circ_i
     */
     char circularIndex( std::string str,
                         int circ_i )
@@ -870,6 +876,10 @@ namespace stevensStringLib
 
 
     //scramble
+
+
+    //negativeIndex
+    //with aliases ni / neg_i
 
 }
 #endif
