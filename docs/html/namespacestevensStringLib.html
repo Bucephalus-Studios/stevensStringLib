@@ -117,8 +117,10 @@ Functions</h2></td></tr>
 <tr class="separator:a7c7979bb34ee40190b84d9750f5a8c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa97f9b043053f16df01be3344e15ba1" id="r_aaa97f9b043053f16df01be3344e15ba1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#aaa97f9b043053f16df01be3344e15ba1">findAll</a> (std::string str, std::string substr)</td></tr>
 <tr class="separator:aaa97f9b043053f16df01be3344e15ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95886039eeebb02816c023ba0f0ebbb9" id="r_a95886039eeebb02816c023ba0f0ebbb9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a95886039eeebb02816c023ba0f0ebbb9">trimWhitespace</a> (std::string str, std::string whitespace=&quot; \t&quot;)</td></tr>
-<tr class="separator:a95886039eeebb02816c023ba0f0ebbb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bbbc5f9915fcdea95ccd3536d77964b" id="r_a5bbbc5f9915fcdea95ccd3536d77964b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a5bbbc5f9915fcdea95ccd3536d77964b">getWhitespaceString</a> (const std::locale &amp;loc)</td></tr>
+<tr class="separator:a5bbbc5f9915fcdea95ccd3536d77964b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa78a2a94e837596ce18dfb92282b0ea5" id="r_aa78a2a94e837596ce18dfb92282b0ea5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#aa78a2a94e837596ce18dfb92282b0ea5">trimWhitespace</a> (std::string str)</td></tr>
+<tr class="separator:aa78a2a94e837596ce18dfb92282b0ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9031d37220df1c65182f588a9e1e998c" id="r_a9031d37220df1c65182f588a9e1e998c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a9031d37220df1c65182f588a9e1e998c">char_to_string</a> (const char &amp;c)</td></tr>
 <tr class="separator:a9031d37220df1c65182f588a9e1e998c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fc5a8eb271c99ac169ef509a7faeecb" id="r_a9fc5a8eb271c99ac169ef509a7faeecb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a9fc5a8eb271c99ac169ef509a7faeecb">isNotDigit</a> (const char &amp;c)</td></tr>
@@ -227,7 +229,8 @@ Functions</h2></td></tr>
 <p>Circular indexing is performed by indexing over the string from left to right. Once the index exceeds the length of the string, we begin indexing again from the lefthand side of the string and repeat the process until we stop at the final index. We return the character at that final index.</p>
 <p>Example: circularIndex("Hello world!", 13) returns 'e', as we loop around to 'H' at 12 and index one space further to reach 'e'.</p>
 <p>Parameters: std::string str int circ_i</p>
-<p>Returns: char - A character found in str that has been circularly indexed to at position circ_i </p>
+<p>Returns: char - A character found in str that has been circularly indexed to at position circ_i</p>
+<p>TODO: Create aliases ci and circ_i </p>
 
 </div>
 </div>
@@ -299,6 +302,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Given a string, count how many lines are in that string and return the integer count. Solution from: <a href="https://stackoverflow.com/questions/3482064/counting-the-number-of-lines-in-a-text-file">https://stackoverflow.com/questions/3482064/counting-the-number-of-lines-in-a-text-file</a></p>
+<p>TODO: Concerned with line counting problems presented here: <a href="https://stackoverflow.com/a/843484/16511184">https://stackoverflow.com/a/843484/16511184</a></p>
 <p>Parameter: std::string str - The string which we wish to count the number of lines of.</p>
 <p>Returns: int - The integer count of the number of lines that the string str has. </p>
 
@@ -332,7 +336,7 @@ Functions</h2></td></tr>
 <p>Given a string str, erase the last n characters of the string.</p>
 <p>Taken from: <a href="https://thispointer.com/remove-last-n-characters-from-a-string-in-c/">https://thispointer.com/remove-last-n-characters-from-a-string-in-c/</a></p>
 <p>Parameters: std::string str - The string we want to erase characters from the end of. int n - The number of characters we want to erase</p>
-<p>Returns: std::string - The string str which we erased characters from </p>
+<p>Returns: std::string - The string str having n characters erased from the end of it. </p>
 
 </div>
 </div>
@@ -386,6 +390,28 @@ Functions</h2></td></tr>
 <p>Based off of: <a href="https://stackoverflow.com/a/4034809">https://stackoverflow.com/a/4034809</a></p>
 <p>Parameters: std::string str - The string we are searching for the substring in. std::string substr - The substring we are looking for within string str.</p>
 <p>Returns: std::vector&lt;size_t&gt; - A vector containing all indices in increasing order that the substr occurs at. </p>
+
+</div>
+</div>
+<a id="a5bbbc5f9915fcdea95ccd3536d77964b" name="a5bbbc5f9915fcdea95ccd3536d77964b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bbbc5f9915fcdea95ccd3536d77964b">&#9670;&#160;</a></span>getWhitespaceString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string stevensStringLib::getWhitespaceString </td>
+          <td>(</td>
+          <td class="paramtype">const std::locale &amp;&#160;</td>
+          <td class="paramname"><em>loc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Given a locale, return all of the whitespace characters for that locale in a string.</p>
+<p>Credit: <a href="https://stackoverflow.com/a/36311304/16511184">https://stackoverflow.com/a/36311304/16511184</a></p>
+<p>Parameter: const std::locale &amp; loc - The locale which we want to obtain a string of all whitespace characters for.</p>
+<p>Returns: std::string - A string of all whitespace characters defined in the given locale. </p>
 
 </div>
 </div>
@@ -612,7 +638,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Separates a string by a separator substring. Returns a vector of strings that were separated by the separator substring.</p>
 <p>Parameters: const std::string &amp; input - The string we intend to separate with this function. const std::string &amp; separator - The substring of the input string we intend to separate it by. const bool omitEmptyStrings - If true, do not include empty strings in the returned vector.</p>
-<p>Returns: vector&lt;std::string&gt; - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter </p>
+<p>Returns: vector&lt;std::string&gt; - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter</p>
+<p>TODO: Create alias <code>sep</code> </p>
 
 </div>
 </div>
@@ -729,8 +756,8 @@ https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-
 
 </div>
 </div>
-<a id="a95886039eeebb02816c023ba0f0ebbb9" name="a95886039eeebb02816c023ba0f0ebbb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95886039eeebb02816c023ba0f0ebbb9">&#9670;&#160;</a></span>trimWhitespace()</h2>
+<a id="aa78a2a94e837596ce18dfb92282b0ea5" name="aa78a2a94e837596ce18dfb92282b0ea5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa78a2a94e837596ce18dfb92282b0ea5">&#9670;&#160;</a></span>trimWhitespace()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -739,25 +766,15 @@ https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-
           <td class="memname">std::string stevensStringLib::trimWhitespace </td>
           <td>(</td>
           <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>str</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>whitespace</em> = <code>&quot;&#160;\t&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Remove all leading and trailing whitespace from a string (spaces and tabs), then return it.</p>
+<p>Remove all leading and trailing whitespace from a string (spaces, tabs, newlines, etc.), then return it.</p>
 <p>Based on: <a href="https://stackoverflow.com/a/1798170">https://stackoverflow.com/a/1798170</a></p>
-<p>Parameter: std::string str - The string to remove all of the leading and trailing whitespaces from. std::string whiteSpace - A string containing all of the whitespace characters to trim from the string</p>
-<p>Returns: std::string - str modified by removing all of its leading and trailing whitespaces </p>
+<p>Parameter: std::string str - The string to remove all of the leading and trailing whitespaces from.</p>
+<p>Returns: std::string - str modified by removing all of its leading and trailing whitespaces. </p>
 
 </div>
 </div>
@@ -829,7 +846,7 @@ https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-
 </div><div class="memdoc">
 <p>Given a string and integer describing the total number of characters that can exist in a line of text, wrap the text by adding newlines between words so it may fit within a certain width.</p>
 <p>Parameters: std::string str - The string which we wish to wrap to a certain width. int wrapWidth - The width in number of characters we wish to wrap.</p>
-<p>Returns: </p>
+<p>Returns: std::string - A modified version of the parameter str, with newlines added to it so that it fits within a certain character width. </p>
 
 </div>
 </div>

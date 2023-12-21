@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['wraptowidth_0',['wrapToWidth',['../namespacestevensStringLib.html#a383ce9fb993729b272b68f339add44b1',1,'stevensStringLib']]]
+  ['unordered_5fmapifystring_0',['unordered_mapifyString',['../namespacestevensStringLib.html#a400139dff51fd0cad31ad2f0fcbc1274',1,'stevensStringLib']]]
 ];

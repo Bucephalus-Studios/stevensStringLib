@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['separate_0',['separate',['../namespacestevensStringLib.html#a5cdba13a2beb47b80f94b240bb876de7',1,'stevensStringLib']]],
-  ['string_5fto_5fbool_1',['string_to_bool',['../namespacestevensStringLib.html#a1bcc004e8edffbe6db42387a957a3c1b',1,'stevensStringLib']]],
-  ['stringifyunordered_5fmap_2',['stringifyUnordered_map',['../namespacestevensStringLib.html#a810d50a0e7386192bd72a28dbdd3985b',1,'stevensStringLib']]]
+  ['removewhitespace_0',['removeWhitespace',['../namespacestevensStringLib.html#acc289dc431709640aac960c1322f4278',1,'stevensStringLib']]],
+  ['reverse_1',['reverse',['../namespacestevensStringLib.html#ac69119030f08c04d17f5ec4c59c0a8b6',1,'stevensStringLib']]]
 ];
