@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>stevensStringLib: stevensStringLib Namespace Reference</title>
+<title>stevensStringLib: /home/jeff/stevensStringLib/stevensStringLib.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,70 +71,97 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">stevensStringLib Namespace Reference</div></div>
+  <div class="headertitle"><div class="title">/home/jeff/stevensStringLib/stevensStringLib.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>An easy-to-use C++ library with convenient functions for working with strings.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;cctype&gt;</code><br />
+<code>#include &lt;locale&gt;</code><br />
+<code>#include &lt;charconv&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+</div>
+<p><a href="stevensStringLib_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a86fbb60ec5f626744264a2e0ab5066a9" id="r_a86fbb60ec5f626744264a2e0ab5066a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a86fbb60ec5f626744264a2e0ab5066a9">contains</a> (const std::string &amp;str, const std::string &amp;substring)</td></tr>
+<tr class="memitem:a86fbb60ec5f626744264a2e0ab5066a9" id="r_a86fbb60ec5f626744264a2e0ab5066a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a86fbb60ec5f626744264a2e0ab5066a9">stevensStringLib::contains</a> (const std::string &amp;str, const std::string &amp;substring)</td></tr>
 <tr class="separator:a86fbb60ec5f626744264a2e0ab5066a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cdba13a2beb47b80f94b240bb876de7" id="r_a5cdba13a2beb47b80f94b240bb876de7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a5cdba13a2beb47b80f94b240bb876de7">separate</a> (const std::string &amp;input, const std::string &amp;separator=&quot;,&quot;, const bool &amp;omitEmptyStrings=true)</td></tr>
-<tr class="separator:a5cdba13a2beb47b80f94b240bb876de7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a616701916cbe9be295361a93b7755f06" id="r_a616701916cbe9be295361a93b7755f06"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a616701916cbe9be295361a93b7755f06">cap1stChar</a> (std::string input)</td></tr>
+<tr class="memitem:ae75dd17730068a151f3f34d299cfb7fa" id="r_ae75dd17730068a151f3f34d299cfb7fa"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ae75dd17730068a151f3f34d299cfb7fa">stevensStringLib::separate</a> (const std::string &amp;str, const std::string &amp;separator=&quot;,&quot;, const bool &amp;omitEmptyStrings=true)</td></tr>
+<tr class="separator:ae75dd17730068a151f3f34d299cfb7fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a105280ad458e2aeea94c59174c53ad82" id="r_a105280ad458e2aeea94c59174c53ad82"><td class="memItemLeft" align="right" valign="top"><a id="a105280ad458e2aeea94c59174c53ad82" name="a105280ad458e2aeea94c59174c53ad82"></a>
+std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>stevensStringLib::sep</b> (const std::string &amp;str, const std::string &amp;separator=&quot;,&quot;, const bool &amp;omitEmptyStrings=true)</td></tr>
+<tr class="memdesc:a105280ad458e2aeea94c59174c53ad82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias of <a class="el" href="stevensStringLib_8h.html#ae75dd17730068a151f3f34d299cfb7fa">separate()</a> <br /></td></tr>
+<tr class="separator:a105280ad458e2aeea94c59174c53ad82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a616701916cbe9be295361a93b7755f06" id="r_a616701916cbe9be295361a93b7755f06"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a616701916cbe9be295361a93b7755f06">stevensStringLib::cap1stChar</a> (std::string input)</td></tr>
 <tr class="separator:a616701916cbe9be295361a93b7755f06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bd771719acc42788042457cd09abb23" id="r_a9bd771719acc42788042457cd09abb23"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a9bd771719acc42788042457cd09abb23">toUpper</a> (std::string &amp;input)</td></tr>
-<tr class="separator:a9bd771719acc42788042457cd09abb23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a734c980bfd536f7929cd051283ea192c" id="r_a734c980bfd536f7929cd051283ea192c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a734c980bfd536f7929cd051283ea192c">isInteger</a> (const std::string &amp;str)</td></tr>
+<tr class="memitem:a7c1197f49a832b1beab045ad096c2758" id="r_a7c1197f49a832b1beab045ad096c2758"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a7c1197f49a832b1beab045ad096c2758">stevensStringLib::toUpper</a> (std::string &amp;str)</td></tr>
+<tr class="separator:a7c1197f49a832b1beab045ad096c2758"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a734c980bfd536f7929cd051283ea192c" id="r_a734c980bfd536f7929cd051283ea192c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a734c980bfd536f7929cd051283ea192c">stevensStringLib::isInteger</a> (const std::string &amp;str)</td></tr>
 <tr class="separator:a734c980bfd536f7929cd051283ea192c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31ee6720d9d0028eb7891e9360b6c68a" id="r_a31ee6720d9d0028eb7891e9360b6c68a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a31ee6720d9d0028eb7891e9360b6c68a">isFloat</a> (const std::string &amp;str)</td></tr>
+<tr class="memitem:a31ee6720d9d0028eb7891e9360b6c68a" id="r_a31ee6720d9d0028eb7891e9360b6c68a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a31ee6720d9d0028eb7891e9360b6c68a">stevensStringLib::isFloat</a> (const std::string &amp;str)</td></tr>
 <tr class="separator:a31ee6720d9d0028eb7891e9360b6c68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72692e6b9776275f737e5087ee1b87cb" id="r_a72692e6b9776275f737e5087ee1b87cb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a72692e6b9776275f737e5087ee1b87cb">isNumber</a> (const std::string &amp;str)</td></tr>
+<tr class="memitem:a72692e6b9776275f737e5087ee1b87cb" id="r_a72692e6b9776275f737e5087ee1b87cb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a72692e6b9776275f737e5087ee1b87cb">stevensStringLib::isNumber</a> (const std::string &amp;str)</td></tr>
 <tr class="separator:a72692e6b9776275f737e5087ee1b87cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bcc004e8edffbe6db42387a957a3c1b" id="r_a1bcc004e8edffbe6db42387a957a3c1b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a1bcc004e8edffbe6db42387a957a3c1b">string_to_bool</a> (std::string &amp;input)</td></tr>
+<tr class="memitem:a1bcc004e8edffbe6db42387a957a3c1b" id="r_a1bcc004e8edffbe6db42387a957a3c1b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a1bcc004e8edffbe6db42387a957a3c1b">stevensStringLib::string_to_bool</a> (std::string &amp;input)</td></tr>
 <tr class="separator:a1bcc004e8edffbe6db42387a957a3c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34011fafa3843edec6ee27c5ad6dcf95" id="r_a34011fafa3843edec6ee27c5ad6dcf95"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a34011fafa3843edec6ee27c5ad6dcf95">bool_to_string</a> (const bool &amp;input)</td></tr>
+<tr class="memitem:a34011fafa3843edec6ee27c5ad6dcf95" id="r_a34011fafa3843edec6ee27c5ad6dcf95"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a34011fafa3843edec6ee27c5ad6dcf95">stevensStringLib::bool_to_string</a> (const bool &amp;input)</td></tr>
 <tr class="separator:a34011fafa3843edec6ee27c5ad6dcf95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a673dffa5269fea2d342f27372c68f9e5" id="r_a673dffa5269fea2d342f27372c68f9e5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a673dffa5269fea2d342f27372c68f9e5">trim</a> (const std::string &amp;input, const int &amp;charsToTrim)</td></tr>
+<tr class="memitem:a673dffa5269fea2d342f27372c68f9e5" id="r_a673dffa5269fea2d342f27372c68f9e5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a673dffa5269fea2d342f27372c68f9e5">stevensStringLib::trim</a> (const std::string &amp;input, const int &amp;charsToTrim)</td></tr>
 <tr class="separator:a673dffa5269fea2d342f27372c68f9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc289dc431709640aac960c1322f4278" id="r_acc289dc431709640aac960c1322f4278"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#acc289dc431709640aac960c1322f4278">removeWhitespace</a> (std::string str)</td></tr>
+<tr class="memitem:acc289dc431709640aac960c1322f4278" id="r_acc289dc431709640aac960c1322f4278"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#acc289dc431709640aac960c1322f4278">stevensStringLib::removeWhitespace</a> (std::string str)</td></tr>
 <tr class="separator:acc289dc431709640aac960c1322f4278"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c3c2bc3c3c819fbc8d8e8de6a3d8423" id="r_a2c3c2bc3c3c819fbc8d8e8de6a3d8423"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a2c3c2bc3c3c819fbc8d8e8de6a3d8423">mapifyString</a> (std::string str, std::string keyValueSeparator, std::string pairSeparator, bool ignoreWhitespace=true)</td></tr>
+<tr class="memitem:a2c3c2bc3c3c819fbc8d8e8de6a3d8423" id="r_a2c3c2bc3c3c819fbc8d8e8de6a3d8423"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a2c3c2bc3c3c819fbc8d8e8de6a3d8423">stevensStringLib::mapifyString</a> (std::string str, std::string keyValueSeparator, std::string pairSeparator, bool ignoreWhitespace=true)</td></tr>
 <tr class="separator:a2c3c2bc3c3c819fbc8d8e8de6a3d8423"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a400139dff51fd0cad31ad2f0fcbc1274" id="r_a400139dff51fd0cad31ad2f0fcbc1274"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a400139dff51fd0cad31ad2f0fcbc1274">unordered_mapifyString</a> (std::string str, std::string keyValueSeparator=&quot;:&quot;, std::string pairSeparator=&quot;,&quot;, bool ignoreWhitespace=true)</td></tr>
+<tr class="memitem:a400139dff51fd0cad31ad2f0fcbc1274" id="r_a400139dff51fd0cad31ad2f0fcbc1274"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a400139dff51fd0cad31ad2f0fcbc1274">stevensStringLib::unordered_mapifyString</a> (std::string str, std::string keyValueSeparator=&quot;:&quot;, std::string pairSeparator=&quot;,&quot;, bool ignoreWhitespace=true)</td></tr>
 <tr class="separator:a400139dff51fd0cad31ad2f0fcbc1274"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a810d50a0e7386192bd72a28dbdd3985b" id="r_a810d50a0e7386192bd72a28dbdd3985b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a810d50a0e7386192bd72a28dbdd3985b">stringifyUnordered_map</a> (std::unordered_map&lt; std::string, std::string &gt; umap, std::string keyValueSeparator=&quot;:&quot;, std::string pairSeparator=&quot;,&quot;)</td></tr>
+<tr class="memitem:a810d50a0e7386192bd72a28dbdd3985b" id="r_a810d50a0e7386192bd72a28dbdd3985b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a810d50a0e7386192bd72a28dbdd3985b">stevensStringLib::stringifyUnordered_map</a> (std::unordered_map&lt; std::string, std::string &gt; umap, std::string keyValueSeparator=&quot;:&quot;, std::string pairSeparator=&quot;,&quot;)</td></tr>
 <tr class="separator:a810d50a0e7386192bd72a28dbdd3985b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec5ecb7f12940ba9db9f0633717c6304" id="r_aec5ecb7f12940ba9db9f0633717c6304"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#aec5ecb7f12940ba9db9f0633717c6304">countLines</a> (std::string str)</td></tr>
+<tr class="memitem:aec5ecb7f12940ba9db9f0633717c6304" id="r_aec5ecb7f12940ba9db9f0633717c6304"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aec5ecb7f12940ba9db9f0633717c6304">stevensStringLib::countLines</a> (std::string str)</td></tr>
 <tr class="separator:aec5ecb7f12940ba9db9f0633717c6304"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af737e054dda2d8cc062e45c288304b6e" id="r_af737e054dda2d8cc062e45c288304b6e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#af737e054dda2d8cc062e45c288304b6e">countFileLines</a> (const std::string &amp;filePath)</td></tr>
+<tr class="memitem:af737e054dda2d8cc062e45c288304b6e" id="r_af737e054dda2d8cc062e45c288304b6e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#af737e054dda2d8cc062e45c288304b6e">stevensStringLib::countFileLines</a> (const std::string &amp;filePath)</td></tr>
 <tr class="separator:af737e054dda2d8cc062e45c288304b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a383ce9fb993729b272b68f339add44b1" id="r_a383ce9fb993729b272b68f339add44b1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a383ce9fb993729b272b68f339add44b1">wrapToWidth</a> (std::string str, int wrapWidth)</td></tr>
+<tr class="memitem:a383ce9fb993729b272b68f339add44b1" id="r_a383ce9fb993729b272b68f339add44b1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a383ce9fb993729b272b68f339add44b1">stevensStringLib::wrapToWidth</a> (std::string str, int wrapWidth)</td></tr>
 <tr class="separator:a383ce9fb993729b272b68f339add44b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09dad767a021dfb6ace7fa3788c20fab" id="r_a09dad767a021dfb6ace7fa3788c20fab"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a09dad767a021dfb6ace7fa3788c20fab">circularIndex</a> (std::string str, int circ_i)</td></tr>
+<tr class="memitem:a09dad767a021dfb6ace7fa3788c20fab" id="r_a09dad767a021dfb6ace7fa3788c20fab"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a09dad767a021dfb6ace7fa3788c20fab">stevensStringLib::circularIndex</a> (std::string str, int circ_i)</td></tr>
 <tr class="separator:a09dad767a021dfb6ace7fa3788c20fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c7979bb34ee40190b84d9750f5a8c94" id="r_a7c7979bb34ee40190b84d9750f5a8c94"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a7c7979bb34ee40190b84d9750f5a8c94">eraseCharsFromEnd</a> (std::string str, int n)</td></tr>
+<tr class="memitem:a7c7979bb34ee40190b84d9750f5a8c94" id="r_a7c7979bb34ee40190b84d9750f5a8c94"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a7c7979bb34ee40190b84d9750f5a8c94">stevensStringLib::eraseCharsFromEnd</a> (std::string str, int n)</td></tr>
 <tr class="separator:a7c7979bb34ee40190b84d9750f5a8c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa97f9b043053f16df01be3344e15ba1" id="r_aaa97f9b043053f16df01be3344e15ba1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#aaa97f9b043053f16df01be3344e15ba1">findAll</a> (std::string str, std::string substr)</td></tr>
+<tr class="memitem:aaa97f9b043053f16df01be3344e15ba1" id="r_aaa97f9b043053f16df01be3344e15ba1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aaa97f9b043053f16df01be3344e15ba1">stevensStringLib::findAll</a> (std::string str, std::string substr)</td></tr>
 <tr class="separator:aaa97f9b043053f16df01be3344e15ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bbbc5f9915fcdea95ccd3536d77964b" id="r_a5bbbc5f9915fcdea95ccd3536d77964b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a5bbbc5f9915fcdea95ccd3536d77964b">getWhitespaceString</a> (const std::locale &amp;loc)</td></tr>
+<tr class="memitem:a5bbbc5f9915fcdea95ccd3536d77964b" id="r_a5bbbc5f9915fcdea95ccd3536d77964b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a5bbbc5f9915fcdea95ccd3536d77964b">stevensStringLib::getWhitespaceString</a> (const std::locale &amp;loc)</td></tr>
 <tr class="separator:a5bbbc5f9915fcdea95ccd3536d77964b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa78a2a94e837596ce18dfb92282b0ea5" id="r_aa78a2a94e837596ce18dfb92282b0ea5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#aa78a2a94e837596ce18dfb92282b0ea5">trimWhitespace</a> (std::string str)</td></tr>
+<tr class="memitem:aa78a2a94e837596ce18dfb92282b0ea5" id="r_aa78a2a94e837596ce18dfb92282b0ea5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aa78a2a94e837596ce18dfb92282b0ea5">stevensStringLib::trimWhitespace</a> (std::string str)</td></tr>
 <tr class="separator:aa78a2a94e837596ce18dfb92282b0ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9031d37220df1c65182f588a9e1e998c" id="r_a9031d37220df1c65182f588a9e1e998c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a9031d37220df1c65182f588a9e1e998c">char_to_string</a> (const char &amp;c)</td></tr>
+<tr class="memitem:a9031d37220df1c65182f588a9e1e998c" id="r_a9031d37220df1c65182f588a9e1e998c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a9031d37220df1c65182f588a9e1e998c">stevensStringLib::char_to_string</a> (const char &amp;c)</td></tr>
 <tr class="separator:a9031d37220df1c65182f588a9e1e998c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fc5a8eb271c99ac169ef509a7faeecb" id="r_a9fc5a8eb271c99ac169ef509a7faeecb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a9fc5a8eb271c99ac169ef509a7faeecb">isNotDigit</a> (const char &amp;c)</td></tr>
+<tr class="memitem:a9fc5a8eb271c99ac169ef509a7faeecb" id="r_a9fc5a8eb271c99ac169ef509a7faeecb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a9fc5a8eb271c99ac169ef509a7faeecb">stevensStringLib::isNotDigit</a> (const char &amp;c)</td></tr>
 <tr class="separator:a9fc5a8eb271c99ac169ef509a7faeecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaac70294354fd548c0fcc74c31f3b924" id="r_aaac70294354fd548c0fcc74c31f3b924"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#aaac70294354fd548c0fcc74c31f3b924">eraseNonNumericChars</a> (std::string str)</td></tr>
+<tr class="memitem:aaac70294354fd548c0fcc74c31f3b924" id="r_aaac70294354fd548c0fcc74c31f3b924"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aaac70294354fd548c0fcc74c31f3b924">stevensStringLib::eraseNonNumericChars</a> (std::string str)</td></tr>
 <tr class="separator:aaac70294354fd548c0fcc74c31f3b924"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac69119030f08c04d17f5ec4c59c0a8b6" id="r_ac69119030f08c04d17f5ec4c59c0a8b6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#ac69119030f08c04d17f5ec4c59c0a8b6">reverse</a> (std::string str)</td></tr>
+<tr class="memitem:ac69119030f08c04d17f5ec4c59c0a8b6" id="r_ac69119030f08c04d17f5ec4c59c0a8b6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ac69119030f08c04d17f5ec4c59c0a8b6">stevensStringLib::reverse</a> (std::string str)</td></tr>
 <tr class="separator:ac69119030f08c04d17f5ec4c59c0a8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3dc7a7ba1770dbc595aa351f8137bb4e" id="r_a3dc7a7ba1770dbc595aa351f8137bb4e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a3dc7a7ba1770dbc595aa351f8137bb4e">isPalindrome</a> (const std::string &amp;str)</td></tr>
+<tr class="memitem:a3dc7a7ba1770dbc595aa351f8137bb4e" id="r_a3dc7a7ba1770dbc595aa351f8137bb4e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a3dc7a7ba1770dbc595aa351f8137bb4e">stevensStringLib::isPalindrome</a> (const std::string &amp;str)</td></tr>
 <tr class="separator:a3dc7a7ba1770dbc595aa351f8137bb4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="stevensStringLib_8h_source.html">stevensStringLib.h</a></p>
-<p>Defines the <a class="el" href="namespacestevensStringLib.html">stevensStringLib</a> namespace, a library meant to provide useful functions to expand interactions with the standard string type. </p>
+<div class="textblock"><p>An easy-to-use C++ library with convenient functions for working with strings. </p>
+<dl class="section author"><dt>Author</dt><dd>Jeff Stevens (<a href="#" onclick="location.href='mai'+'lto:'+'jef'+'f@'+'buc'+'ep'+'hal'+'us'+'stu'+'di'+'os.'+'co'+'m'; return false;">jeff@<span class="obfuscator">.nosp@m.</span>buce<span class="obfuscator">.nosp@m.</span>phalu<span class="obfuscator">.nosp@m.</span>sstu<span class="obfuscator">.nosp@m.</span>dios.<span class="obfuscator">.nosp@m.</span>com</a>) </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2023-12-21 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) Bucephalus Studios 2023</dd></dl>
+<p>Created and released under the MIT license. See the LICENSE file in the repository folder.</p>
+<p>If you'd like to buy me a coffee or send me a tip for my work on this library, you can do that here: <a href="https://ko-fi.com/bucephalus_studios">https://ko-fi.com/bucephalus_studios</a></p>
+<p>Thank you very, very much for being interested in my code! Hope it serves you well &lt;3 </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="a34011fafa3843edec6ee27c5ad6dcf95" name="a34011fafa3843edec6ee27c5ad6dcf95"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a34011fafa3843edec6ee27c5ad6dcf95">&#9670;&#160;</a></span>bool_to_string()</h2>
@@ -174,8 +201,18 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns a string with the first letter capitalized. If the string is empty, then we just return the empty string.</p>
-<p>Parameter: std::string input - The string we want to capitalize the first letter of.</p>
-<p>Returns: std::string - The input string with the first letter capitalized. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we want to capitalize the first letter of.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">std::string</td><td>- The string str with the first letter capitalized. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -259,9 +296,20 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Given a string, tell whether it has an occurrence of the substring somewhere within it.</p>
-<p>Parameters: const std::string &amp; str - The string we are examining to see if it contains the substring. const std::string &amp; substring - The substring we are trying to see if it is contained in str.</p>
-<p>Returns: bool - Boolean indicating that input string contains the substring (true) or not (false). </p>
+<p>Given a string, determine whether it has an occurrence of the substring somewhere within it.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we are examining to see if it contains the substring. </td></tr>
+    <tr><td class="paramname">substring</td><td>- The substring we are trying to see if it is contained in str.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">bool</td><td>- Boolean indicating that input string contains the substring (true) or not (false). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -451,7 +499,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Detects if a string is in the form of a valid c++ integer.</p>
+<p>Detects if a string is in the form of a valid C++ integer.</p>
 <p>Parameter: const std::string &amp; str - A string we are checking to see if it represents an integer.</p>
 <p>Returns: bool - true if the string str represents an integer, false otherwise. </p>
 
@@ -605,8 +653,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5cdba13a2beb47b80f94b240bb876de7" name="a5cdba13a2beb47b80f94b240bb876de7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cdba13a2beb47b80f94b240bb876de7">&#9670;&#160;</a></span>separate()</h2>
+<a id="ae75dd17730068a151f3f34d299cfb7fa" name="ae75dd17730068a151f3f34d299cfb7fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae75dd17730068a151f3f34d299cfb7fa">&#9670;&#160;</a></span>separate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -615,7 +663,7 @@ Functions</h2></td></tr>
           <td class="memname">std::vector&lt; std::string &gt; stevensStringLib::separate </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
+          <td class="paramname"><em>str</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -637,9 +685,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Separates a string by a separator substring. Returns a vector of strings that were separated by the separator substring.</p>
-<p>Parameters: const std::string &amp; input - The string we intend to separate with this function. const std::string &amp; separator - The substring of the input string we intend to separate it by. const bool omitEmptyStrings - If true, do not include empty strings in the returned vector.</p>
-<p>Returns: vector&lt;std::string&gt; - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter</p>
-<p>TODO: Create alias <code>sep</code> </p>
+<p>Example:</p>
+<p>std::vector&lt;std::string&gt; result = separate( "John,Gina,Sebastian,Nick", ",")</p>
+<p>//Value of result is: {"John","Gina","Sebastian","Nick"}</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we intend to separate with this function. </td></tr>
+    <tr><td class="paramname">separator</td><td>- The substring of str we intend to separate it by. </td></tr>
+    <tr><td class="paramname">omitEmptyStrings</td><td>- If true, do not include empty strings in the returned vector.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">vector&lt;std::string&gt;</td><td>- A vector of substrings of the original string that have been split up by all occurrences of the separator parameter </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -701,8 +763,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9bd771719acc42788042457cd09abb23" name="a9bd771719acc42788042457cd09abb23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bd771719acc42788042457cd09abb23">&#9670;&#160;</a></span>toUpper()</h2>
+<a id="a7c1197f49a832b1beab045ad096c2758" name="a7c1197f49a832b1beab045ad096c2758"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c1197f49a832b1beab045ad096c2758">&#9670;&#160;</a></span>toUpper()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -711,16 +773,16 @@ Functions</h2></td></tr>
           <td class="memname">std::string stevensStringLib::toUpper </td>
           <td>(</td>
           <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Returns a string with all characters in uppercase if possible.
-Gleaned from this article:
-https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-stl-c/
-</pre><p>Parameters: std::string &amp; input - The string we would like to make all uppercase.</p>
-<p>Returns: std::string - The input, but all in uppercase!</p>
+
+Credit to this article: https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-stl-c/
+</pre><p> Parameters: std::string &amp; str - The string we would like to make all uppercase.</p>
+<p>Returns: std::string - The parameter str, but all in uppercase!</p>
 <p>` </p>
 
 </div>

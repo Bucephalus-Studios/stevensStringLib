@@ -1,12 +1,21 @@
 /**
- * stevensStringLib.h
- *
- * Defines the stevensStringLib namespace, a library meant to provide useful functions to expand interactions with the standard string type.
+ * @file stevensStringLib.h
+ * @author Jeff Stevens (jeff@bucephalusstudios.com)
+ * @brief An easy-to-use C++ library with convenient functions for working with strings.
+ * @version 0.1
+ * @date 2023-12-21
+ * @copyright Copyright (c) Bucephalus Studios 2023
+ * 
+ * Created and released under the MIT license. See the LICENSE file in the repository folder.
+ * 
+ * If you'd like to buy me a coffee or send me a tip for my work on this library, you can do that here: https://ko-fi.com/bucephalus_studios
+ * 
+ * Thank you very, very much for being interested in my code! Hope it serves you well <3
  */
+
 
 //Include guard
 #ifndef _STEVENSSTRINGLIB_
-
 #define _STEVENSSTRINGLIB_
 
 #include<iostream>
@@ -26,18 +35,16 @@
 namespace stevensStringLib
 {
     /**
-     * Given a string, tell whether it has an occurrence of the substring somewhere 
+     * Given a string, determine whether it has an occurrence of the substring somewhere 
      * within it.
      * 
-     * Parameters:
-     *  const std::string & str - The string we are examining to see if it contains the substring.
-     *  const std::string & substring - The substring we are trying to see if it is contained in str.
+     *  @param str - The string we are examining to see if it contains the substring.
+     *  @param substring - The substring we are trying to see if it is contained in str.
      * 
-     *  Returns:
-     *  bool - Boolean indicating that input string contains the substring (true) or not (false).
+     *  @retval bool - Boolean indicating that input string contains the substring (true) or not (false).
      */
     bool contains(  const std::string & str,
-                    const std::string & substring)
+                    const std::string & substring   )
     {
         int result = str.find(substring);
         if((result >= 0) && (result <= str.length()))
@@ -60,17 +67,19 @@ namespace stevensStringLib
      * Separates a string by a separator substring. Returns a vector of strings that 
      * were separated by the separator substring.
      * 
-     * Parameters:
-     *  const std::string & input - The string we intend to separate with this function.
-     *  const std::string & separator - The substring of the input string we intend to separate it by.
-     *  const bool omitEmptyStrings - If true, do not include empty strings in the returned vector.
+     * Example:
      * 
-     * Returns:
-     *  vector<std::string> - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
+     * std::vector<std::string> result = separate( "John,Gina,Sebastian,Nick", ",")
      * 
-     * TODO: Create alias `sep`
+     * //Value of result is: {"John","Gina","Sebastian","Nick"}
+     *
+     *  @param str - The string we intend to separate with this function.
+     *  @param separator - The substring of str we intend to separate it by.
+     *  @param omitEmptyStrings - If true, do not include empty strings in the returned vector.
+     *
+     *  @retval vector<std::string> - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
      */
-    std::vector<std::string> separate(  const std::string & input,
+    std::vector<std::string> separate(  const std::string & str,
                                         const std::string & separator = ",",
                                         const bool & omitEmptyStrings = true)
     {
@@ -81,7 +90,7 @@ namespace stevensStringLib
         if(separator.length() == 1)
         {
             //Taken from https://stackoverflow.com/a/5757851
-            std::istringstream split(input);
+            std::istringstream split(str);
             for (std::string each; std::getline(split, each, separator[0]); separatedStrings.push_back(each));
             //Check to see if the last element needs a separator character trimmed off (if there exists a trailing separator character)
             if(!separatedStrings.empty())
@@ -95,9 +104,9 @@ namespace stevensStringLib
         else
         {
             //Iterate through the input string and piece together the strings we want to separate
-            for(int i = 0; i < input.length(); i++)
+            for(int i = 0; i < str.length(); i++)
             {
-                word += input[i];
+                word += str[i];
                 //Every time we add a character to the word, we check to see if it contains the separator
                 if(contains(word, separator))
                 {
@@ -125,13 +134,22 @@ namespace stevensStringLib
 
 
     /**
-     * Returns a string with the first letter capitalized. If the string is empty, then we just return the empty string.
+     * @brief Alias of separate()
+     */
+    std::vector<std::string> sep(   const std::string & str,
+                                    const std::string & separator = ",",
+                                    const bool & omitEmptyStrings = true    )
+    {
+        return separate(str, separator, omitEmptyStrings);
+    }
+
+
+    /**
+     *  Returns a string with the first letter capitalized. If the string is empty, then we just return the empty string.
      * 
-     * Parameter:
-     *  std::string input - The string we want to capitalize the first letter of.
+     *  @param str - The string we want to capitalize the first letter of.
      * 
-     * Returns:
-     *  std::string - The input string with the first letter capitalized.
+     *  @retval std::string - The string str with the first letter capitalized.
      */
     std::string cap1stChar(std::string input)
     {
@@ -144,33 +162,28 @@ namespace stevensStringLib
 
 
     /**
-     *  Returns a string with all characters in uppercase if possible.
-     *  Gleaned from this article:
-     *  https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-stl-c/
+     * Returns a string with all characters in uppercase if possible.
      * 
+     * Credit to this article: https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-stl-c/
      * 
-     * Parameters:
-     *  std::string & input - The string we would like to make all uppercase.
+     * @param  str - The string we would like to make all uppercase.
      * 
-     * Returns:
-     *  std::string - The input, but all in uppercase!
+     * @retval string - The parameter str, but all in uppercase!
      *  
     `*/
-    std::string toUpper(std::string & input)
+    std::string toUpper(std::string & str)
     {
-        std::transform(input.begin(), input.end(), input.begin(), [](unsigned char x) { return std::toupper(x); });
+        std::transform(str.begin(), str.end(), str.begin(), [](unsigned char x) { return std::toupper(x); });
         return input;
     }
 
 
     /**
-     * Detects if a string is in the form of a valid c++ integer.
+     * Detects if a string is in the form of a valid C++ integer.
      * 
-     * Parameter:
-     *  const std::string & str - A string we are checking to see if it represents an integer.
+     * @param str - A string we are checking to see if it represents an integer.
      * 
-     * Returns:
-     *  bool - true if the string str represents an integer, false otherwise.
+     * @retval bool - true if the string str represents an integer, false otherwise.
     */
     bool isInteger( const std::string & str )
     {
@@ -216,11 +229,9 @@ namespace stevensStringLib
     /**
      * Detects if a string is in the form of a valid c++ floating point number.
      * 
-     * Parameter:
-     *  const std::string & str - A string we are checking to see if it represents a floating point number.
+     * @param str - A string we are checking to see if it represents a floating point number.
      * 
-     * Returns:
-     *  bool - true if the string str represents a floating point number. False otherwise.
+     * @retval bool - true if the string str represents a floating point number. False otherwise.
     */
     bool isFloat( const std::string & str )
     {
@@ -287,10 +298,9 @@ namespace stevensStringLib
      *  Detects whether or not the user input is in the form of an integer or floating point number. 
      *  Does not work for mathematical expressions!
      *
-     *  Parameter:
-     *       const std::string & str - The string we are checking to see if it represents a number.
-     *  Returns:
-     *      bool - True if the string represents a number. False if otherwise.
+     *  @param str - The string we are checking to see if it represents a number.
+     *  
+     *  @retval bool - True if the string represents a number. False if otherwise.
      *    
      */
     bool isNumber(  const std::string & str   )
@@ -303,21 +313,19 @@ namespace stevensStringLib
      * Takes in a string and checks to see if it is a representation of the word "true" or "0".
      * In those cases, return a true bool. In all other cases, return false. 
      * 
-     * Parameter:
-     *  std::string input - A string we are converting to a bool.
+     * @param str - A string we are converting to a bool.
      * 
-     * Returns:
-     *  bool - True if the input is a form of the word true or 0, and false otherwise.
+     * @retval bool - True if str is a form of the word true or 0, and false otherwise.
     */
-    bool string_to_bool( std::string & input )
+    bool string_to_bool( std::string & str )
     {
-        if( toUpper(input) == "TRUE")
+        if( toUpper(str) == "TRUE")
         {
             return true;
         }
-        else if( isNumber(input) )
+        else if( isNumber(str) )
         {
-            return !(std::stoi(input) == 0);
+            return !(std::stoi(str) == 0);
         }
         return false;
     }
@@ -328,11 +336,9 @@ namespace stevensStringLib
      * 
      * Taken from OJ's answer here: https://stackoverflow.com/questions/29383/converting-bool-to-text-in-c
      * 
-     * Parameter:
-     *  bool input - The boolean value we wish to convert to a string.
+     * @param input - The boolean value we wish to convert to a string.
      * 
-     * Returns
-     *  std::string - The boolean value represented as a string.
+     * @retval std::string - The boolean value represented as a string.
      */
     std::string bool_to_string( const bool & input  )
     {
@@ -343,30 +349,28 @@ namespace stevensStringLib
     /**
      * Given a string and integer X, erase (trim) X characters from both the beginning and end of the string.
      * 
-     * Parameters:
-     *  std::string input - A string we would like to trim the characters from.
-     *  const int & charsToTrim - The number of characters to trim from the beginning and end of the string.
+     * @param str - A string we would like to trim the characters from.
+     * @param charsToTrim - The number of characters to trim from the beginning and end of the string.
      * 
-     * Returns:
-     *  std::string -   A modified version of the input string, with X characters from both the beginning and end of the 
-     *                  string trimmed off.
+     * @retval std::string - A modified version of the string str, with a number characters from both the beginning and end of the 
+     *                  string trimmed off equal to charsToTrim.
      */
-    std::string trim(   const std::string & input,
+    std::string trim(   const std::string & str,
                         const int & charsToTrim   )
     {
         //We don't accept negative numbers of characters to trim
         if(charsToTrim < 0)
         {
             //TODO: Work out how to do error handling
-            return input;
+            return str;
         }
         //If we have a charsToTrim value greater than half the the length of the input string, we return an empty string
-        if(charsToTrim >= (input.length()/2))
+        if(charsToTrim >= (str.length()/2))
         {
             return "";
         }
         
-        return input.substr(charsToTrim, (input.length() - (charsToTrim * 2)));
+        return str.substr(charsToTrim, (str.length() - (charsToTrim * 2)));
     }
 
 
@@ -374,13 +378,11 @@ namespace stevensStringLib
      * Removes all tabs, spaces, newlines, and anything else from a string that is defined as whitespace in the current locale.
      * 
      * Learn what is defined as whitespace: https://en.cppreference.com/w/cpp/string/byte/isspace
-     * Solution from Michael Steller: https://stackoverflow.com/questions/83439/remove-spaces-from-stdstring-in-c
+     * Credit to Michael Steller: https://stackoverflow.com/questions/83439/remove-spaces-from-stdstring-in-c
      * 
-     * Paraemter:
-     *  std::string str - The string from which we wish to remove all the whitespace from.
+     * @param str - The string from which we wish to remove all the whitespace from.
      * 
-     * Returns:
-     *  std::string - The input string but with all of the whitespace removed
+     * @retval std::string - The input string but with all of the whitespace removed
      */
     std::string removeWhitespace( std::string str )
     {
@@ -391,13 +393,18 @@ namespace stevensStringLib
 
     /**
      * TODO: Make one mapify function for std::map and std::unordered_map. This can be done with templates, somehow. Need to do research.
+     * TODO: Problem!!! Data could potentially contain separator strings. We need to prevent this, possibly by requiring JSON formatting?
      * 
-     * Given an input string str that can represent a map, take two separator strings and 
-     * separate the pairs from eachother, and they keys and values from each other. Then
+     * Given an input string str that can represent a map<std::string,std::string, take two separator strings and 
+     * separate the pairs from eachother, and the keys and values from each other. Then
      * insert each key value pair into a std::map<std::string,std::string> object.
      * 
+     * @param str - The string we would like to convert into a map<std::string,std::string>.
+     * @param keyValueSeparator - The string in str using to separate keys from values.
+     * @param pairSeparator - The string in str we are using separate pairs.
+     * @param ignoreWhitespace - Bool indicating if we should remove any whitespace from str before creating the map.
      * 
-     * 
+     * @retval T<std::string,std::string> - A map object of string-string key-value pairs.
     */
     std::map<std::string,std::string> mapifyString( std::string str,
                                                     std::string keyValueSeparator,

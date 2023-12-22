@@ -79,12 +79,16 @@ $(function() {
 Functions</h2></td></tr>
 <tr class="memitem:a86fbb60ec5f626744264a2e0ab5066a9" id="r_a86fbb60ec5f626744264a2e0ab5066a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a86fbb60ec5f626744264a2e0ab5066a9">contains</a> (const std::string &amp;str, const std::string &amp;substring)</td></tr>
 <tr class="separator:a86fbb60ec5f626744264a2e0ab5066a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cdba13a2beb47b80f94b240bb876de7" id="r_a5cdba13a2beb47b80f94b240bb876de7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a5cdba13a2beb47b80f94b240bb876de7">separate</a> (const std::string &amp;input, const std::string &amp;separator=&quot;,&quot;, const bool &amp;omitEmptyStrings=true)</td></tr>
-<tr class="separator:a5cdba13a2beb47b80f94b240bb876de7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae75dd17730068a151f3f34d299cfb7fa" id="r_ae75dd17730068a151f3f34d299cfb7fa"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#ae75dd17730068a151f3f34d299cfb7fa">separate</a> (const std::string &amp;str, const std::string &amp;separator=&quot;,&quot;, const bool &amp;omitEmptyStrings=true)</td></tr>
+<tr class="separator:ae75dd17730068a151f3f34d299cfb7fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a105280ad458e2aeea94c59174c53ad82" id="r_a105280ad458e2aeea94c59174c53ad82"><td class="memItemLeft" align="right" valign="top"><a id="a105280ad458e2aeea94c59174c53ad82" name="a105280ad458e2aeea94c59174c53ad82"></a>
+std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>sep</b> (const std::string &amp;str, const std::string &amp;separator=&quot;,&quot;, const bool &amp;omitEmptyStrings=true)</td></tr>
+<tr class="memdesc:a105280ad458e2aeea94c59174c53ad82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias of <a class="el" href="namespacestevensStringLib.html#ae75dd17730068a151f3f34d299cfb7fa">separate()</a> <br /></td></tr>
+<tr class="separator:a105280ad458e2aeea94c59174c53ad82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a616701916cbe9be295361a93b7755f06" id="r_a616701916cbe9be295361a93b7755f06"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a616701916cbe9be295361a93b7755f06">cap1stChar</a> (std::string input)</td></tr>
 <tr class="separator:a616701916cbe9be295361a93b7755f06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bd771719acc42788042457cd09abb23" id="r_a9bd771719acc42788042457cd09abb23"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a9bd771719acc42788042457cd09abb23">toUpper</a> (std::string &amp;input)</td></tr>
-<tr class="separator:a9bd771719acc42788042457cd09abb23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c1197f49a832b1beab045ad096c2758" id="r_a7c1197f49a832b1beab045ad096c2758"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a7c1197f49a832b1beab045ad096c2758">toUpper</a> (std::string &amp;str)</td></tr>
+<tr class="separator:a7c1197f49a832b1beab045ad096c2758"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a734c980bfd536f7929cd051283ea192c" id="r_a734c980bfd536f7929cd051283ea192c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a734c980bfd536f7929cd051283ea192c">isInteger</a> (const std::string &amp;str)</td></tr>
 <tr class="separator:a734c980bfd536f7929cd051283ea192c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31ee6720d9d0028eb7891e9360b6c68a" id="r_a31ee6720d9d0028eb7891e9360b6c68a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestevensStringLib.html#a31ee6720d9d0028eb7891e9360b6c68a">isFloat</a> (const std::string &amp;str)</td></tr>
@@ -259,7 +263,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Given a string, tell whether it has an occurrence of the substring somewhere within it.</p>
+<p>Given a string, determine whether it has an occurrence of the substring somewhere within it.</p>
 <p>Parameters: const std::string &amp; str - The string we are examining to see if it contains the substring. const std::string &amp; substring - The substring we are trying to see if it is contained in str.</p>
 <p>Returns: bool - Boolean indicating that input string contains the substring (true) or not (false). </p>
 
@@ -451,7 +455,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Detects if a string is in the form of a valid c++ integer.</p>
+<p>Detects if a string is in the form of a valid C++ integer.</p>
 <p>Parameter: const std::string &amp; str - A string we are checking to see if it represents an integer.</p>
 <p>Returns: bool - true if the string str represents an integer, false otherwise. </p>
 
@@ -605,8 +609,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5cdba13a2beb47b80f94b240bb876de7" name="a5cdba13a2beb47b80f94b240bb876de7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cdba13a2beb47b80f94b240bb876de7">&#9670;&#160;</a></span>separate()</h2>
+<a id="ae75dd17730068a151f3f34d299cfb7fa" name="ae75dd17730068a151f3f34d299cfb7fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae75dd17730068a151f3f34d299cfb7fa">&#9670;&#160;</a></span>separate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -615,7 +619,7 @@ Functions</h2></td></tr>
           <td class="memname">std::vector&lt; std::string &gt; stevensStringLib::separate </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
+          <td class="paramname"><em>str</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -637,9 +641,21 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Separates a string by a separator substring. Returns a vector of strings that were separated by the separator substring.</p>
-<p>Parameters: const std::string &amp; input - The string we intend to separate with this function. const std::string &amp; separator - The substring of the input string we intend to separate it by. const bool omitEmptyStrings - If true, do not include empty strings in the returned vector.</p>
-<p>Returns: vector&lt;std::string&gt; - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter</p>
-<p>TODO: Create alias <code>sep</code> </p>
+<p>Example: std::vector&lt;std::string&gt; result = separate( "John,Gina,Sebastian,Nick", ",")</p>
+<p>//Value of result is: {"John","Gina","Sebastian","Nick"} @ </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we intend to separate with this function. </td></tr>
+    <tr><td class="paramname">separator</td><td>- The substring of str we intend to separate it by. </td></tr>
+    <tr><td class="paramname">omitEmptyStrings</td><td>- If true, do not include empty strings in the returned vector.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">vector&lt;std::string&gt;</td><td>- A vector of substrings of the original string that have been split up by all occurrences of the separator parameter </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -701,8 +717,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9bd771719acc42788042457cd09abb23" name="a9bd771719acc42788042457cd09abb23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bd771719acc42788042457cd09abb23">&#9670;&#160;</a></span>toUpper()</h2>
+<a id="a7c1197f49a832b1beab045ad096c2758" name="a7c1197f49a832b1beab045ad096c2758"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c1197f49a832b1beab045ad096c2758">&#9670;&#160;</a></span>toUpper()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -711,16 +727,16 @@ Functions</h2></td></tr>
           <td class="memname">std::string stevensStringLib::toUpper </td>
           <td>(</td>
           <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Returns a string with all characters in uppercase if possible.
-Gleaned from this article:
-https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-stl-c/
-</pre><p>Parameters: std::string &amp; input - The string we would like to make all uppercase.</p>
-<p>Returns: std::string - The input, but all in uppercase!</p>
+
+Credit to this article: https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-stl-c/
+</pre><p> Parameters: std::string &amp; str - The string we would like to make all uppercase.</p>
+<p>Returns: std::string - The parameter str, but all in uppercase!</p>
 <p>` </p>
 
 </div>
