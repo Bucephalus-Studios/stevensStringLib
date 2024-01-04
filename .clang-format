@@ -1,0 +1,37 @@
+# Format Style Options - Created with Clang Power Tools
+---
+AlignOperands: DontAlign
+BasedOnStyle: Microsoft
+BinPackParameters: false
+BraceWrapping: 
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterObjCDeclaration: false
+  AfterStruct: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeCatch: false
+  BeforeElse: false
+  IndentBraces: true
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+  BeforeLambdaBody: false
+  BeforeWhile: false
+BreakBeforeBraces: Allman
+ColumnLimit: 0
+FixNamespaceComments: false
+MaxEmptyLinesToKeep: 3
+NamespaceIndentation: All
+PointerAlignment: Middle
+ReflowComments: false
+SortIncludes: false
+SpaceAfterLogicalNot: true
+SpaceBeforeParens: Never
+Standard: Auto
+TabWidth: 4
+...
