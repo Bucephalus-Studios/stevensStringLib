@@ -46,3 +46,20 @@ More changes and updates to come soon! Just establishing the github page as of n
 
 ## Documentation / User Manual
 To be created with an automatic documentation tool.
+
+
+## Special Thanks
+
+Julien Jorge for [his detailed code review][1]
+
+[r/cpp][2] for their collective critiques and contributions
+
+Rhymu for his [guide][3] on using CMake to link GoogleTest with a unit test program 
+
+
+
+[1]: https://julien.jorge.st/posts/en/so-you-asked-for-feedback-stevensstringlib/
+
+[2]: https://www.reddit.com/r/cpp/comments/18hlkgd/working_on_an_easytouse_c_string_library/
+
+[3]: https://www.youtube.com/watch?v=Lp1ifh9TuFI

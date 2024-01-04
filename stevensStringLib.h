@@ -14,7 +14,6 @@
  */
 
 
-//Include guard
 #ifndef _STEVENSSTRINGLIB_
 #define _STEVENSSTRINGLIB_
 
@@ -41,25 +40,12 @@ namespace stevensStringLib
      *  @param str - The string we are examining to see if it contains the substring.
      *  @param substring - The substring we are trying to see if it is contained in str.
      * 
-     *  @retval bool - Boolean indicating that input string contains the substring (true) or not (false).
+     *  @retval Boolean indicating that input string contains the substring (true) or not (false).
      */
-    bool contains(  const std::string & str,
-                    const std::string & substring   )
+    inline bool contains(   const std::string & str,
+                            const std::string & substring   )
     {
-        int result = str.find(substring);
-        if((result >= 0) && (result <= str.length()))
-        {
-            return true;
-        }
-        else if(result == std::string::npos)
-        {
-            return false;
-        }
-        else
-        {
-            std::cout << "stevensStringLibrary notification: Use of contains(" + str + "," + substring + ") has returned an unexpected value: " + std::to_string(result);
-            return false;
-        }
+        return (str.find(substring) != std::string::npos);
     }
 
 
@@ -79,9 +65,9 @@ namespace stevensStringLib
      *
      *  @retval vector<std::string> - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
      */
-    std::vector<std::string> separate(  const std::string & str,
-                                        const std::string & separator = ",",
-                                        const bool & omitEmptyStrings = true)
+    inline std::vector<std::string> separate(   const std::string & str,
+                                                const std::string & separator = ",",
+                                                const bool omitEmptyStrings = true  )
     {
         std::vector<std::string> separatedStrings = {};
         std::string word = "";
@@ -89,17 +75,17 @@ namespace stevensStringLib
         //If we have a single character separator, we can use a more efficient method
         if(separator.length() == 1)
         {
-            //Taken from https://stackoverflow.com/a/5757851
+            //Credit to https://stackoverflow.com/a/5757851
             std::istringstream split(str);
             for (std::string each; std::getline(split, each, separator[0]); separatedStrings.push_back(each));
             //Check to see if the last element needs a separator character trimmed off (if there exists a trailing separator character)
-            if(!separatedStrings.empty())
-            {
-                if(separatedStrings.back().back() == separator[0])
-                {
-                    separatedStrings.back().pop_back();
-                }
-            }
+            // if(!separatedStrings.empty())
+            // {
+            //     if(separatedStrings.back().back() == separator[0])
+            //     {
+            //         separatedStrings.back().pop_back();
+            //     }
+            // }
         }
         else
         {
@@ -134,30 +120,19 @@ namespace stevensStringLib
 
 
     /**
-     * @brief Alias of separate()
-     */
-    std::vector<std::string> sep(   const std::string & str,
-                                    const std::string & separator = ",",
-                                    const bool & omitEmptyStrings = true    )
-    {
-        return separate(str, separator, omitEmptyStrings);
-    }
-
-
-    /**
      *  Returns a string with the first letter capitalized. If the string is empty, then we just return the empty string.
      * 
      *  @param str - The string we want to capitalize the first letter of.
      * 
      *  @retval std::string - The string str with the first letter capitalized.
      */
-    std::string cap1stChar(std::string input)
+    inline std::string cap1stChar(std::string str)
     {
-        if(input.length() > 0)
+        if(str.length() > 0)
         {
-            input[0] = std::toupper(input[0]);
+            str[0] = std::toupper(str[0]);
         }
-        return input;
+        return str;
     }
 
 
@@ -171,10 +146,10 @@ namespace stevensStringLib
      * @retval string - The parameter str, but all in uppercase!
      *  
     `*/
-    std::string toUpper(std::string & str)
+    inline std::string toUpper(std::string str)
     {
         std::transform(str.begin(), str.end(), str.begin(), [](unsigned char x) { return std::toupper(x); });
-        return input;
+        return str;
     }
 
 
@@ -185,7 +160,7 @@ namespace stevensStringLib
      * 
      * @retval bool - true if the string str represents an integer, false otherwise.
     */
-    bool isInteger( const std::string & str )
+    inline bool isInteger( const std::string & str )
     {
         for (int charIndex = 0; charIndex < str.length(); charIndex++)
         {
@@ -233,7 +208,7 @@ namespace stevensStringLib
      * 
      * @retval bool - true if the string str represents a floating point number. False otherwise.
     */
-    bool isFloat( const std::string & str )
+    inline bool isFloat( const std::string & str )
     {
         //Let's keep track of if we've seen the decimal point or not
         bool seenDecimalPoint = false;
@@ -295,15 +270,15 @@ namespace stevensStringLib
 
 
     /**
-     *  Detects whether or not the user input is in the form of an integer or floating point number. 
-     *  Does not work for mathematical expressions!
+     *  Detects if a string consists of only numeric characters, and potentially a 
+     *  decimal point and leading negative sign.
      *
      *  @param str - The string we are checking to see if it represents a number.
      *  
      *  @retval bool - True if the string represents a number. False if otherwise.
      *    
      */
-    bool isNumber(  const std::string & str   )
+    inline bool isNumber(  const std::string & str   )
     {
         return ( isInteger(str) || isFloat(str) );
     }
@@ -317,7 +292,7 @@ namespace stevensStringLib
      * 
      * @retval bool - True if str is a form of the word true or 0, and false otherwise.
     */
-    bool string_to_bool( std::string & str )
+    inline bool stringToBool( const std::string & str )
     {
         if( toUpper(str) == "TRUE")
         {
@@ -334,13 +309,13 @@ namespace stevensStringLib
     /**
      * Converts a boolean value to a string value. 
      * 
-     * Taken from OJ's answer here: https://stackoverflow.com/questions/29383/converting-bool-to-text-in-c
+     * Credit to OJ and Igor Ganapolsky: https://stackoverflow.com/a/29798/16511184
      * 
      * @param input - The boolean value we wish to convert to a string.
      * 
-     * @retval std::string - The boolean value represented as a string.
+     * @retval The boolean value represented as a string.
      */
-    std::string bool_to_string( const bool & input  )
+    inline std::string boolToString( const bool input  )
     {
         return input ? "true" : "false";
     }
@@ -352,18 +327,12 @@ namespace stevensStringLib
      * @param str - A string we would like to trim the characters from.
      * @param charsToTrim - The number of characters to trim from the beginning and end of the string.
      * 
-     * @retval std::string - A modified version of the string str, with a number characters from both the beginning and end of the 
-     *                  string trimmed off equal to charsToTrim.
+     * @retval A modified version of the string str, with a number characters from both the beginning and end of the 
+     *         string trimmed off equal to charsToTrim.
      */
-    std::string trim(   const std::string & str,
-                        const int & charsToTrim   )
+    inline std::string trim(    const std::string & str,
+                                const unsigned int & charsToTrim   )
     {
-        //We don't accept negative numbers of characters to trim
-        if(charsToTrim < 0)
-        {
-            //TODO: Work out how to do error handling
-            return str;
-        }
         //If we have a charsToTrim value greater than half the the length of the input string, we return an empty string
         if(charsToTrim >= (str.length()/2))
         {
@@ -382,9 +351,9 @@ namespace stevensStringLib
      * 
      * @param str - The string from which we wish to remove all the whitespace from.
      * 
-     * @retval std::string - The input string but with all of the whitespace removed
+     * @retval The input string but with all of the whitespace removed
      */
-    std::string removeWhitespace( std::string str )
+    inline std::string removeWhitespace( std::string str )
     {
         str.erase(std::remove_if(str.begin(), str.end(), [](unsigned char x) { return std::isspace(x); }), str.end());
         return str;
@@ -392,7 +361,52 @@ namespace stevensStringLib
 
 
     /**
-     * TODO: Make one mapify function for std::map and std::unordered_map. This can be done with templates, somehow. Need to do research.
+     * @brief Does the work for mapifyString and unordered_mapifyString
+     * 
+     */
+    template<typename T>
+    inline T mapifyStringHelper(   T map,
+                            std::string str,
+                            std::string keyValueSeparator,
+                            std::string pairSeparator,
+                            bool ignoreWhitespace = true    )
+    {
+        //Get rid of any whitespace if necessary (TODO: see if we can just remove whitespace between words-equals signs, and words-commas)
+        if(ignoreWhitespace)
+        {
+            str = removeWhitespace(str);
+        }
+
+        //Separate the pairs
+        std::vector<std::string> keysAndValues = separate(str,pairSeparator);
+
+        //Separate the keys and values
+        std::vector<std::string> keyAndValue; 
+        for(int i = 0; i < keysAndValues.size(); i++)
+        {
+            keyAndValue = separate(keysAndValues[i], keyValueSeparator);
+            if(keyAndValue.size() == 0)
+            {
+                //No keys or values found, skip
+                continue;
+            }
+            else if(keyAndValue.size() == 1)
+            {
+                //Insert a key with an empty value
+                map[keyAndValue[0]] = "";
+            }
+            else if(keyAndValue.size() >= 2)
+            {
+                //Insert the key value pair into the map (only the first two elements)
+                map[keyAndValue[0]] = keyAndValue[1];
+            }
+        }
+
+        return map;
+    }
+
+
+    /**
      * TODO: Problem!!! Data could potentially contain separator strings. We need to prevent this, possibly by requiring JSON formatting?
      * 
      * Given an input string str that can represent a map<std::string,std::string, take two separator strings and 
@@ -406,142 +420,69 @@ namespace stevensStringLib
      * 
      * @retval T<std::string,std::string> - A map object of string-string key-value pairs.
     */
-    std::map<std::string,std::string> mapifyString( std::string str,
+    inline std::map<std::string,std::string> mapifyString( std::string str,
                                                     std::string keyValueSeparator,
                                                     std::string pairSeparator,
                                                     bool ignoreWhitespace = true    )
     {
-        //Create the map that we'll be returning later
-        std::map<std::string,std::string> mappedString = {};
-
-        //Get rid of any whitespace if necessary (TODO: see if we can just remove whitespace between words-equals signs, and words-commas)
-        if(ignoreWhitespace)
-        {
-            str = removeWhitespace(str);
-        }
-
-        //Separate the pairs
-        std::vector<std::string> keysAndValues = separate(str,pairSeparator);
-
-        //Separate the keys and values
-        std::vector<std::string> keyAndValue; 
-        for(int i = 0; i < keysAndValues.size(); i++)
-        {
-            keyAndValue = separate(keysAndValues[i], keyValueSeparator);
-            if(keyAndValue.size() == 0)
-            {
-                //No keys or values found, skip
-                continue;
-            }
-            else if(keyAndValue.size() == 1)
-            {
-                //Insert a key with an empty value
-                mappedString[keyAndValue[0]] = "";
-            }
-            else if(keyAndValue.size() >= 2)
-            {
-                //Insert the key value pair into the map (only the first two elements)
-                mappedString[keyAndValue[0]] = keyAndValue[1];
-            }
-        }
-
-        return mappedString;
+        std::map<std::string,std::string> map = {};
+        return mapifyStringHelper( map, str, keyValueSeparator, pairSeparator, ignoreWhitespace);
     }
 
 
     /**
-     * Given an input string str that can represent a map, take two separator strings and 
-     * separate the pairs from eachother, and they keys and values from each other. Then
-     * insert each key value pair into a std::map<std::string,std::string> object.
-     * 
-     * 
-     * 
+     * Variant of mapifyString that works for std::unordered_maps 
     */
-    std::unordered_map<std::string,std::string> unordered_mapifyString( std::string str,
-                                                                        std::string keyValueSeparator = ":",
-                                                                        std::string pairSeparator  = ",",
-                                                                        bool ignoreWhitespace = true    )
+    inline std::unordered_map<std::string,std::string> unordered_mapifyString(  std::string str,
+                                                                                std::string keyValueSeparator = ":",
+                                                                                std::string pairSeparator  = ",",
+                                                                                bool ignoreWhitespace = true    )
     {
-        //Create the map that we'll be returning later
-        std::unordered_map<std::string,std::string> unordered_mappedString = {};
-
-        //Get rid of any whitespace if necessary (TODO: see if we can just remove whitespace between words-equals signs, and words-commas)
-        if(ignoreWhitespace)
-        {
-            str = removeWhitespace(str);
-        }
-
-        //Separate the pairs
-        std::vector<std::string> keysAndValues = separate(str,pairSeparator);
-
-        //Separate the keys and values
-        std::vector<std::string> keyAndValue; 
-        for(int i = 0; i < keysAndValues.size(); i++)
-        {
-            keyAndValue = separate(keysAndValues[i], keyValueSeparator);
-            if(keyAndValue.size() == 0)
-            {
-                //No keys or values found, skip
-                continue;
-            }
-            else if(keyAndValue.size() == 1)
-            {
-                //Insert a key with an empty value
-                unordered_mappedString[keyAndValue[0]] = "";
-            }
-            else if(keyAndValue.size() >= 2)
-            {
-                //Insert the key value pair into the map (only the first two elements)
-                unordered_mappedString[keyAndValue[0]] = keyAndValue[1];
-            }
-        }
-
-        return unordered_mappedString;
+        std::unordered_map<std::string,std::string> unordered_map = {};
+        return mapifyStringHelper( unordered_map, str, keyValueSeparator, pairSeparator, ignoreWhitespace);
     }
 
 
     /**
-     * Given an unordered_map of strings, turn it into a string of keys and values paired together separated by delimiting characters.
+     * Given an map or unordered_map of strings, turn it into a string of keys and values paired together, separated by delimiting characters.
      * 
-     * Parameters:
-     *  unordered_map<std::string,std::string> umap - The unordered map with string keys and values which we intend to turn into a string.
-     *  std::string keyValueSeparator - The string that separates keys from their values in the returned string.
-     *  std::string pairSeparator - The string that separates key-value pairs in the returned string.
+     *  @param map - Th map or unordered_map with string keys and values which we intend to turn into a string.
+     *  @param keyValueSeparator - The string that separates keys from their values in the returned string.
+     *  @param pairSeparator - The string that separates key-value pairs in the returned string.
      * 
-     * Returns:
-     *  std::string - The all contents of the unordered map turned into a string list of separated key-value pairs.
+     *  @retval std::string - The all contents of the unordered map turned into a string list of separated key-value pairs.
     */
-    std::string stringifyUnordered_map( std::unordered_map<std::string,std::string> umap,
+    template<typename T>
+    inline std::string stringifyMap(    T map,
                                         std::string keyValueSeparator = ":",
                                         std::string pairSeparator =     "," )
     {
-        std::string stringifiedUmap = "";
+        std::string stringifiedMap = "";
         //Iterate through the unordered map, appending each pair to the string
-        for(auto & [key,value] : umap )
+        for(auto & [key,value] : map )
         {
-            if(!stringifiedUmap.empty())
+            if(!stringifiedMap.empty())
             {
-                stringifiedUmap += pairSeparator;
+                stringifiedMap += pairSeparator;
             }
-            stringifiedUmap += key + keyValueSeparator + value;
+            stringifiedMap += key + keyValueSeparator + value;
         }
-        return stringifiedUmap;
+        return stringifiedMap;
     }
 
 
     /**
      * Given a string, count how many lines are in that string and return the integer count.
+     * 
      * Solution from: https://stackoverflow.com/questions/3482064/counting-the-number-of-lines-in-a-text-file
      * 
      * TODO: Concerned with line counting problems presented here: https://stackoverflow.com/a/843484/16511184
      * 
-     * Parameter:
-     *  std::string str - The string which we wish to count the number of lines of.
+     * @param str - The string which we wish to count the number of lines of.
      * 
-     * Returns:
-     *  int - The integer count of the number of lines that the string str has.
+     * @retval int - The integer count of the number of lines that the string str has.
     */
-    int countLines(std::string str)
+    inline int countLines(std::string str)
     {
         int number_of_lines = 0;
         std::string line;
@@ -558,13 +499,11 @@ namespace stevensStringLib
     /**
      * Given the path to a file, count how many lines are in the file and return the integer count.
      * 
-     * Parameter:
-     *  std::string filePath - The path to the file we want to count the number of lines of.
+     * @param filePath - The path to the file we want to count the number of lines of.
      * 
-     * Returns:
-     *  int - The integer number of lines that the file contains.
+     * @retval int - The integer number of lines that the file contains.
     */
-    int countFileLines(const std::string & filePath)
+    inline int countFileLines(const std::string & filePath)
     {
         //Create an input stream from the file we are trying to print
         std::ifstream input_file(filePath);
@@ -584,17 +523,15 @@ namespace stevensStringLib
      * Given a string and integer describing the total number of characters that can exist in a line of text,
      * wrap the text by adding newlines between words so it may fit within a certain width.
      * 
-     * Parameters:
-     *  std::string str - The string which we wish to wrap to a certain width.
-     *  int wrapWidth - The width in number of characters we wish to wrap.
+     * @param str - The string which we wish to wrap to a certain width.
+     * @param wrapWidth - The width in number of characters we wish to wrap.
      * 
-     * Returns:
-     *  std::string - A modified version of the parameter str, with newlines added to it so that it fits within
+     * @retval std::string - A modified version of the parameter str, with newlines added to it so that it fits within
      *                a certain character width.
      *  
     */
-    std::string wrapToWidth(    std::string str,
-                                int wrapWidth   )
+    inline std::string wrapToWidth(     std::string str,
+                                        int wrapWidth   )
     {
         std::istringstream in(str);
         std::string line;
@@ -650,7 +587,7 @@ namespace stevensStringLib
 
 
     /**
-     * Given a string an an integer representing an index, return a single character from the string by the process of circular 
+     * Given a string and an integer representing an index, return a single character from the string by the process of circular 
      * indexing.
      *  
      * Circular indexing is performed by indexing over the string from left to right. Once the index exceeds the length of the string, we begin
@@ -659,46 +596,37 @@ namespace stevensStringLib
      * 
      * Example: circularIndex("Hello world!", 13) returns 'e', as we loop around to 'H' at 12 and index one space further to reach 'e'.
      * 
-     * Parameters:
-     *  std::string str
-     *  int circ_i
+     * @param str - The string we are circularly indexing through.
+     * @param i - The index of the string to circularly index to.
      * 
-     * Returns:
-     *  char - A character found in str that has been circularly indexed to at position circ_i
-     * 
-     * 
-     * TODO: Create aliases ci and circ_i
+     * @retval A character found in str that has been circularly indexed to at position i
     */
-    char circularIndex( std::string str,
-                        int circ_i )
+    inline char circularIndex(  const std::string & str,
+                                unsigned int i )
     {
-        //If we have an empty string, we can't index to anything
-        // if(str.empty())
-        // {
-        //     throw std::invalid_argument("str cannot be empty for circularIndex()");
-        // }
-
-        return str[circ_i % str.length()];
+        if(str.empty())
+        {
+            throw std::invalid_argument("str cannot be empty for circularIndex()");
+        }
+        return str[i % str.length()];
     }
 
 
     /**
      * Given a string str, erase the last n characters of the string.
      * 
-     * Taken from: https://thispointer.com/remove-last-n-characters-from-a-string-in-c/
+     * Credit to Varun: https://thispointer.com/remove-last-n-characters-from-a-string-in-c/
      * 
-     * Parameters:
-     *  std::string str - The string we want to erase characters from the end of.
-     *  int n - The number of characters we want to erase
+     * @param str - The string we want to erase characters from the end of.
+     * @param n - The number of characters we want to erase
      * 
-     * Returns:
-     *  std::string - The string str having n characters erased from the end of it.
+     * @retval std::string - The string str having n characters erased from the end of it.
     */
-    std::string eraseCharsFromEnd(  std::string str,
-                                    int n   )
+    inline std::string eraseCharsFromEnd(   std::string str,
+                                            int n   )
     {
-        //Can't erase from empty string
-        if(str.empty())
+        //Can't erase from empty strings, and we can't erase more characters from the string than what we have
+        if(str.size() >= n)
         {
             return "";
         }
@@ -712,17 +640,15 @@ namespace stevensStringLib
      * Given a string str, find all occurrences of a substring within it. Returns a vector of all of the indices that the substring
      * occurs at within the string str.
      * 
-     * Based off of: https://stackoverflow.com/a/4034809
+     * Credit to Benjamin Lindley: https://stackoverflow.com/a/4034809
      * 
-     * Parameters:
-     *  std::string str - The string we are searching for the substring in.
-     *  std::string substr - The substring we are looking for within string str.
+     * @param str - The string we are searching for the substring in.
+     * @param substr - The substring we are looking for within string str.
      * 
-     * Returns:
-     *  std::vector<size_t> - A vector containing all indices in increasing order that the substr occurs at.
+     * @retval std::vector<size_t> - A vector containing all indices in increasing order that the substr occurs at.
     */
-    std::vector<size_t> findAll(    std::string str,
-                                    std::string substr  )
+    inline std::vector<size_t> findAll(     const std::string & str,
+                                            const std::string & substr  )
     {
         std::vector<size_t> positions;
 
@@ -740,15 +666,13 @@ namespace stevensStringLib
     /**
      * Given a locale, return all of the whitespace characters for that locale in a string.
      * 
-     * Credit: https://stackoverflow.com/a/36311304/16511184
+     * Credit to Nathan Oliver: https://stackoverflow.com/a/36311304/16511184
      * 
-     * Parameter:
-     *  const std::locale & loc - The locale which we want to obtain a string of all whitespace characters for.
+     * @param loc - The locale which we want to obtain a string of all whitespace characters for.
      * 
-     * Returns:
-     *  std::string - A string of all whitespace characters defined in the given locale.
+     * @retval A string of all whitespace characters defined in the given locale.
     */
-    std::string getWhitespaceString(const std::locale & loc)
+    inline std::string getWhitespaceString(const std::locale & loc)
     {
         std::string whitespace;
         for (char ch = std::numeric_limits<char>::min(); ch < std::numeric_limits<char>::max(); ch++)
@@ -764,15 +688,13 @@ namespace stevensStringLib
     /**
      * Remove all leading and trailing whitespace from a string (spaces, tabs, newlines, etc.), then return it.
      * 
-     * Based on: https://stackoverflow.com/a/1798170
+     * Credit to GManNickG and Kef Schecter: https://stackoverflow.com/a/1798170
      * 
-     * Parameter:
-     *  std::string str - The string to remove all of the leading and trailing whitespaces from.
+     * @param str - The string to remove all of the leading and trailing whitespaces from.
      * 
-     * Returns:
-     *  std::string - str modified by removing all of its leading and trailing whitespaces.
+     * @retval str modified by removing all of its leading and trailing whitespaces.
     */
-    std::string trimWhitespace( std::string str )
+    inline std::string trimWhitespace( const std::string & str )
     {
         //Get a string of all of the whitespace characters in the current locale
         std::string whitespace = getWhitespaceString(std::locale(""));
@@ -796,13 +718,11 @@ namespace stevensStringLib
     /**
      * Given a character c, convert it to a std::string.
      * 
-     * Parameter:
-     *  char c - The character we'd like to convert to a string.
+     * @param c - The character we'd like to convert to a string.
      * 
-     * Returns:
-     *  std::string - A string representing the character c.
+     * @retval A string representing the character c.
     */
-    std::string char_to_string( const char & c )
+    inline std::string charToString( const char & c )
     {
         std::string s(1, c);
         return s;
@@ -810,32 +730,15 @@ namespace stevensStringLib
 
 
     /**
-     * Predicate function for eraseNonNumericChars. It performs a logical not operation on the result of the isdigit() function.
-     * 
-     * Parameter:
-     *  const char & c - The character we'd like to check to see if it is not a digit.
-     * 
-     * Returns:
-     *  bool - True if c is not a digit, false otherwise.
-    */
-    bool isNotDigit(    const char & c  )
-    {
-        return !(isdigit(c));
-    }
-
-
-    /**
      * Erases all non-numeric characters from a string and returns it.
      * 
-     * Parameter:
-     *  std::string str - The string to release all non-numeric chars from.
+     * @param str - The string to release all non-numeric chars from.
      * 
-     * Returns:
-     *  The string parameter we passed in, but all of its non-numeric characters removed from it.
+     * @retval The string parameter we passed in, but all of its non-numeric characters removed from it.
     */
-    std::string eraseNonNumericChars( std::string str )
+    inline std::string eraseNonNumericChars( std::string str )
     {
-        str.erase(std::remove_if(str.begin(), str.end(), isNotDigit), str.end());
+        str.erase(std::remove_if(str.begin(), str.end(), [](char c){ return !isdigit(c); }), str.end());
         return str;
     }
 
@@ -843,13 +746,11 @@ namespace stevensStringLib
     /**
      * Reverses the order of a string's characters using std::reverse().
      * 
-     * Parameter:
-     *  std::string & str - The string we would like to reverse.
+     * @param str - The string we would like to reverse.
      * 
-     * Returns:
-     *  std::string - The reversed string.
+     * @retval std::string - The reversed string.
     */
-    std::string reverse( std::string str )
+    inline std::string reverse( std::string str )
     {
         std::reverse(str.begin(),str.end());
         return str;
@@ -862,15 +763,13 @@ namespace stevensStringLib
      * prevent them from being valid C++ palindromes with this function, as the reverse order of this exact string is "amanap ,lanac a ,nalp a ,nam A" is
      * not equivalent to the original order of characters.
      * 
-     * Credit: https://stackoverflow.com/a/8362657/16511184
+     * Credit to Cubbi: https://stackoverflow.com/a/8362657/16511184
      * 
-     * Parameter:
-     *  std::string str - The string we would like to check.
+     * @param str - The string we would like to check.
      * 
-     * Returns:
-     *  bool - true if str is a palindrome, false otherwise.
+     * @retval true if str is a palindrome, false otherwise.
     */
-    bool isPalindrome( const std::string & str )
+    inline bool isPalindrome( const std::string & str )
     {
         return std::equal(str.begin(), str.begin() + str.size()/2, str.rbegin());
     }

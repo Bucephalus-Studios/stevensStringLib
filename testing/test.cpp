@@ -1,11 +1,11 @@
 /**
  * This is the code for testing stevensStringLib. All testing is carried out with GoogleTest.
- * Must have GoogleTest installed to compile this program!
- * GoogleTest installation tutorial stuff:
- * https://www.eriksmistad.no/getting-started-with-google-test-on-ubuntu/
- *
- * Compiles with: g++ -std=c++23 test.cpp -lgtest -o test
+ * 
+ * To run these tests on your machine, you should use the cmake tool in the "testing" folder by running the command "cmake -S . -B build_of_test".
+ * This will generate an makefile to create an executable in the "build_of_test" folder. Then, go to the "build_of_test" folder and run the command "make".
+ * Once you have done this, you should have an executable named "test" in the "build_of_test" folder which you can run.
 */
+
 #include "../stevensStringLib.h"
 #include <iostream>
 #include <fstream>
@@ -302,50 +302,40 @@ TEST(isFloat, check_1point5)
 {
     //Arrange
     std::string string = "1.5";
-    //Act
-    bool result = isFloat(string);
-    //Assert
-    ASSERT_TRUE(result);
+    //Act and assert
+    ASSERT_TRUE(isFloat(string)) << "string=" << string;
 }
 
 TEST(isFloat, check_negative_1point5)
 {
     //Arrange
     std::string string = "-1.5";
-    //Act
-    bool result = isFloat(string);
-    //Assert
-    ASSERT_TRUE(result);
+    //Act and assert
+    ASSERT_TRUE(isFloat(string)) << "string=" << string;
 }
 
 TEST(isFloat, check_for_only_one_decimal_point)
 {
     //Arrange
     std::string string = "7.0.0";
-    //Act
-    bool result = isFloat(string);
-    //Assert
-    ASSERT_FALSE(result);
+    //Act and assert
+    ASSERT_FALSE(isFloat(string)) << "string=" << string;
 }
 
 TEST(isFloat, nothing_to_left_of_point)
 {
     //Arrange
     std::string string = ".2";
-    //Act
-    bool result = isFloat(string);
-    //Assert
-    ASSERT_TRUE(result);
+    //Act and assert
+    ASSERT_TRUE(isFloat(string)) << "string=" << string;
 }
 
 TEST(isFloat, too_precise_of_number)
 {
     //Arrange
     std::string string = ".12341231231231231231231231231231233123123123123123123";
-    //Act
-    bool result = isFloat(string);
-    //Assert
-    ASSERT_FALSE(result);
+    //Act and assert
+    ASSERT_FALSE(isFloat(string)) << "string=" << string;
 }
 
 
@@ -601,7 +591,7 @@ TEST(countLines, frankenstein)
 TEST(countFileLines, load_frankenstein_and_count_lines)
 {
     //Arrange
-    std::string filePath = "test_string_files/frankenstein.txt";
+    std::string filePath = "../test_string_files/frankenstein.txt";
     //Act
     int lineCount = countFileLines(filePath);
     //Assert
@@ -621,7 +611,7 @@ TEST(countFileLines, load_frankenstein_and_count_lines)
 TEST(countFileLines, load_empty_file)
 {
     //Arrange
-    std::string filePath = "emptyFile.txt";
+    std::string filePath = "../test_string_files/emptyFile.txt";
     //Act
     int lineCount = countFileLines(filePath);
     //Assert
@@ -954,38 +944,6 @@ TEST(charToString, check_number)
 }
 
 
-/*** isNotDigit ***/
-TEST(isNotDigit, check_empty_char)
-{
-    //Arrange
-    const char emptyChar = '\0';
-    //Act
-    bool result = isNotDigit(emptyChar);
-    //Assert
-    ASSERT_TRUE(result);
-}
-
-TEST(isNotDigit, check_digit)
-{
-    //Arrange
-    const char myChar = '4';
-    //Act
-    bool result = isNotDigit(myChar);
-    //Assert
-    ASSERT_FALSE(result);
-}
-
-TEST(isNotDigit, check_non_digit)
-{
-    //Arrange
-    const char myChar = 'd';
-    //Act
-    bool result = isNotDigit(myChar);
-    //Assert
-    ASSERT_TRUE(result);
-}
-
-
 /*** eraseNonNumericChars ***/
 TEST(eraseNonNumericChars, all_numeric_chars)
 {
@@ -1112,7 +1070,7 @@ int main(   int argc,
             char * argv[]   )
 {
     //We'll use the text of Frankenstein as a large string to run our functions on
-    std::ifstream input_file("test_string_files/frankenstein.txt");
+    std::ifstream input_file("../test_string_files/frankenstein.txt");
     if (!input_file.is_open())
     {
         //Error if we cannot successfully print the file
