@@ -25,7 +25,7 @@ Bulbasaur
 
 ## Requirements
 
-C++ 23
+C++ 17
 
 
 ## Easy Installation!
@@ -56,9 +56,9 @@ The documentation for this library is written to a series of offline webpages th
 stevensStringLib contains a suite of tests to validate its functionality within the `testing` folder. All testing is carried out with [Google Test][5].
 
 
-To run these tests on your machine, you should use the cmake tool in the `testing` folder by running the command `cmake -S . -B build_of_test`.
-This will generate an makefile to create an executable in the `build_of_test` folder. Then, go to the `build_of_test` folder and run the command `make`.
-Once you have done this, you should have an executable named `test` in the `build_of_test` folder which you can run the tests with.
+To run these tests on your machine, you should use the cmake tool in the `testing` folder by running the command `cmake -S . -B ./build_of_test`.
+This will generate an makefile to create an executable in the `testing/build_of_test` folder. Then, go to the `testing/build_of_test` folder and run the command `make`.
+Once you have done this, you should have an executable named `test` in the `testing/build_of_test` folder which you can run the tests with.
 
 ## Benchmarking
 

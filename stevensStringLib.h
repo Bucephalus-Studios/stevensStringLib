@@ -63,14 +63,14 @@ namespace stevensStringLib
      *  @param separator - The substring of str we intend to separate it by.
      *  @param omitEmptyStrings - If true, do not include empty strings in the returned vector.
      *
-     *  @retval vector<std::string> - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
+     *  @retval A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
      */
     inline std::vector<std::string> separate(   const std::string & str,
                                                 const std::string & separator = ",",
                                                 const bool omitEmptyStrings = true  )
     {
-        std::vector<std::string> separatedStrings = {};
-        std::string word = "";
+        std::vector<std::string> separatedStrings;
+        std::string word;;
 
         //If we have a single character separator, we can use a more efficient method
         if(separator.length() == 1)
@@ -181,18 +181,16 @@ namespace stevensStringLib
         
         //Now that we're sure we have a string that contains only digits and possibly a negative sign, we check
         //to see if converting the string to an integer will cause errors 
-        int value = 0;
+        int value;
         const auto res = std::from_chars(   str.data(), 
                                             str.data() + str.size(), 
                                             value );
         if (res.ec == std::errc::invalid_argument)
         {
-            //Invalid argument for std::from_chars()
             return false;
         }
         else if (res.ec == std::errc::result_out_of_range)
         {
-            //Overflow/underflow has occurred
             return false;
         }
 
@@ -254,12 +252,10 @@ namespace stevensStringLib
                                             format  );
         if (res.ec == std::errc::invalid_argument)
         {
-            //Invalid argument
             return false;
         }
         else if (res.ec == std::errc::result_out_of_range)
         {
-            //Overflow/unverflow has occurred
             return false;
         }
 
@@ -285,12 +281,12 @@ namespace stevensStringLib
 
 
     /**
-     * Takes in a string and checks to see if it is a representation of the word "true" or "0".
-     * In those cases, return a true bool. In all other cases, return false. 
+     * Takes in a string and checks to see if it is a representation of the word "true" or a string
+     * representing a non-zero number. In those cases, return a true bool. In all other cases, return false. 
      * 
      * @param str - A string we are converting to a bool.
      * 
-     * @retval bool - True if str is a form of the word true or 0, and false otherwise.
+     * @retval True if str is a form of the word true or 0, and false otherwise.
     */
     inline bool stringToBool( const std::string & str )
     {
@@ -300,7 +296,12 @@ namespace stevensStringLib
         }
         else if( isNumber(str) )
         {
-            return !(std::stoi(str) == 0);
+            //TODO: Eventually address this for optimization:
+            // JJO: The call to isNumber as already scanned the string, **and**
+            // has converted it into an integer or float via
+            // std::from_chars. Here we are doing a third scan of the string.
+            // It's a lot!
+            return !(std::stold(str) == 0);
         }
         return false;
     }
@@ -331,7 +332,7 @@ namespace stevensStringLib
      *         string trimmed off equal to charsToTrim.
      */
     inline std::string trim(    const std::string & str,
-                                const unsigned int & charsToTrim   )
+                                const unsigned int charsToTrim   )
     {
         //If we have a charsToTrim value greater than half the the length of the input string, we return an empty string
         if(charsToTrim >= (str.length()/2))
@@ -361,21 +362,17 @@ namespace stevensStringLib
 
 
     /**
-     * @brief Does the work for mapifyString and unordered_mapifyString
+     * @brief Does the work step for mapifyString and unordered_mapifyString.
      * 
+     * This function does not need to be directly called, instead, please use
+     * mapifyString() and unorderedMapifyString()
      */
     template<typename T>
-    inline T mapifyStringHelper(   T map,
-                            std::string str,
-                            std::string keyValueSeparator,
-                            std::string pairSeparator,
-                            bool ignoreWhitespace = true    )
+    inline T mapifyStringHelper(    T map,
+                                    std::string str,
+                                    std::string keyValueSeparator,
+                                    std::string pairSeparator   )
     {
-        //Get rid of any whitespace if necessary (TODO: see if we can just remove whitespace between words-equals signs, and words-commas)
-        if(ignoreWhitespace)
-        {
-            str = removeWhitespace(str);
-        }
 
         //Separate the pairs
         std::vector<std::string> keysAndValues = separate(str,pairSeparator);
@@ -385,12 +382,12 @@ namespace stevensStringLib
         for(int i = 0; i < keysAndValues.size(); i++)
         {
             keyAndValue = separate(keysAndValues[i], keyValueSeparator);
-            if(keyAndValue.size() == 0)
+            /*if(keyAndValue.size() == 0)
             {
                 //No keys or values found, skip
                 continue;
             }
-            else if(keyAndValue.size() == 1)
+            else */if(keyAndValue.size() == 1)
             {
                 //Insert a key with an empty value
                 map[keyAndValue[0]] = "";
@@ -416,30 +413,27 @@ namespace stevensStringLib
      * @param str - The string we would like to convert into a map<std::string,std::string>.
      * @param keyValueSeparator - The string in str using to separate keys from values.
      * @param pairSeparator - The string in str we are using separate pairs.
-     * @param ignoreWhitespace - Bool indicating if we should remove any whitespace from str before creating the map.
-     * 
-     * @retval T<std::string,std::string> - A map object of string-string key-value pairs.
+
+     * @retval A map object of string-string key-value pairs.
     */
-    inline std::map<std::string,std::string> mapifyString( std::string str,
-                                                    std::string keyValueSeparator,
-                                                    std::string pairSeparator,
-                                                    bool ignoreWhitespace = true    )
+    inline std::map<std::string,std::string> mapifyString(  const std::string & str,
+                                                            const std::string & keyValueSeparator,
+                                                            const std::string & pairSeparator   )
     {
-        std::map<std::string,std::string> map = {};
-        return mapifyStringHelper( map, str, keyValueSeparator, pairSeparator, ignoreWhitespace);
+        std::map<std::string,std::string> map;
+        return mapifyStringHelper( map, str, keyValueSeparator, pairSeparator);
     }
 
 
     /**
      * Variant of mapifyString that works for std::unordered_maps 
     */
-    inline std::unordered_map<std::string,std::string> unordered_mapifyString(  std::string str,
+    inline std::unordered_map<std::string,std::string> unorderedMapifyString(  std::string str,
                                                                                 std::string keyValueSeparator = ":",
-                                                                                std::string pairSeparator  = ",",
-                                                                                bool ignoreWhitespace = true    )
+                                                                                std::string pairSeparator  = ","    )
     {
-        std::unordered_map<std::string,std::string> unordered_map = {};
-        return mapifyStringHelper( unordered_map, str, keyValueSeparator, pairSeparator, ignoreWhitespace);
+        std::unordered_map<std::string,std::string> unordered_map;
+        return mapifyStringHelper( unordered_map, str, keyValueSeparator, pairSeparator);
     }
 
 
@@ -450,16 +444,16 @@ namespace stevensStringLib
      *  @param keyValueSeparator - The string that separates keys from their values in the returned string.
      *  @param pairSeparator - The string that separates key-value pairs in the returned string.
      * 
-     *  @retval std::string - The all contents of the unordered map turned into a string list of separated key-value pairs.
+     *  @retval The all contents of the unordered map turned into a string list of separated key-value pairs.
     */
     template<typename T>
-    inline std::string stringifyMap(    T map,
-                                        std::string keyValueSeparator = ":",
-                                        std::string pairSeparator =     "," )
+    inline std::string stringifyMap(    const T & map,
+                                        const std::string & keyValueSeparator = ":",
+                                        const std::string & pairSeparator =     "," )
     {
         std::string stringifiedMap = "";
         //Iterate through the unordered map, appending each pair to the string
-        for(auto & [key,value] : map )
+        for(const auto & [key,value] : map )
         {
             if(!stringifiedMap.empty())
             {
