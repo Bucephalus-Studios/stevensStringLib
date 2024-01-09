@@ -24,10 +24,8 @@ TEST( contains, substring_is_string )
     //Arrange
     std::string string = "hello";
     std::string substring = "hello";
-    //Act
-    bool result = contains(string, substring);
-    //Assert
-    ASSERT_TRUE(result);
+    //Act and assert
+    ASSERT_TRUE(contains(string, substring));
 }
 
 TEST( contains, empty_string_and_empty_substring)
@@ -35,10 +33,8 @@ TEST( contains, empty_string_and_empty_substring)
     //Arrange
     std::string string = "";
     std::string substring = "";
-    //Act
-    bool result = contains(string, substring);
-    //Assert
-    ASSERT_TRUE(result);
+    //Act and assert
+    ASSERT_TRUE(contains(string, substring));
 }
 
 TEST( contains, string_contains_empty_string)
@@ -46,10 +42,8 @@ TEST( contains, string_contains_empty_string)
     //Arrange
     std::string string = "hello";
     std::string substring = "";
-    //Act
-    bool result = contains(string, substring);
-    //Assert
-    ASSERT_TRUE(result);
+    //Act and assert
+    ASSERT_TRUE(contains(string, substring));
 }
 
 TEST( contains, empty_string_does_not_contain_string)
@@ -57,20 +51,16 @@ TEST( contains, empty_string_does_not_contain_string)
     //Arrange
     std::string string = "";
     std::string substring = "hello";
-    //Act
-    bool result = contains(string, substring);
-    //Assert
-    ASSERT_FALSE(result);
+    //Act and assert
+    ASSERT_FALSE(contains(string, substring));
 }
 
 TEST( contains, test_on_large_string)
 {
     //Arrange
     std::string substring = "conflagration";
-    //Act
-    bool result = contains(frankenstein_fulltext, substring);
-    //Assert
-    ASSERT_TRUE(result);
+    //Act and assert
+    ASSERT_TRUE(contains(frankenstein_fulltext, substring));
 }
     
 
@@ -89,6 +79,16 @@ TEST( separate, separate_3_comma_delmited_words)
     }
     else
     {
+        std::cout << "Expected result: " << std::endl;
+        for(int i = 0; i < modelResult.size(); i++)
+        {
+            std::cout << modelResult[i] << std::endl;
+        }
+        std::cout << "Actual result: " << std::endl;
+        for(int i = 0; i < result.size(); i++)
+        {
+            std::cout << result[i] << std::endl;
+        }
         FAIL();
     }
 }
@@ -269,7 +269,7 @@ TEST(isInteger, check_non_integer)
 TEST(isInteger, check_overflowed_number)
 {
     //Arrange
-    std::string string = "999999999999999999999";
+    std::string string = "9999999999999999999999999999999";
     //Act
     bool result = isInteger(string);
     //Assert
@@ -283,7 +283,7 @@ TEST(isInteger, check_float)
     //Act
     bool result = isInteger(string);
     //Assert
-    ASSERT_FALSE(result);
+    ASSERT_FALSE(result) << "string=" << string;
 }
 
 TEST(isInteger, check_expression)
@@ -330,10 +330,18 @@ TEST(isFloat, nothing_to_left_of_point)
     ASSERT_TRUE(isFloat(string)) << "string=" << string;
 }
 
+TEST(isFloat, check_scientific_notation)
+{
+    //Arrange
+    std::string string = "2.05e3";
+    //Act and assert
+    ASSERT_TRUE(isFloat(string)) << "string=" << string;
+}
+
 TEST(isFloat, too_precise_of_number)
 {
     //Arrange
-    std::string string = ".12341231231231231231231231231231233123123123123123123";
+    std::string string = ".123412312312312312312312312312312331231231231231231231234123123123123123123123123123123312312312312312312312341231231231231231231231231231233123123123123123123";
     //Act and assert
     ASSERT_FALSE(isFloat(string)) << "string=" << string;
 }
@@ -342,115 +350,115 @@ TEST(isFloat, too_precise_of_number)
 /*** isNumber ***/
 
 
-/*** string_to_bool ***/
-TEST(stringToBool, check_true)
+/*** stringToBool ***/
+TEST(stringToBoolTest, check_true)
 {
     //Arrange
     std::string string = "true";
     //Act
-    bool result = string_to_bool(string);
+    bool result = stringToBool(string);
     //Assert
     ASSERT_TRUE(result);
 }
 
-TEST(stringToBool, check_false)
+TEST(stringToBoolTest, check_false)
 {
     //Arrange
     std::string string = "false";
     //Act
-    bool result = string_to_bool(string);
+    bool result = stringToBool(string);
     //Assert
     ASSERT_FALSE(result);
 }
 
-TEST(stringToBool, check_TRUE)
+TEST(stringToBoolTest, check_TRUE)
 {
     //Arrange
     std::string string = "TRUE";
     //Act
-    bool result = string_to_bool(string);
+    bool result = stringToBool(string);
     //Assert
     ASSERT_TRUE(result);
 }
 
-TEST(stringToBool, check_FALSE)
+TEST(stringToBoolTest, check_FALSE)
 {
     //Arrange
     std::string string = "FALSE";
     //Act
-    bool result = string_to_bool(string);
+    bool result = stringToBool(string);
     //Assert
     ASSERT_FALSE(result);
 }
 
-TEST(stringToBool, check_true_alternating_caps)
+TEST(stringToBoolTest, check_true_alternating_caps)
 {
     //Arrange
     std::string string = "tRuE";
     //Act
-    bool result = string_to_bool(string);
+    bool result = stringToBool(string);
     //Assert
     ASSERT_TRUE(result);
 }
 
-TEST(stringToBool, check_0)
+TEST(stringToBoolTest, check_0)
 {
     //Arrange
     std::string string = "0";
     //Act
-    bool result = string_to_bool(string);
+    bool result = stringToBool(string);
     //Assert
     ASSERT_FALSE(result);
 }
 
-TEST(stringToBool, check_9001)
+TEST(stringToBoolTest, check_9001)
 {
     //Arrange
     std::string string = "9001";
     //Act
-    bool result = string_to_bool(string);
+    bool result = stringToBool(string);
     //Assert
     ASSERT_TRUE(result);
 }
 
 
-/*** bool_to_string ***/
-TEST(boolToString, check_true)
+/*** boolToString ***/
+TEST(boolToStringTest, check_true)
 {
     //Arrange
     bool myBool = true;
     //Act
-    std::string result = bool_to_string(myBool);
+    std::string result = boolToString(myBool);
     //Assert
     ASSERT_STREQ(result.c_str(), "true");
 }
 
-TEST(boolToString, check_false)
+TEST(boolToStringTest, check_false)
 {
     //Arrange
     bool myBool = false;
     //Act
-    std::string result = bool_to_string(myBool);
+    std::string result = boolToString(myBool);
     //Assert
     ASSERT_STREQ(result.c_str(), "false");
 }
 
-TEST(boolToString, check_9001)
+TEST(boolToStringTest, check_9001)
 {
     //Arrange
     int myInt = 9001;
     //Act
-    std::string result = bool_to_string(myInt);
+    std::string result = boolToString(myInt);
     //Assert
     ASSERT_STREQ(result.c_str(), "true");
 }
 
-TEST(boolToString, check_0)
+TEST(boolToStringTest, check_0)
 {
     //Arrange
     int myInt = 0;
     //Act
-    std::string result = bool_to_string(myInt);
+    std::string result = boolToString(myInt);
     //Assert
     ASSERT_STREQ(result.c_str(), "false");
 }
@@ -912,33 +920,33 @@ TEST(trimWhitespace, nothing_to_trim)
 }
 
 
-/*** char_to_string ***/
-TEST(charToString, check_a)
+/*** charToString ***/
+TEST(charToStringTest, check_a)
 {
     //Arrange
     char myChar = 'a';
     //Act
-    std::string string = char_to_string(myChar);
+    std::string string = charToString(myChar);
     //Assert
     ASSERT_STREQ(string.c_str(), "a");
 }
 
-TEST(charToString, check_newline)
+TEST(charToStringTest, check_newline)
 {
     //Arrange
     char myChar = '\n';
     //Act
-    std::string string = char_to_string(myChar);
+    std::string string = charToString(myChar);
     //Assert
     ASSERT_STREQ(string.c_str(), "\n");
 }
 
-TEST(charToString, check_number)
+TEST(charToStringTest, check_number)
 {
     //Arrange
     char myChar = 90;
     //Act
-    std::string string = char_to_string(myChar);
+    std::string string = charToString(myChar);
     //Assert
     ASSERT_STREQ(string.c_str(), "Z");
 }

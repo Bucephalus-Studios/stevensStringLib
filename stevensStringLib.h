@@ -21,6 +21,7 @@
 #include<algorithm>
 #include<vector>
 #include<string>
+#include<string_view>
 #include<limits>
 #include<sstream>
 #include<fstream>
@@ -34,80 +35,240 @@
 namespace stevensStringLib
 {
     /**
+     * @deprecated
+     * In C++23 and onward, please use the std::string::contains() method instead of this function.
+     * 
      * Given a string, determine whether it has an occurrence of the substring somewhere 
      * within it.
      * 
      *  @param str - The string we are examining to see if it contains the substring.
-     *  @param substring - The substring we are trying to see if it is contained in str.
+     *  @param substring - The substring we are checking to if it is contained in str.
      * 
      *  @retval Boolean indicating that input string contains the substring (true) or not (false).
      */
-    inline bool contains(   const std::string & str,
-                            const std::string & substring   )
+    inline bool contains(   const std::string_view & str,
+                            const std::string_view & substring   )
     {
         return (str.find(substring) != std::string::npos);
     }
 
 
     /**
+     * @deprecated
+     * In C++23 and onward, please use the std::string::contains() method instead of this function.
+     * 
+     * Given a string, determine whether it has an occurrence of a character somewhere 
+     * within it.
+     * 
+     *  @param str - The string we are examining to see if it contains the substring.
+     *  @param ch - The char we are checking to see if it is contained in str.
+     * 
+     *  @retval Boolean indicating that input string contains the substring (true) or not (false).
+     */
+    inline bool contains(   const std::string_view & str,
+                            const char ch  )
+    {
+        return (str.find(ch) != std::string::npos);
+    }
+
+
+    /**
+     * @brief 
+     * Given a string, determine if it contains only the characters in the given string.
+     * 
+     * Example:
+     * str = "11101112222"
+     * substrs = {"111","2"};
+     * 
+     * Result: false, str contains the character '0', which is not equal to "111", or "2";
+     * 
+     * @param str - The string we are checking to see if it only contains characters present in the chars string.
+     * @param chars - A string of characters we are checking to see if str contains any characters that are not in chars.
+     * @return true if str contains only instances of keys in substrs.
+     * @return false if str contains at least one substring that is not present as a key in substrs.
+     */
+    inline bool containsOnly(   const std::string_view & str,
+                                const std::string_view & chars )
+    {
+        //For each character in chars, check to see if it is contained within str
+        for(int i = 0; i < chars.length(); i++)
+        {
+            if(!stevensStringLib::contains(str, chars[i]))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+        /**
+     * Given a string str, find all occurrences of a substring within it. Returns a vector of all of the indices that the substring
+     * occurs at within the string str.
+     * 
+     * Credit to Benjamin Lindley: https://stackoverflow.com/a/4034809
+     * 
+     * @param str - The string we are searching for the substring in.
+     * @param substr - The substring we are looking for within string str.
+     * 
+     * @retval std::vector<size_t> - A vector containing all indices in increasing order that the substr occurs at.
+    */
+    inline std::vector<size_t> findAll(     const std::string & str,
+                                            const std::string & substr  )
+    {
+        std::vector<size_t> positions;
+
+        size_t pos = str.find(substr, 0);
+        while(pos != std::string::npos)
+        {
+            positions.push_back(pos);
+            pos = str.find(substr,pos+1);
+        }
+
+        return positions;
+    }
+
+
+    /**
+     * Given a string str, find all occurrences of a character within it. Returns a vector of all of the indices that the character
+     * occurs at within the string str.
+     * 
+     * Credit to Benjamin Lindley: https://stackoverflow.com/a/4034809
+     * 
+     * @param str - The string we are searching for the substring in.
+     * @param ch - The character we are looking for within string str.
+     * 
+     * @retval std::vector<size_t> - A vector containing all indices in increasing order that ch occurs at.
+    */
+    inline std::vector<size_t> findAll(     const std::string & str,
+                                            const char ch  )
+    {
+        std::vector<size_t> positions;
+
+        size_t pos = str.find(ch, 0);
+        while(pos != std::string::npos)
+        {
+            positions.push_back(pos);
+            pos = str.find(ch,pos+1);
+        }
+
+        return positions;
+    }
+
+
+    /**
+     * 
+     * 
+     * Separates a string by a separator character. Returns a vector of strings that were separated.
+     * 
+     * Example:
+     * 
+     * std::vector<std::string> result = separate("John,Gina,Sebastian,Nick");
+     * 
+     * //Value of result is: {"John","Gina","Sebastian","Nick"}
+     * 
+     * @param str - The string we intend to separate with this function.
+     * @param separator - The char we intend to separate str by.
+     * @param omitEmptyStrings - If true, do not include empty strings in the returned vector.
+     *
+     * @retval A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
+     */
+    inline std::vector<std::string> separate(   const std::string_view & str,
+                                                const char separator = ',',
+                                                const bool omitEmptyStrings = true  )
+    {
+        //If we are given an empty string, just return an empty vector
+        if(str.empty())
+        {
+            return {};
+        }
+
+        //Initialize all the variables we'll be using in our loop
+        std::vector<std::string> separatedStringsVec;
+        std::string separatedString;
+        size_t currSeparatorIndex;
+        size_t prevSeparatorIndex = 0;
+
+        //Loop until we've found all of the separator chars in the string_view
+        while(true)
+        {
+            //Look for a separator char in the string_view
+            currSeparatorIndex = str.find(separator, prevSeparatorIndex);
+            //If the separator is not found, just get everything up until the end 
+            if(currSeparatorIndex == std::string_view::npos)
+            {
+                separatedString = str.substr(prevSeparatorIndex, str.length());
+                separatedStringsVec.push_back(separatedString);
+                break;
+            }
+            //Once we've found the index, of the separator char, get all of the string that we jumped over since the last separator character
+            separatedString = str.substr(prevSeparatorIndex, currSeparatorIndex-prevSeparatorIndex);
+            //Push it bank into our vector
+            separatedStringsVec.push_back(separatedString);
+            //Set the prevSeparatorIndex to currSeparatorIndex now
+            prevSeparatorIndex = currSeparatorIndex + 1;
+        }
+
+        //If we are omitting empty strings in our result, erase all of that we found
+        if(omitEmptyStrings)
+        {
+            separatedStringsVec.erase(std::remove(separatedStringsVec.begin(), separatedStringsVec.end(), ""), separatedStringsVec.end());
+        }
+
+        return separatedStringsVec;
+    }
+
+
+    /**
+     * 
+     * 
+     * Variant of separate that lets you separate by strings instead of chars.
+     * 
      * Separates a string by a separator substring. Returns a vector of strings that 
      * were separated by the separator substring.
      * 
      * Example:
      * 
-     * std::vector<std::string> result = separate( "John,Gina,Sebastian,Nick", ",")
+     * std::vector<std::string> result = separate("Wakko and Yakko and Dot", " and ");
      * 
-     * //Value of result is: {"John","Gina","Sebastian","Nick"}
+     * //Value of result is: {"Wakko","Yakko","Dot"}
      *
-     *  @param str - The string we intend to separate with this function.
-     *  @param separator - The substring of str we intend to separate it by.
-     *  @param omitEmptyStrings - If true, do not include empty strings in the returned vector.
+     * @param str - The string we intend to separate with this function.
+     * @param separator - The substring of str we intend to separate it by.
+     * @param omitEmptyStrings - If true, do not include empty strings in the returned vector.
      *
-     *  @retval A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
+     * @retval A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
      */
     inline std::vector<std::string> separate(   const std::string & str,
-                                                const std::string & separator = ",",
+                                                const std::string_view & separator,
                                                 const bool omitEmptyStrings = true  )
     {
-        std::vector<std::string> separatedStrings;
-        std::string word;;
-
         //If we have a single character separator, we can use a more efficient method
         if(separator.length() == 1)
         {
-            //Credit to https://stackoverflow.com/a/5757851
-            std::istringstream split(str);
-            for (std::string each; std::getline(split, each, separator[0]); separatedStrings.push_back(each));
-            //Check to see if the last element needs a separator character trimmed off (if there exists a trailing separator character)
-            // if(!separatedStrings.empty())
-            // {
-            //     if(separatedStrings.back().back() == separator[0])
-            //     {
-            //         separatedStrings.back().pop_back();
-            //     }
-            // }
+            return stevensStringLib::separate( str, separator[0], omitEmptyStrings );
         }
-        else
+
+        std::vector<std::string> separatedStrings;
+        std::string word;
+        //Iterate through the input string and piece together the strings we want to separate
+        for(int i = 0; i < str.length(); i++)
         {
-            //Iterate through the input string and piece together the strings we want to separate
-            for(int i = 0; i < str.length(); i++)
+            word += str[i];
+            //Every time we add a character to the word, we check to see if it contains the separator
+            if(contains(word, separator))
             {
-                word += str[i];
-                //Every time we add a character to the word, we check to see if it contains the separator
-                if(contains(word, separator))
-                {
-                    //Extract the separator from the word
-                    word.erase(word.find(separator), separator.length());
-                    //Push the word into the vector
-                    separatedStrings.push_back(word);
-                    //Clear the word
-                    word.clear();
-                }
+                //Extract the separator from the word
+                word.erase(word.find(separator), separator.length());
+                //Push the word into the vector
+                separatedStrings.push_back(word);
+                //Clear the word
+                word.clear();
             }
-            //If we had no separators at all, or if the string doesn't end in a separator, we push the remaining
-            //word to the vector.
-            separatedStrings.push_back(word);
         }
+        //If we had no separators at all, or if the string doesn't end in a separator, we push the remaining
+        //word to the vector.
+        separatedStrings.push_back(word);
         
         //If we are omitting empty strings in our result, erase all of that we found
         if(omitEmptyStrings)
@@ -154,42 +315,84 @@ namespace stevensStringLib
 
 
     /**
-     * Detects if a string is in the form of a valid C++ integer.
+     * Detects if a string is in the form of a valid C++ integer/integral type (bool, char, short, int, long int, long long int).
      * 
-     * @param str - A string we are checking to see if it represents an integer.
+     * @param str - A string we are checking to see if it represents an integer/integral type.
      * 
      * @retval bool - true if the string str represents an integer, false otherwise.
     */
-    inline bool isInteger( const std::string & str )
+    inline bool isInteger( const std::string_view & str )
     {
-        for (int charIndex = 0; charIndex < str.length(); charIndex++)
-        {
-            //The first index has the possibility of having a negative sign
-            if(charIndex == 0)
-            {
-                if(str[charIndex] == '-')
-                {
-                    continue;
-                }
-            }
-            //Check to see if the character is a numerical digit
-            if (!isdigit(str[charIndex]))
-            {
-                return false;
-            }
-        }
-        
-        //Now that we're sure we have a string that contains only digits and possibly a negative sign, we check
-        //to see if converting the string to an integer will cause errors 
-        int value;
+        //Test to see if the string can be parsed into a long long int
+        long long int value;
         const auto res = std::from_chars(   str.data(), 
                                             str.data() + str.size(), 
                                             value );
+
+        //Return false if we have relevant errors
         if (res.ec == std::errc::invalid_argument)
         {
             return false;
         }
         else if (res.ec == std::errc::result_out_of_range)
+        {
+            return false;
+        }
+
+        //If we have a decimal point in the string, check to see if there are any nonzero digits to the right of the point
+        char point = std::use_facet< std::numpunct<char> >(std::cout.getloc()).decimal_point();
+        if(contains(str, point))
+        {
+            std::vector<std::string> wholeAndDecimalParts = stevensStringLib::separate(str, point, false);
+            //Take the decimal part, and check to see if it contains anything other than zeroes
+            if(!containsOnly(wholeAndDecimalParts[1], "0"))
+            {
+                return false;
+            }
+        }
+
+        //Otherwise, return true
+        return true;
+    }
+
+
+    /**
+     * Detects if a string is in the form of a valid c++ floating point type (float, double, long double).
+     * 
+     * @param str - A string we are checking to see if it represents a floating point type.
+     * 
+     * @retval bool - true if the string str represents a floating point type. False otherwise.
+    */
+    inline bool isFloat( const std::string & str )
+    {
+        //Test to see if the string can be parsed into a long double
+        long double value;
+        const auto format = std::chars_format::general;
+        const auto res = std::from_chars(   str.data(), 
+                                            str.data() + str.size(), 
+                                            value, 
+                                            format  );
+
+        //Return false if we have relevant errors
+        if (res.ec == std::errc::invalid_argument)
+        {
+            return false;
+        }
+        else if (res.ec == std::errc::result_out_of_range)
+        {
+            return false;
+        }
+        
+        //Check to see if we have more than one decimal point (Only can have one decimal point)
+        char point = std::use_facet< std::numpunct<char> >(std::cout.getloc()).decimal_point();
+        if(stevensStringLib::findAll(str, point).size() > 1)
+        {
+            return false;
+        }
+
+        //Check to see if the double we are converting is too precise to be a long double (Cannot have numbers that are too precise)
+        std::vector<std::string> wholeAndDecimalParts = stevensStringLib::separate(str, point, false);
+        if( wholeAndDecimalParts[1].length() > std::numeric_limits<long double>::digits10 )
         {
             return false;
         }
@@ -200,69 +403,72 @@ namespace stevensStringLib
 
 
     /**
-     * Detects if a string is in the form of a valid c++ floating point number.
+     * @brief 
      * 
-     * @param str - A string we are checking to see if it represents a floating point number.
+     * Given a string, check to see if it represents a number in standard notation. Useful to check numbers that may cause overflow or underflow
+     * to be check with isInteger or may be too precise to be checked with isFloat.
      * 
-     * @retval bool - true if the string str represents a floating point number. False otherwise.
-    */
-    inline bool isFloat( const std::string & str )
+     * Example: 
+     * isStandardNumber("-214748364721474836472147483647.123123123123123") == true
+     * isStandardNumber("2.5e2") == false
+     * 
+     * @param str The string we are checking to see if it represents a number in standard notation.
+     * @return true if str represents a number in standard notation
+     * @return false if str does not represent a number in standard notation
+     */
+    inline bool isStandardNumber(   const std::string_view & str  )
     {
-        //Let's keep track of if we've seen the decimal point or not
-        bool seenDecimalPoint = false;
+        //If our string is empty, return false
+        if(str.empty())
+        {
+            return false;
+        }
+        //If we have a string of length 1, just check to see if the single character is a digit
+        else if(str.length() == 1)
+        {
+            return std::isdigit(str[0]);
+        }
+        //Get the decimal point for our locale
         char point = std::use_facet< std::numpunct<char> >(std::cout.getloc()).decimal_point();
-        for (int charIndex = 0; charIndex < str.length(); charIndex++)
+        bool seenDecimalPoint = false;
+        //Otherwise, iterate through all of the characters in the string and examine each one
+        for(int i = 0; i < str.length(); i++)
         {
-            //The first index has the possibility of having a negative sign
-            if(charIndex == 0)
+            switch(i)
             {
-                if(str[charIndex] == '-')
-                {
-                    continue;
-                }
-            }
-            if(!seenDecimalPoint)
-            {
-                if(str[charIndex] == point)
-                {
-                    seenDecimalPoint = true;
-                    continue;
-                }
-            }
-            //Check to see if the character is a numerical digit
-            if(!isdigit(str[charIndex]))
-            {
-                return false;
+                //Check to see if the first character in the string is a sign. We allow this!
+                case 0:
+                    if(str[i] == '-' || str[i] == '+')
+                    {
+                        continue;
+                    }
+                default:
+                    //Check to see if the character is a decimal point
+                    if(str[i] == point)
+                    {
+                        if(!seenDecimalPoint)
+                        {
+                            seenDecimalPoint = true;
+                        }
+                        //Numbers in standard notation only contain a single decimal point, so we return false.
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    //Check to see if the character is a numerical digit
+                    else if(!isdigit(str[i]))
+                    {
+                        //If we have a character that's not a numerical digit which is not a decimal point or negative sign, it's not in standard notation. Return false.
+                        return false;
+                    }
+                    break;
             }
         }
 
-        //If we've looked at the whole string and not found a decimal point, then we couldn't be looking at a floating point number.
-        if(!seenDecimalPoint)
-        {
-            return false;
-        }
-
-        //Now that we're sure we have digits with a decimal point, and possibly a negative sign in front, we convert the string to
-        //a floating point number using std::from_chars to see if we run into any problems.
-        double value = 0;
-        const auto format = std::chars_format::general;
-        const auto res = std::from_chars(   str.data(), 
-                                            str.data() + str.size(), 
-                                            value, 
-                                            format  );
-        if (res.ec == std::errc::invalid_argument)
-        {
-            return false;
-        }
-        else if (res.ec == std::errc::result_out_of_range)
-        {
-            return false;
-        }
-
-        //Otherwise, return true
+        //We've made it past all of the checks by this point, so we must have a string representing a number in standard notation.
         return true;
     }
-
 
 
     /**
@@ -274,9 +480,14 @@ namespace stevensStringLib
      *  @retval bool - True if the string represents a number. False if otherwise.
      *    
      */
-    inline bool isNumber(  const std::string & str   )
+    inline bool isNumber(  const std::string_view & str   )
     {
-        return ( isInteger(str) || isFloat(str) );
+        //Method 1: Check for standard integer/floating point notation
+        bool standardResult = stevensStringLib::isStandardNumber(str);
+        //Method 2: Check for a scientific notation
+        //TODO isScientificNumber()
+
+        return standardResult; // || scientificResult;
     }
 
 
@@ -301,7 +512,7 @@ namespace stevensStringLib
             // has converted it into an integer or float via
             // std::from_chars. Here we are doing a third scan of the string.
             // It's a lot!
-            return !(std::stold(str) == 0);
+            return std::stold(str);
         }
         return false;
     }
@@ -375,13 +586,13 @@ namespace stevensStringLib
     {
 
         //Separate the pairs
-        std::vector<std::string> keysAndValues = separate(str,pairSeparator);
+        std::vector<std::string> keysAndValues = stevensStringLib::separate(str,pairSeparator);
 
         //Separate the keys and values
         std::vector<std::string> keyAndValue; 
         for(int i = 0; i < keysAndValues.size(); i++)
         {
-            keyAndValue = separate(keysAndValues[i], keyValueSeparator);
+            keyAndValue = stevensStringLib::separate(keysAndValues[i], keyValueSeparator);
             /*if(keyAndValue.size() == 0)
             {
                 //No keys or values found, skip
@@ -631,33 +842,6 @@ namespace stevensStringLib
 
 
     /**
-     * Given a string str, find all occurrences of a substring within it. Returns a vector of all of the indices that the substring
-     * occurs at within the string str.
-     * 
-     * Credit to Benjamin Lindley: https://stackoverflow.com/a/4034809
-     * 
-     * @param str - The string we are searching for the substring in.
-     * @param substr - The substring we are looking for within string str.
-     * 
-     * @retval std::vector<size_t> - A vector containing all indices in increasing order that the substr occurs at.
-    */
-    inline std::vector<size_t> findAll(     const std::string & str,
-                                            const std::string & substr  )
-    {
-        std::vector<size_t> positions;
-
-        size_t pos = str.find(substr, 0);
-        while(pos != std::string::npos)
-        {
-            positions.push_back(pos);
-            pos = str.find(substr,pos+1);
-        }
-
-        return positions;
-    }
-
-
-    /**
      * Given a locale, return all of the whitespace characters for that locale in a string.
      * 
      * Credit to Nathan Oliver: https://stackoverflow.com/a/36311304/16511184
@@ -779,7 +963,34 @@ namespace stevensStringLib
 
 
     //negativeIndex
-    //with aliases ni / neg_i
+
+
+    /**
+     * @deprecated
+     * In C++20 and onward, please use std::string.starts_with instead.
+     * 
+     * @brief Check a string to see if it begins with a substring.
+     * 
+     * @param str - The string we are checking to see if it begins with another substring.
+     * @param substr - The substring we are checking the beginning of str against to see if they are equal.
+     * @return true if the string str begins with substr
+     * @return false  if the string str does NOT begin with substr
+     */
+    inline bool startsWith(     const std::string_view & str, 
+                                const std::string_view & substr )
+    {
+        //If the substring is longer than the string, then it's not possible for the string to start with the substring
+        if(str.length() < substr.length())
+        {
+            return false;
+        }
+        //Check the beginning of str to see if it is equivalent to substr
+        if(str.substr(0,substr.length()) == substr)
+        {
+            return true;
+        }
+        return false;
+    }
 
 }
 #endif
