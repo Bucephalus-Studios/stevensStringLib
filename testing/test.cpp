@@ -1,7 +1,7 @@
 /**
  * This is the code for testing stevensStringLib. All testing is carried out with GoogleTest.
  * 
- * To run these tests on your machine, you should use the cmake tool in the "testing" folder by running the command "cmake -S . -B build_of_test".
+ * To run these tests on your machine, you should use the cmake tool in the "testing" folder by running the command "cmake -S . -B build".
  * This will generate an makefile to create an executable in the "build_of_test" folder. Then, go to the "build_of_test" folder and run the command "make".
  * Once you have done this, you should have an executable named "test" in the "build_of_test" folder which you can run.
 */
@@ -240,60 +240,56 @@ TEST(isInteger, check_100)
 {
     //Arrange
     std::string string = "100";
-    //Act
-    bool result = isInteger(string);
-    //Assert
-    ASSERT_TRUE(result);
+    //Act and assert
+    ASSERT_TRUE(isInteger(string)) << "string=" << string;
 }
 
 TEST(isInteger, check_negative_100)
 {
     //Arrange
     std::string string = "-100";
-    //Act
-    bool result = isInteger(string);
-    //Assert
-    ASSERT_TRUE(result);
+    //Act and assert
+    ASSERT_TRUE(isInteger(string)) << "string=" << string;
 }
 
 TEST(isInteger, check_non_integer)
 {
     //Arrange
     std::string string = "beebop";
-    //Act
-    bool result = isInteger(string);
-    //Assert
-    ASSERT_FALSE(result);
+    //Act and assert
+    ASSERT_FALSE(isInteger(string)) << "string=" << string;
 }
 
 TEST(isInteger, check_overflowed_number)
 {
     //Arrange
     std::string string = "9999999999999999999999999999999";
-    //Act
-    bool result = isInteger(string);
-    //Assert
-    ASSERT_FALSE(result);
+    //Act and assert
+    ASSERT_FALSE(isInteger(string)) << "string=" << string;
 }
 
 TEST(isInteger, check_float)
 {
     //Arrange
     std::string string = "3.14159";
-    //Act
-    bool result = isInteger(string);
-    //Assert
-    ASSERT_FALSE(result) << "string=" << string;
+    //Act and assert
+    ASSERT_FALSE(isInteger(string)) << "string=" << string;
 }
 
 TEST(isInteger, check_expression)
 {
     //Arrange
     std::string string = "(3/2)+4";
-    //Act
-    bool result = isInteger(string);
-    //Assert
-    ASSERT_FALSE(result);
+    //Act and assert
+    ASSERT_FALSE(isInteger(string)) << "string=" << string;
+}
+
+TEST(isInteger, check_empty_string)
+{
+    //Arrange
+    std::string string = "";
+    //Act and assert
+    ASSERT_FALSE(isInteger(string)) << "string=" << string;
 }
 
 
@@ -338,16 +334,157 @@ TEST(isFloat, check_scientific_notation)
     ASSERT_TRUE(isFloat(string)) << "string=" << string;
 }
 
-TEST(isFloat, too_precise_of_number)
+TEST(isFloat, very_precise_number)
 {
     //Arrange
     std::string string = ".123412312312312312312312312312312331231231231231231231234123123123123123123123123123123312312312312312312312341231231231231231231231231231233123123123123123123";
     //Act and assert
+    ASSERT_TRUE(isFloat(string)) << "string=" << string;
+}
+
+
+TEST(isFLoat, lots_of_insignificant_figures)
+{
+    //Arrange
+    std::string string = "1.23000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+    //ACt and assert
+    ASSERT_TRUE(isFloat(string)) << "string=" << string; 
+}
+
+
+TEST(isFloat, check_empty_string)
+{
+    //Arrange
+    std::string string = "";
+    //Act and assert
     ASSERT_FALSE(isFloat(string)) << "string=" << string;
+}
+
+TEST(isFloat, check_42)
+{
+    //Arrange
+    std::string string = "42";
+    //Act and assert
+    ASSERT_TRUE(isFloat(string)) << "string=" << string;
+}
+
+TEST(isFloat, check_precise_scientfic_number)
+{
+    //Arrange
+    std::string string = "8.025000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000e2";
+    //Act and assert
+    ASSERT_TRUE(isFloat(string)) << "string=" << string;
+}
+
+
+/*** isStandardNumber ***/
+TEST(isStandardNumber, check_zero)
+{
+    //Arrange
+    std::string string = "0";
+    //Act and assert
+    ASSERT_TRUE(isStandardNumber(string)) << "string=" << string;
+}
+
+TEST(isStandardNumber, check_big_number_that_will_overflow)
+{
+    //Arrange
+    std::string string = "-214748364721474836472147483647.123123123123123";
+    //Act and assert
+    ASSERT_TRUE(isStandardNumber(string)) << "string=" << string;
+}
+
+TEST(isStandardNumber, check_scientific_number)
+{
+    //Arrange
+    std::string string = "2.5e2";
+    //Act and assert
+    ASSERT_FALSE(isStandardNumber(string)) << "string=" << string;
+}
+
+
+/*** isScientificNumber ***/
+TEST(isScientificNumber, check_scientific_number_with_e)
+{
+    //Arrange
+    std::string string = "2.5e2";
+    //Act and assert
+    ASSERT_TRUE(isScientificNumber(string)) << "string=" << string;
+}
+
+TEST(isScientificNumber, check_scientific_number_with_uppercase_e)
+{
+    //Arrange
+    std::string string = "5.22E32";
+    //Act and assert
+    ASSERT_TRUE(isScientificNumber(string)) << "string=" << string;
+}
+
+TEST(isScientificNumber, check_scientific_number_with_x)
+{
+    //Arrange
+    std::string string = "+1.17x10^532";
+    //Act and assert
+    ASSERT_TRUE(isScientificNumber(string)) << "string=" << string;
+}
+
+TEST(isScientificNumber, check_scientific_number_with_uppercase_x)
+{
+    //Arrange
+    std::string string = "6232.006X10^11";
+    //Act and assert
+    ASSERT_TRUE(isScientificNumber(string)) << "string=" << string;
+}
+
+TEST(isScientificNumber, check_scientific_number_with_asterisk)
+{
+    //Arrange
+    std::string string = "0.023*10^5";
+    //Act and assert
+    ASSERT_TRUE(isScientificNumber(string)) << "string=" << string;
+}
+
+TEST(isScientificNumber, check_standard_number)
+{
+    //Arrange
+    std::string string = "-23456";
+    //Act and assert
+    ASSERT_FALSE(isScientificNumber(string)) << "string=" << string;
 }
 
 
 /*** isNumber ***/
+TEST(isNumber, check_non_number)
+{
+    //Arrange
+    std::string string = "A blood moon is rising to honor the old ancient skies!";
+    //Act and assert
+    ASSERT_FALSE(isNumber(string)) << "string=" << string;
+}
+
+TEST(isNumber, check_number_and_letter_mix)
+{
+    //Arrange
+    std::string string = "f4h6c3k0f6k2la05jfm49gn3o320tjniew";
+    //Act and assert
+    ASSERT_FALSE(isNumber(string)) << "string=" << string;
+}
+
+TEST(isNumber, check_scientific_number)
+{
+    //Arrange
+    std::string string = "7.92850238e28";
+    //Act and assert
+    ASSERT_TRUE(isNumber(string)) << "string=" << string;
+}
+
+TEST(isNumber, check_real_number)
+{
+    //Arrange
+    std::string string = "-123456789101112131415";
+    //Act and assert
+    ASSERT_TRUE(isNumber(string)) << "string=" << string;
+}
 
 
 /*** stringToBool ***/
@@ -633,7 +770,7 @@ TEST(wrapToWidth, wrap_to_width_3)
     //Arrange
     std::string string = "111222333";
     int width = 3;
-    std::string modelResult = "111\n222\n333\n";
+    std::string modelResult = "111\n222\n333";
     //Act
     std::string result = wrapToWidth(string, width);
     //Assert

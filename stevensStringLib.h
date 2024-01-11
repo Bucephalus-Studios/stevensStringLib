@@ -877,7 +877,9 @@ namespace stevensStringLib
             {
                 stringifiedMap += pairSeparator;
             }
-            stringifiedMap += key + keyValueSeparator + value;
+            stringifiedMap += key;
+            stringifiedMap += keyValueSeparator;
+            stringifiedMap += value;
         }
         return stringifiedMap;
     }
