@@ -77,10 +77,9 @@ namespace stevensStringLib
      * Given a string, determine if it contains only the characters in the given string.
      * 
      * Example:
-     * str = "11101112222"
-     * substrs = {"111","2"};
+     * containsOnly("11101112222","12")
      * 
-     * Result: false, str contains the character '0', which is not equal to "111", or "2";
+     * Result: false, str contains the character '0', which is not equal to '1', or '2';
      * 
      * @param str - The string we are checking to see if it only contains characters present in the chars string.
      * @param chars - A string of characters we are checking to see if str contains any characters that are not in chars.
@@ -90,19 +89,102 @@ namespace stevensStringLib
     inline bool containsOnly(   const std::string_view & str,
                                 const std::string_view & chars )
     {
-        //For each character in chars, check to see if it is contained within str
-        for(int i = 0; i < chars.length(); i++)
+        //If chars is empty, we are limiting a string that returns as true to also be empty.
+        if(chars.empty())
         {
-            if(!stevensStringLib::contains(str, chars[i]))
+            if(str.empty())
             {
+                //The string contains nothing and it can only contain no characters, therefore return true
+                return true;
+            }
+            else
+            {
+                //The string contains something while it can only contain no characters, therefore return false
                 return false;
             }
         }
-        return true;
+
+        return str.find_first_not_of(chars) == std::string::npos;
     }
 
 
-        /**
+     /**
+     * Given a string str, erase the last n characters of the string.
+     * 
+     * Credit to Varun: https://thispointer.com/remove-last-n-characters-from-a-string-in-c/
+     * 
+     * @param str - The string we want to erase characters from the end of.
+     * @param n - The number of characters we want to erase
+     * 
+     * @retval std::string - The string str having n characters erased from the end of it.
+    */
+    inline std::string eraseCharsFromEnd(   std::string str,
+                                            size_t n   )
+    {
+        //Can't erase from empty strings, and we can't erase more characters from the string than what we have
+        if(str.size() <= n)
+        {
+            return "";
+        }
+
+        str.erase(str.size() - n);
+        return str;
+    }
+
+
+    /**
+     * @brief
+     * Given a string str, erase the firrst n characters of the string.
+     * 
+     * Credit to Michael Krelin: https://stackoverflow.com/a/12692267/16511184
+     * 
+     * @param str - The string we want to erase characters from the start of.
+     * @param n - The number of characters we want to erase
+     * 
+     */
+    inline std::string eraseCharsFromStart( std::string str,
+                                            size_t n    )
+    {
+        //Can't erase from empty strings, and we can't errase more characters from the string than what we have
+        if(str.size() <= n)
+        {
+            return "";
+        }
+
+        str.erase(0, n);
+        return str;
+    }
+
+
+    /**
+     * @deprecated
+     * In C++20 and onward, please use std::string.starts_with instead.
+     * 
+     * @brief Check a string to see if it begins with a substring.
+     * 
+     * @param str - The string we are checking to see if it begins with another substring.
+     * @param substr - The substring we are checking the beginning of str against to see if they are equal.
+     * @return true if the string str begins with substr
+     * @return false  if the string str does NOT begin with substr
+     */
+    inline bool startsWith(     const std::string_view & str, 
+                                const std::string_view & substr )
+    {
+        //If the substring is longer than the string, then it's not possible for the string to start with the substring
+        if(str.length() < substr.length())
+        {
+            return false;
+        }
+        //Check the beginning of str to see if it is equivalent to substr
+        if(str.substr(0,substr.length()) == substr)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
      * Given a string str, find all occurrences of a substring within it. Returns a vector of all of the indices that the substring
      * occurs at within the string str.
      * 
@@ -239,7 +321,7 @@ namespace stevensStringLib
      *
      * @retval A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
      */
-    inline std::vector<std::string> separate(   const std::string & str,
+    inline std::vector<std::string> separate(   const std::string_view & str,
                                                 const std::string_view & separator,
                                                 const bool omitEmptyStrings = true  )
     {
@@ -372,7 +454,6 @@ namespace stevensStringLib
                                             str.data() + str.size(), 
                                             value, 
                                             format  );
-
         //Return false if we have relevant errors
         if (res.ec == std::errc::invalid_argument)
         {
@@ -382,22 +463,33 @@ namespace stevensStringLib
         {
             return false;
         }
-        
-        //Check to see if we have more than one decimal point (Only can have one decimal point)
+
+        //Should we perform additional/different checks for scientific numbers?
+
+        //Check to see if we have more than one decimal point (Only can have one decimal point max)
         char point = std::use_facet< std::numpunct<char> >(std::cout.getloc()).decimal_point();
         if(stevensStringLib::findAll(str, point).size() > 1)
         {
             return false;
         }
+        // @note - The following checks the string to see if it has more precision than what the computer can handle. Should this be included?
+        //
+        // //Check to see if the double we are converting is too precise to be a long double (Cannot have numbers that are too precise)
+        // if(stevensStringLib::contains(str, point))
+        // {
+        //     std::vector<std::string> wholeAndDecimalParts = stevensStringLib::separate(str, point, false);
+        //     if( wholeAndDecimalParts[1].length() > std::numeric_limits<long double>::digits10 )
+        //     {
+        //         //Erase a number of characters from the front of the decimal part of the string. If anything past that point contains anything other than zero, return false.
+        //         std::string digitsPastPrecisionLimit = stevensStringLib::eraseCharsFromStart(wholeAndDecimalParts[1], std::numeric_limits<long double>::digits10);
+        //         if(!stevensStringLib::containsOnly(digitsPastPrecisionLimit, "0"))
+        //         {
+        //             return false;
+        //         }
+        //     }
+        // }
 
-        //Check to see if the double we are converting is too precise to be a long double (Cannot have numbers that are too precise)
-        std::vector<std::string> wholeAndDecimalParts = stevensStringLib::separate(str, point, false);
-        if( wholeAndDecimalParts[1].length() > std::numeric_limits<long double>::digits10 )
-        {
-            return false;
-        }
-
-        //Otherwise, return true
+        //All checks have been passed! The number must be a floating point number
         return true;
     }
 
@@ -412,7 +504,7 @@ namespace stevensStringLib
      * isStandardNumber("-214748364721474836472147483647.123123123123123") == true
      * isStandardNumber("2.5e2") == false
      * 
-     * @param str The string we are checking to see if it represents a number in standard notation.
+     * @param str - The string we are checking to see if it represents a number in standard notation.
      * @return true if str represents a number in standard notation
      * @return false if str does not represent a number in standard notation
      */
@@ -431,6 +523,7 @@ namespace stevensStringLib
         //Get the decimal point for our locale
         char point = std::use_facet< std::numpunct<char> >(std::cout.getloc()).decimal_point();
         bool seenDecimalPoint = false;
+        bool seenNonZeroDigit = false;
         //Otherwise, iterate through all of the characters in the string and examine each one
         for(int i = 0; i < str.length(); i++)
         {
@@ -457,16 +550,129 @@ namespace stevensStringLib
                         }
                     }
                     //Check to see if the character is a numerical digit
-                    else if(!isdigit(str[i]))
+                    else if(!std::isdigit(str[i]))
                     {
                         //If we have a character that's not a numerical digit which is not a decimal point or negative sign, it's not in standard notation. Return false.
                         return false;
+                    }
+                    //Check to see if the digit is nonzero
+                    else if(str[i] != '0')
+                    {
+                        seenNonZeroDigit = true;
                     }
                     break;
             }
         }
 
+        if((!seenNonZeroDigit) && (stevensStringLib::startsWith(str, "+") || stevensStringLib::startsWith(str, "-")))
+        {
+            //000.000 should not be written with a + or - sign out front in standard notation.
+            return false;
+        }
+
         //We've made it past all of the checks by this point, so we must have a string representing a number in standard notation.
+        return true;
+    }
+
+
+    /**
+     * @brief 
+     * 
+     * Given a string, check to see if it represents a number in scientific notation. Useful to check numbers that may cause overflow or underflow
+     * to be check with isInteger or may be too precise to be checked with isFloat. Essentially, this function checks to see if you have a floating
+     * point type number on the left side of a string divided by an x,X,*,e, or an E, and either a 10^n or n on the right side.
+     * 
+     * Example:
+     * isScientificNumber(3.521x10^3) == true
+     * isScientificNumber(4.68E4) == true
+     * isScientificNumber(9001) == false
+     * 
+     * 
+     * @param str - The string we are checking to see if it represents a number in standard notation.
+     * @return true if the string represents a number in scientific notation.
+     * @return false if the string does NOT represent a number in scientific notation.
+     */
+    inline bool isScientificNumber( const std::string_view & str )
+    {
+        //If our string is empty, return false
+        if(str.empty())
+        {
+            return false;
+        }
+        //Get the decimal point for our locale
+        char point = std::use_facet< std::numpunct<char> >(std::cout.getloc()).decimal_point();
+        bool seenDecimalPoint = false;
+        //Read in the decimal part of the string
+        std::string decimalPart;
+        long long int endOfDecimalPartIndex = -1;
+        for(int i = 0; i < str.length(); i++)
+        {
+            //Check to see if we've found the character that indicates the end of our decimal part
+            if(  str[i] == 'x' ||
+                 str[i] == 'X' ||
+                 str[i] == '*' ||
+                 str[i] == 'e' ||
+                 str[i] == 'E')
+            {
+                endOfDecimalPartIndex = i;
+                break;
+            }
+            decimalPart += str[i];
+        }
+        //If we got to the end of the string without assigning endOfDecimalPartIndex, return false, as there must be no exponent part.
+        if(endOfDecimalPartIndex == -1)
+        {
+            return false;
+        }
+        //Check for the validity of the decimal part
+        if(!isStandardNumber(decimalPart))
+        {
+            return false;
+        }
+        //Make sure that we haven't reached the end of the string already
+        if(endOfDecimalPartIndex == (str.length()-1))
+        {
+            //Looks like we only have a decimal part and an 'x','X','*','e', or an 'E'.
+            return false;
+        }
+        //Get the other part of the potential scientific number
+        std::string tenToThePowerPart;
+        tenToThePowerPart = str.substr(endOfDecimalPartIndex + 1);
+        //Based on the endOfDecimalPartChar, decide how to parse the tenToThePowerPart should be parsed
+        if( str[endOfDecimalPartIndex] == 'x' ||
+            str[endOfDecimalPartIndex] == 'X' ||
+            str[endOfDecimalPartIndex] == '*' )
+        {
+            //We are expecting to see a 10^ and an integer
+            if(tenToThePowerPart.length() < 4)
+            {
+                //The tenToThePower part is too short.
+                return false;
+            }
+            if(!stevensStringLib::startsWith(tenToThePowerPart, "10^"))
+            {
+                //We don't have a "10^" included in our tenToThePowerPart, so it can't be scientific notation.
+                return false;
+            }
+            //Now the rest of the tenToThePower part after 10^ must be an integer
+            if(!stevensStringLib::isInteger(tenToThePowerPart.substr(3)))
+            {
+                //The rest of the tenToThePower part is not a valid integer
+                return false;
+            }
+        }
+        else if(    str[endOfDecimalPartIndex] == 'e' ||
+                    str[endOfDecimalPartIndex] == 'E'   )
+        {
+            //We are expecting to read an integer
+            if(!stevensStringLib::isInteger(tenToThePowerPart))
+            {
+                //The rest of the tenToThePower part is not a valid integer
+                return false;
+            }
+        }
+
+        //All checks have been passed. The number is in scientfic notation!
         return true;
     }
 
@@ -483,11 +689,17 @@ namespace stevensStringLib
     inline bool isNumber(  const std::string_view & str   )
     {
         //Method 1: Check for standard integer/floating point notation
-        bool standardResult = stevensStringLib::isStandardNumber(str);
-        //Method 2: Check for a scientific notation
-        //TODO isScientificNumber()
+        if(stevensStringLib::isStandardNumber(str))
+        {
+            return true;
+        }
+        //Method 2: Check for scientific notation
+        if(stevensStringLib::isScientificNumber(str))
+        {
+            return true;
+        }
 
-        return standardResult; // || scientificResult;
+        return false;
     }
 
 
@@ -507,11 +719,6 @@ namespace stevensStringLib
         }
         else if( isNumber(str) )
         {
-            //TODO: Eventually address this for optimization:
-            // JJO: The call to isNumber as already scanned the string, **and**
-            // has converted it into an integer or float via
-            // std::from_chars. Here we are doing a third scan of the string.
-            // It's a lot!
             return std::stold(str);
         }
         return false;
@@ -579,10 +786,10 @@ namespace stevensStringLib
      * mapifyString() and unorderedMapifyString()
      */
     template<typename T>
-    inline T mapifyStringHelper(    T map,
-                                    std::string str,
-                                    std::string keyValueSeparator,
-                                    std::string pairSeparator   )
+    inline T mapifyStringHelper(    T & map,
+                                    const std::string_view & str,
+                                    const std::string_view & keyValueSeparator,
+                                    const std::string_view & pairSeparator   )
     {
 
         //Separate the pairs
@@ -627,9 +834,9 @@ namespace stevensStringLib
 
      * @retval A map object of string-string key-value pairs.
     */
-    inline std::map<std::string,std::string> mapifyString(  const std::string & str,
-                                                            const std::string & keyValueSeparator,
-                                                            const std::string & pairSeparator   )
+    inline std::map<std::string,std::string> mapifyString(  const std::string_view & str,
+                                                            const std::string_view & keyValueSeparator = ":",
+                                                            const std::string_view & pairSeparator = ",")
     {
         std::map<std::string,std::string> map;
         return mapifyStringHelper( map, str, keyValueSeparator, pairSeparator);
@@ -639,9 +846,9 @@ namespace stevensStringLib
     /**
      * Variant of mapifyString that works for std::unordered_maps 
     */
-    inline std::unordered_map<std::string,std::string> unorderedMapifyString(  std::string str,
-                                                                                std::string keyValueSeparator = ":",
-                                                                                std::string pairSeparator  = ","    )
+    inline std::unordered_map<std::string,std::string> unorderedMapifyString(   const std::string_view & str,
+                                                                                const std::string_view & keyValueSeparator = ":",
+                                                                                const std::string_view & pairSeparator  = ","    )
     {
         std::unordered_map<std::string,std::string> unordered_map;
         return mapifyStringHelper( unordered_map, str, keyValueSeparator, pairSeparator);
@@ -659,8 +866,8 @@ namespace stevensStringLib
     */
     template<typename T>
     inline std::string stringifyMap(    const T & map,
-                                        const std::string & keyValueSeparator = ":",
-                                        const std::string & pairSeparator =     "," )
+                                        const std::string_view & keyValueSeparator = ":",
+                                        const std::string_view & pairSeparator =     "," )
     {
         std::string stringifiedMap = "";
         //Iterate through the unordered map, appending each pair to the string
@@ -682,22 +889,15 @@ namespace stevensStringLib
      * Solution from: https://stackoverflow.com/questions/3482064/counting-the-number-of-lines-in-a-text-file
      * 
      * TODO: Concerned with line counting problems presented here: https://stackoverflow.com/a/843484/16511184
+     *       This function counts only newline characters, not all of the ways new lines can indicated via characters.
      * 
      * @param str - The string which we wish to count the number of lines of.
      * 
      * @retval int - The integer count of the number of lines that the string str has.
     */
-    inline int countLines(std::string str)
+    inline unsigned long long int countLines(const std::string_view & str)
     {
-        int number_of_lines = 0;
-        std::string line;
-        std::istringstream ss(str);
-
-        while (std::getline(ss, line))
-        {
-            ++number_of_lines;
-        }
-        return number_of_lines;
+        return std::count(str.begin(), str.end(), '\n');
     }
 
 
@@ -719,6 +919,7 @@ namespace stevensStringLib
         }
         //Store the text content of the file in a string
         std::string fileContent = std::string((std::istreambuf_iterator<char>(input_file)), std::istreambuf_iterator<char>());
+        input_file.close();
 
         return countLines(fileContent);
     }
@@ -729,44 +930,63 @@ namespace stevensStringLib
      * wrap the text by adding newlines between words so it may fit within a certain width.
      * 
      * @param str - The string which we wish to wrap to a certain width.
-     * @param wrapWidth - The width in number of characters we wish to wrap.
+     * @param wrapWidth - The width in number of characters we wish to wrap to each line.
      * 
-     * @retval std::string - A modified version of the parameter str, with newlines added to it so that it fits within
-     *                a certain character width.
+     * @retval A modified version of the parameter str, with newlines added to it so that it fits within
+     *         a certain character width.
      *  
     */
-    inline std::string wrapToWidth(     std::string str,
-                                        int wrapWidth   )
+    inline std::string wrapToWidth(     const std::string & str,
+                                        size_t wrapWidth   )
     {
+        //If we have a wrapWdith of zero, we can't fit anything in a column of size zero. Return the empty string.
+        if(wrapWidth == 0)
+        {
+            return "";
+        }
+
         std::istringstream in(str);
         std::string line;
         std::string word;
         std::string output = "";
-        int lineCutOffIndex = 0;
+        size_t lineCutOffIndex = 0;
         int numberOfLines = countLines(str);
         int currLineNum = 0;
 
         while(getline(in,line))
         {
+            // std::cout << "Current line number: " << currLineNum << std::endl;
             lineCutOffIndex = 0;
-            while(true)
+            while(!line.empty())
             {
                 //Check to see if we need to wrap this line around
                 if(line.length() > wrapWidth)
                 {
                     //Find the last space in the string that fits on the line
-                    lineCutOffIndex = line.rfind(" ", wrapWidth);
+                    lineCutOffIndex = line.rfind(' ', wrapWidth);
                     //If we can't find a space in the string and the string is too long, we just cut the line and wrap to the next line
                     if(lineCutOffIndex == std::string::npos)
                     {
+                        // std::cout << "Can't find space" << std::endl;
+                        // std::cout << "line: " << line << std::endl;
                         //Add as much of the line as we can to the output and then add a newline
-                        output += line.substr(0, wrapWidth) + "\n";
+                        output.append(line, 0, wrapWidth);
+                        output += '\n';
                         //Continue looping until the rest of the line is added to the output
-                        line = line.substr(wrapWidth+1);
+                        if(wrapWidth > line.length())
+                        {
+                            line = "";
+                            break;
+                        }
+                        else
+                        {
+                            line = line.substr(wrapWidth);
+                        }
                     }
                     //If we find a space...
                     else
                     {
+                        // std::cout << "Found space" << std::endl;
                         //Add the part of the string before the cut off point to the output
                         output += line.substr(0, lineCutOffIndex) + "\n";
                         //Set the line equal to the cut off portion of the string and continue looping until the rest of the line is added to the output
@@ -775,6 +995,7 @@ namespace stevensStringLib
                 }
                 else
                 {
+                    // std::cout << "Adding line to output" << std::endl;
                     output += line;
                     break;
                 }
@@ -806,38 +1027,14 @@ namespace stevensStringLib
      * 
      * @retval A character found in str that has been circularly indexed to at position i
     */
-    inline char circularIndex(  const std::string & str,
-                                unsigned int i )
+    inline char circularIndex(  const std::string_view & str,
+                                size_t i )
     {
         if(str.empty())
         {
             throw std::invalid_argument("str cannot be empty for circularIndex()");
         }
         return str[i % str.length()];
-    }
-
-
-    /**
-     * Given a string str, erase the last n characters of the string.
-     * 
-     * Credit to Varun: https://thispointer.com/remove-last-n-characters-from-a-string-in-c/
-     * 
-     * @param str - The string we want to erase characters from the end of.
-     * @param n - The number of characters we want to erase
-     * 
-     * @retval std::string - The string str having n characters erased from the end of it.
-    */
-    inline std::string eraseCharsFromEnd(   std::string str,
-                                            int n   )
-    {
-        //Can't erase from empty strings, and we can't erase more characters from the string than what we have
-        if(str.size() >= n)
-        {
-            return "";
-        }
-
-        str.erase(str.size() - n);
-        return str;
     }
 
 
@@ -964,33 +1161,6 @@ namespace stevensStringLib
 
     //negativeIndex
 
-
-    /**
-     * @deprecated
-     * In C++20 and onward, please use std::string.starts_with instead.
-     * 
-     * @brief Check a string to see if it begins with a substring.
-     * 
-     * @param str - The string we are checking to see if it begins with another substring.
-     * @param substr - The substring we are checking the beginning of str against to see if they are equal.
-     * @return true if the string str begins with substr
-     * @return false  if the string str does NOT begin with substr
-     */
-    inline bool startsWith(     const std::string_view & str, 
-                                const std::string_view & substr )
-    {
-        //If the substring is longer than the string, then it's not possible for the string to start with the substring
-        if(str.length() < substr.length())
-        {
-            return false;
-        }
-        //Check the beginning of str to see if it is equivalent to substr
-        if(str.substr(0,substr.length()) == substr)
-        {
-            return true;
-        }
-        return false;
-    }
 
 }
 #endif
