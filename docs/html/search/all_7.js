@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['installation_0',['Easy Installation!',['../md__2home_2jeff_2stevensStringLib_2README.html#autotoc_md4',1,'']]],
+  ['installation_0',['Easy Installation!',['../md__2home_2jeff_2stevensStringLib_2README.html#autotoc_md6',1,'']]],
   ['isfloat_1',['isFloat',['../stevensStringLib_8h.html#a31ee6720d9d0028eb7891e9360b6c68a',1,'stevensStringLib']]],
   ['isinteger_2',['isInteger',['../stevensStringLib_8h.html#a8eccf0d2f3d7970fc342f4c2faac274a',1,'stevensStringLib']]],
   ['isnumber_3',['isNumber',['../stevensStringLib_8h.html#ac011598c8d05818536e48fd96ca2b12d',1,'stevensStringLib']]],

@@ -65,8 +65,42 @@ TEST( contains, test_on_large_string)
 
 
 /*** containsOnly ***/
+TEST( containsOnly, check_string_of_zeroes_and_one)
+{
+    //Arrange
+    std::string string = "000000000000000000000000000000000000001";
+    std::string chars = "01";
+    //Act and assert
+    ASSERT_TRUE(containsOnly(string, chars)) << "string=" << string << "\nchars=" << chars;
+}
 
-    
+TEST( containsOnly, check_string_of_ones_and_twos)
+{
+    //Arrange
+    std::string string = "11101112222";
+    std::string chars = "12";
+    //Act and assert
+    ASSERT_FALSE(containsOnly(string,chars)) << "string" << string << "\nchars=" << chars;
+}   
+
+TEST( containsOnly, check_empty_string_with_empty_chars)
+{
+    //Arrange
+    std::string string = "";
+    std::string chars = "";
+    //Act and assert
+    ASSERT_TRUE(containsOnly(string,chars)) << "string" << string << "\nchars=" << chars;
+}
+
+TEST( containsOnly, check_string_with_empty_chars)
+{
+    //Arrange
+    std::string string = "This is my vision!";
+    std::string chars = "";
+    //Act and assert
+    ASSERT_FALSE(containsOnly(string,chars)) << "string" << string << "\nchars=" << chars;
+}
+
 
 /***  Separate  ***/
 TEST( separate, separate_3_comma_delmited_words)
@@ -687,21 +721,75 @@ TEST(removeWhitespace, empty_string)
 
 
 /*** mapifyString ***/
+TEST(mapifyString, mapify_cg_style)
+{
+    //Arrange
+    std::string string = "textColor=red,bgColor=green,bold=true";
+    std::map<std::string,std::string> result;
+    std::map<std::string,std::string> modelResult = {   {"textColor","red"},
+                                                        {"bgColor","green"},
+                                                        {"bold","true"}     };
+    //Act 
+    result = mapifyString(string, "=",",");
+    //std::cout << "result:" << result << "\nmodeltResult:" << modelResult << std::endl;
+    //Assert
+    if(result == modelResult)
+    {
+
+        SUCCEED();
+    }
+    else
+    {
+        FAIL();
+    }
+}
 
 
+/*** unorderedMapifyString ***/
+TEST(unorderedMapifyString, unorderedMapify_cg_style)
+{
+    //Arrange
+    std::string string = "textColor=red,bgColor=green,bold=true";
+    std::unordered_map<std::string,std::string> result;
+    std::unordered_map<std::string,std::string> modelResult = { {"textColor","red"},
+                                                                {"bgColor","green"},
+                                                                {"bold","true"}     };
+    //Act 
+    result = unorderedMapifyString(string, "=",",");
+    //std::cout << "result:" << result << "\nmodeltResult:" << modelResult << std::endl;
+    //Assert
+    if(result == modelResult)
+    {
+        SUCCEED();
+    }
+    else
+    {
+        FAIL();
+    }
+}
 
 /*** stringifyMap ***/
-// TEST(stringifyMap, stringify_3_pair_map)
-// {
-//     //Arrange
-//     std::map<std::string,std::string> map = {   {"Warsim","Huw Milward"},
-//                                                 {"CultGame","Jeff Stevens"},
-//                                                 {"Kindred Fates","Rob Cravens"}   };
-//     //Act
-//     std::string stringifiedMap = stringifyMap(map);
-//     //Assert
-
-// }
+TEST(stringifyMap, stringify_3_pair_map)
+{
+    //Arrange
+    std::map<std::string,std::string> map = {   {"Warsim","Huw Milward"},
+                                                {"CultGame","Jeff Stevens"},
+                                                {"Kindred Fates","Rob Cravens"}   };
+    //Act
+    std::string stringifiedMap = stringifyMap(map);
+    std::cout << "stringifeidMap:" << stringifiedMap << std::endl;
+    //Assert
+    if( contains(stringifiedMap, "Warsim:Huw Milward") &&
+        contains(stringifiedMap, "CultGame:Jeff Stevens") &&
+        contains(stringifiedMap, "Kindred Fates:Rob Cravens") )
+    {
+        SUCCEED();
+    }
+    else
+    {
+        FAIL();
+    }
+}
 
 
 /*** countLines ***/
@@ -898,16 +986,71 @@ TEST(eraseCharsFromEnd, erase_from_empty_string)
     std::string string = "";
     //Act
     std::string result = eraseCharsFromEnd(string, 3);
-    std::cout << result << std::endl;
     //Assert
     ASSERT_STREQ(result.c_str(), "");
 }
 
 
 /*** eraseCharsFromStart ***/
+TEST(eraseCharsFromStart, erase_1_from_start)
+{
+    //Arrange
+    std::string string = "She pushed her feet across the board walk She keeps the sunset right with movement in her eyes.";
+    std::string modelResult = "he pushed her feet across the board walk She keeps the sunset right with movement in her eyes.";
+    //Act
+    std::string result = eraseCharsFromStart(string, 1);
+    //Assert
+    ASSERT_STREQ(result.c_str(), modelResult.c_str());
+}
+
+TEST(eraseCharsFromStart, erase_whole_string)
+{
+    //Arrange
+    std::string string = "She pushed her feet across the board walk She keeps the sunset right with movement in her eyes.";
+    //Act
+    std::string result = eraseCharsFromStart(string, string.length());
+    //Assert
+    ASSERT_STREQ(result.c_str(), "");
+}
+
+TEST(eraseCharsFromStart, erase_nothing)
+{
+    //Arrange
+    std::string string = "She pushed her feet across the board walk She keeps the sunset right with movement in her eyes.";
+    //Act
+    std::string result = eraseCharsFromStart(string, 0);
+    //Assert
+    ASSERT_STREQ(string.c_str(), result.c_str());
+}
+
+TEST(eraseCharsFromStart, erase_from_empty_string)
+{
+    //Arrange
+    std::string string = "";
+    //Act
+    std::string result = eraseCharsFromStart(string, 3);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "");
+}
 
 
 /*** startsWith ***/
+TEST(startsWith, check_basic_sentence_true)
+{
+    //Arrange
+    std::string string = "By the authority vested in me by the state of Ohio, I now pronounce you husband and wife!";
+    //Act and assert
+    ASSERT_TRUE(startsWith(string, "By the authority vested in me by the state of Ohio,"));
+}
+
+
+TEST(startsWith, check_basic_sentence_false)
+{
+    //Arrange
+    std::string string = "By the authority vested in me by the state of Ohio, I now pronounce you husband and wife!";
+    //Act and assert
+    ASSERT_FALSE(startsWith(string, "By the authority vested in me, Skiddiddle skadoodle you and him are now ready to canoodle!"));
+}
 
 
 /*** findAll ***/
@@ -928,7 +1071,7 @@ TEST(findAll, find_all_chars)
 {
     //Arrange
     std::string string = "xxxxxxxxxx";
-    std::string x = "x";
+    char x = 'x';
     //Act
     std::vector<size_t> result = findAll(string, x);
     //Assert

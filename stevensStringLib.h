@@ -3,7 +3,7 @@
  * @author Jeff Stevens (jeff@bucephalusstudios.com)
  * @brief An easy-to-use C++ library with convenient functions for working with strings.
  * @version 1.0
- * @date 1-11-24
+ * @date 1-12-24
  * @copyright Copyright (c) Bucephalus Studios 2023
  * 
  * Created and released under the MIT license. See the LICENSE file in the repository folder.
@@ -44,7 +44,7 @@ namespace stevensStringLib
      *  @param str - The string we are examining to see if it contains the substring.
      *  @param substring - The substring we are checking to if it is contained in str.
      * 
-     *  @retval Boolean indicating that input string contains the substring (true) or not (false).
+     *  @retval bool - indicates that input string contains the substring (true) or not (false).
      */
     inline bool contains(   const std::string_view & str,
                             const std::string_view & substring   )
@@ -63,7 +63,7 @@ namespace stevensStringLib
      *  @param str - The string we are examining to see if it contains the substring.
      *  @param ch - The char we are checking to see if it is contained in str.
      * 
-     *  @retval Boolean indicating that input string contains the substring (true) or not (false).
+     *  @retval bool -  indicates that input string contains the substring (true) or not (false).
      */
     inline bool contains(   const std::string_view & str,
                             const char ch  )
@@ -83,8 +83,7 @@ namespace stevensStringLib
      * 
      * @param str - The string we are checking to see if it only contains characters present in the chars string.
      * @param chars - A string of characters we are checking to see if str contains any characters that are not in chars.
-     * @return true if str contains only instances of keys in substrs.
-     * @return false if str contains at least one substring that is not present as a key in substrs.
+     * @retval bool - true if str contains only instances of keys in substrs. False if str contains at least one substring that is not present as a key in substrs.
      */
     inline bool containsOnly(   const std::string_view & str,
                                 const std::string_view & chars )
@@ -164,8 +163,8 @@ namespace stevensStringLib
      * 
      * @param str - The string we are checking to see if it begins with another substring.
      * @param substr - The substring we are checking the beginning of str against to see if they are equal.
-     * @return true if the string str begins with substr
-     * @return false  if the string str does NOT begin with substr
+     * 
+     * @retval bool - True if the string str begins with substr. False if the string str does NOT begin with substr.
      */
     inline bool startsWith(     const std::string_view & str, 
                                 const std::string_view & substr )
@@ -253,7 +252,7 @@ namespace stevensStringLib
      * @param separator - The char we intend to separate str by.
      * @param omitEmptyStrings - If true, do not include empty strings in the returned vector.
      *
-     * @retval A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
+     * @retval std::vector<std::string> - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
      */
     inline std::vector<std::string> separate(   const std::string_view & str,
                                                 const char separator = ',',
@@ -319,7 +318,7 @@ namespace stevensStringLib
      * @param separator - The substring of str we intend to separate it by.
      * @param omitEmptyStrings - If true, do not include empty strings in the returned vector.
      *
-     * @retval A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
+     * @retval std::vector<std::string> - A vector of substrings of the original string that have been split up by all occurrences of the separator parameter
      */
     inline std::vector<std::string> separate(   const std::string_view & str,
                                                 const std::string_view & separator,
@@ -505,8 +504,7 @@ namespace stevensStringLib
      * isStandardNumber("2.5e2") == false
      * 
      * @param str - The string we are checking to see if it represents a number in standard notation.
-     * @return true if str represents a number in standard notation
-     * @return false if str does not represent a number in standard notation
+     * @retval bool - True if str represents a number in standard notation. False if str does not represent a number in standard notation.
      */
     inline bool isStandardNumber(   const std::string_view & str  )
     {
@@ -589,8 +587,7 @@ namespace stevensStringLib
      * 
      * 
      * @param str - The string we are checking to see if it represents a number in standard notation.
-     * @return true if the string represents a number in scientific notation.
-     * @return false if the string does NOT represent a number in scientific notation.
+     * @retval bool - True if the string represents a number in scientific notation. False if the string does NOT represent a number in scientific notation.
      */
     inline bool isScientificNumber( const std::string_view & str )
     {
@@ -709,7 +706,7 @@ namespace stevensStringLib
      * 
      * @param str - A string we are converting to a bool.
      * 
-     * @retval True if str is a form of the word true or 0, and false otherwise.
+     * @retval bool - True if str is a form of the word true or 0, and false otherwise.
     */
     inline bool stringToBool( const std::string & str )
     {
@@ -732,7 +729,7 @@ namespace stevensStringLib
      * 
      * @param input - The boolean value we wish to convert to a string.
      * 
-     * @retval The boolean value represented as a string.
+     * @retval bool - The boolean value represented as a string.
      */
     inline std::string boolToString( const bool input  )
     {
@@ -746,7 +743,7 @@ namespace stevensStringLib
      * @param str - A string we would like to trim the characters from.
      * @param charsToTrim - The number of characters to trim from the beginning and end of the string.
      * 
-     * @retval A modified version of the string str, with a number characters from both the beginning and end of the 
+     * @retval std::string - A modified version of the string str, with a number characters from both the beginning and end of the 
      *         string trimmed off equal to charsToTrim.
      */
     inline std::string trim(    const std::string & str,
@@ -770,7 +767,7 @@ namespace stevensStringLib
      * 
      * @param str - The string from which we wish to remove all the whitespace from.
      * 
-     * @retval The input string but with all of the whitespace removed
+     * @retval std::string - The input string but with all of the whitespace removed
      */
     inline std::string removeWhitespace( std::string str )
     {
@@ -832,7 +829,7 @@ namespace stevensStringLib
      * @param keyValueSeparator - The string in str using to separate keys from values.
      * @param pairSeparator - The string in str we are using separate pairs.
 
-     * @retval A map object of string-string key-value pairs.
+     * @retval std::map - A map object of string-string key-value pairs.
     */
     inline std::map<std::string,std::string> mapifyString(  const std::string_view & str,
                                                             const std::string_view & keyValueSeparator = ":",
@@ -862,7 +859,7 @@ namespace stevensStringLib
      *  @param keyValueSeparator - The string that separates keys from their values in the returned string.
      *  @param pairSeparator - The string that separates key-value pairs in the returned string.
      * 
-     *  @retval The all contents of the unordered map turned into a string list of separated key-value pairs.
+     *  @retval std::string - The all contents of the unordered map turned into a string list of separated key-value pairs.
     */
     template<typename T>
     inline std::string stringifyMap(    const T & map,
@@ -934,7 +931,7 @@ namespace stevensStringLib
      * @param str - The string which we wish to wrap to a certain width.
      * @param wrapWidth - The width in number of characters we wish to wrap to each line.
      * 
-     * @retval A modified version of the parameter str, with newlines added to it so that it fits within
+     * @retval std::string - A modified version of the parameter str, with newlines added to it so that it fits within
      *         a certain character width.
      *  
     */
@@ -1027,7 +1024,7 @@ namespace stevensStringLib
      * @param str - The string we are circularly indexing through.
      * @param i - The index of the string to circularly index to.
      * 
-     * @retval A character found in str that has been circularly indexed to at position i
+     * @retval char - A character found in str that has been circularly indexed to at position i
     */
     inline char circularIndex(  const std::string_view & str,
                                 size_t i )
@@ -1047,7 +1044,7 @@ namespace stevensStringLib
      * 
      * @param loc - The locale which we want to obtain a string of all whitespace characters for.
      * 
-     * @retval A string of all whitespace characters defined in the given locale.
+     * @retval std::string - A string of all whitespace characters defined in the given locale.
     */
     inline std::string getWhitespaceString(const std::locale & loc)
     {
@@ -1069,7 +1066,7 @@ namespace stevensStringLib
      * 
      * @param str - The string to remove all of the leading and trailing whitespaces from.
      * 
-     * @retval str modified by removing all of its leading and trailing whitespaces.
+     * @retval std::string - str modified by removing all of its leading and trailing whitespaces.
     */
     inline std::string trimWhitespace( const std::string & str )
     {
@@ -1097,7 +1094,7 @@ namespace stevensStringLib
      * 
      * @param c - The character we'd like to convert to a string.
      * 
-     * @retval A string representing the character c.
+     * @retval std::string - A string representing the character c.
     */
     inline std::string charToString( const char & c )
     {
@@ -1111,7 +1108,7 @@ namespace stevensStringLib
      * 
      * @param str - The string to release all non-numeric chars from.
      * 
-     * @retval The string parameter we passed in, but all of its non-numeric characters removed from it.
+     * @retval std::string - The string parameter we passed in, but all of its non-numeric characters removed from it.
     */
     inline std::string eraseNonNumericChars( std::string str )
     {
@@ -1144,7 +1141,7 @@ namespace stevensStringLib
      * 
      * @param str - The string we would like to check.
      * 
-     * @retval true if str is a palindrome, false otherwise.
+     * @retval bool - true if str is a palindrome, false otherwise.
     */
     inline bool isPalindrome( const std::string & str )
     {

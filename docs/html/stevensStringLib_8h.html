@@ -179,11 +179,11 @@ Functions</h2></td></tr>
 <div class="textblock"><p>An easy-to-use C++ library with convenient functions for working with strings. </p>
 <dl class="section author"><dt>Author</dt><dd>Jeff Stevens (<a href="#" onclick="location.href='mai'+'lto:'+'jef'+'f@'+'buc'+'ep'+'hal'+'us'+'stu'+'di'+'os.'+'co'+'m'; return false;">jeff@<span class="obfuscator">.nosp@m.</span>buce<span class="obfuscator">.nosp@m.</span>phalu<span class="obfuscator">.nosp@m.</span>sstu<span class="obfuscator">.nosp@m.</span>dios.<span class="obfuscator">.nosp@m.</span>com</a>) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>1-11-24 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1-12-24 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) Bucephalus Studios 2023</dd></dl>
 <p>Created and released under the MIT license. See the LICENSE file in the repository folder.</p>
 <p>If you'd like to buy me a coffee or send me a tip for my work on this library, you can do that here: <a href="https://ko-fi.com/bucephalus_studios">https://ko-fi.com/bucephalus_studios</a></p>
-<p>Thank you very, very much for being interested in my code! Hope it serves you well &lt;3 </p>
+<p>Thank you very, very much for being interested in my code! I hope it serves you well &lt;3 </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="ac92dec2b0a512e7141df8aa6dd63c86f" name="ac92dec2b0a512e7141df8aa6dd63c86f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac92dec2b0a512e7141df8aa6dd63c86f">&#9670;&#160;</a></span>boolToString()</h2>
@@ -218,7 +218,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">The</td><td>boolean value represented as a string. </td></tr>
+    <tr><td class="paramname">bool</td><td>- The boolean value represented as a string. </td></tr>
   </table>
   </dd>
 </dl>
@@ -296,7 +296,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">A</td><td>string representing the character c. </td></tr>
+    <tr><td class="paramname">std::string</td><td>- A string representing the character c. </td></tr>
   </table>
   </dd>
 </dl>
@@ -348,7 +348,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">A</td><td>character found in str that has been circularly indexed to at position i </td></tr>
+    <tr><td class="paramname">char</td><td>- A character found in str that has been circularly indexed to at position i </td></tr>
   </table>
   </dd>
 </dl>
@@ -399,7 +399,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">Boolean</td><td>indicating that input string contains the substring (true) or not (false). </td></tr>
+    <tr><td class="paramname">bool</td><td>- indicates that input string contains the substring (true) or not (false). </td></tr>
   </table>
   </dd>
 </dl>
@@ -450,7 +450,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">Boolean</td><td>indicating that input string contains the substring (true) or not (false). </td></tr>
+    <tr><td class="paramname">bool</td><td>- indicates that input string contains the substring (true) or not (false). </td></tr>
   </table>
   </dd>
 </dl>
@@ -501,9 +501,12 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if str contains only instances of keys in substrs. </dd>
-<dd>
-false if str contains at least one substring that is not present as a key in substrs. </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">bool</td><td>- true if str contains only instances of keys in substrs. False if str contains at least one substring that is not present as a key in substrs. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -716,7 +719,7 @@ false if str contains at least one substring that is not present as a key in sub
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">The</td><td>string parameter we passed in, but all of its non-numeric characters removed from it. </td></tr>
+    <tr><td class="paramname">std::string</td><td>- The string parameter we passed in, but all of its non-numeric characters removed from it. </td></tr>
   </table>
   </dd>
 </dl>
@@ -858,7 +861,7 @@ false if str contains at least one substring that is not present as a key in sub
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">A</td><td>string of all whitespace characters defined in the given locale. </td></tr>
+    <tr><td class="paramname">std::string</td><td>- A string of all whitespace characters defined in the given locale. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1015,7 +1018,7 @@ false if str contains at least one substring that is not present as a key in sub
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">true</td><td>if str is a palindrome, false otherwise. </td></tr>
+    <tr><td class="paramname">bool</td><td>- true if str is a palindrome, false otherwise. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1054,9 +1057,12 @@ false if str contains at least one substring that is not present as a key in sub
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the string represents a number in scientific notation. </dd>
-<dd>
-false if the string does NOT represent a number in scientific notation. </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">bool</td><td>- True if the string represents a number in scientific notation. False if the string does NOT represent a number in scientific notation. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1092,9 +1098,12 @@ false if the string does NOT represent a number in scientific notation. </dd></d
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if str represents a number in standard notation </dd>
-<dd>
-false if str does not represent a number in standard notation </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">bool</td><td>- True if str represents a number in standard notation. False if str does not represent a number in standard notation. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1149,7 +1158,7 @@ false if str does not represent a number in standard notation </dd></dl>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">A</td><td>map object of string-string key-value pairs. </td></tr>
+    <tr><td class="paramname">std::map</td><td>- A map object of string-string key-value pairs. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1242,7 +1251,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">The</td><td>input string but with all of the whitespace removed </td></tr>
+    <tr><td class="paramname">std::string</td><td>- The input string but with all of the whitespace removed </td></tr>
   </table>
   </dd>
 </dl>
@@ -1341,7 +1350,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">A</td><td>vector of substrings of the original string that have been split up by all occurrences of the separator parameter </td></tr>
+    <tr><td class="paramname">std::vector&lt;std::string&gt;</td><td>- A vector of substrings of the original string that have been split up by all occurrences of the separator parameter </td></tr>
   </table>
   </dd>
 </dl>
@@ -1402,7 +1411,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">A</td><td>vector of substrings of the original string that have been split up by all occurrences of the separator parameter </td></tr>
+    <tr><td class="paramname">std::vector&lt;std::string&gt;</td><td>- A vector of substrings of the original string that have been split up by all occurrences of the separator parameter </td></tr>
   </table>
   </dd>
 </dl>
@@ -1448,13 +1457,16 @@ template&lt;typename T &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>- The string we are checking to see if it begins with another substring. </td></tr>
-    <tr><td class="paramname">substr</td><td>- The substring we are checking the beginning of str against to see if they are equal. </td></tr>
+    <tr><td class="paramname">substr</td><td>- The substring we are checking the beginning of str against to see if they are equal.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the string str begins with substr </dd>
-<dd>
-false if the string str does NOT begin with substr </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">bool</td><td>- True if the string str begins with substr. False if the string str does NOT begin with substr. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1510,7 +1522,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">The</td><td>all contents of the unordered map turned into a string list of separated key-value pairs. </td></tr>
+    <tr><td class="paramname">std::string</td><td>- The all contents of the unordered map turned into a string list of separated key-value pairs. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1549,7 +1561,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">True</td><td>if str is a form of the word true or 0, and false otherwise. </td></tr>
+    <tr><td class="paramname">bool</td><td>- True if str is a form of the word true or 0, and false otherwise. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1640,7 +1652,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">A</td><td>modified version of the string str, with a number characters from both the beginning and end of the string trimmed off equal to charsToTrim. </td></tr>
+    <tr><td class="paramname">std::string</td><td>- A modified version of the string str, with a number characters from both the beginning and end of the string trimmed off equal to charsToTrim. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1680,7 +1692,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">str</td><td>modified by removing all of its leading and trailing whitespaces. </td></tr>
+    <tr><td class="paramname">std::string</td><td>- str modified by removing all of its leading and trailing whitespaces. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1773,7 +1785,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">A</td><td>modified version of the parameter str, with newlines added to it so that it fits within a certain character width. </td></tr>
+    <tr><td class="paramname">std::string</td><td>- A modified version of the parameter str, with newlines added to it so that it fits within a certain character width. </td></tr>
   </table>
   </dd>
 </dl>
