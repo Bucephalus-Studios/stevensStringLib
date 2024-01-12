@@ -3,4 +3,4 @@
 	url = https://github.com/google/googletest.git
 [submodule "benchmarking/googlebenchmark"]
 	path = benchmarking/googlebenchmark
-	url = https://github.com/google/benchmark
+	url = https://github.com/jeffstevens98/benchmark_for_stevensStringLib.git
