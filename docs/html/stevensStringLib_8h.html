@@ -21,8 +21,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">stevensStringLib<span id="projectnumber">&#160;0.1</span>
+   <div id="projectname">stevensStringLib<span id="projectnumber">&#160;1.0</span>
    </div>
+   <div id="projectbrief">An easy-to-use C++ library with convenient functions for working with strings</div>
   </td>
  </tr>
  </tbody>
@@ -81,6 +82,7 @@ $(function() {
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;limits&gt;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
@@ -94,64 +96,78 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a86fbb60ec5f626744264a2e0ab5066a9" id="r_a86fbb60ec5f626744264a2e0ab5066a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a86fbb60ec5f626744264a2e0ab5066a9">stevensStringLib::contains</a> (const std::string &amp;str, const std::string &amp;substring)</td></tr>
-<tr class="separator:a86fbb60ec5f626744264a2e0ab5066a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae75dd17730068a151f3f34d299cfb7fa" id="r_ae75dd17730068a151f3f34d299cfb7fa"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ae75dd17730068a151f3f34d299cfb7fa">stevensStringLib::separate</a> (const std::string &amp;str, const std::string &amp;separator=&quot;,&quot;, const bool &amp;omitEmptyStrings=true)</td></tr>
-<tr class="separator:ae75dd17730068a151f3f34d299cfb7fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a105280ad458e2aeea94c59174c53ad82" id="r_a105280ad458e2aeea94c59174c53ad82"><td class="memItemLeft" align="right" valign="top"><a id="a105280ad458e2aeea94c59174c53ad82" name="a105280ad458e2aeea94c59174c53ad82"></a>
-std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>stevensStringLib::sep</b> (const std::string &amp;str, const std::string &amp;separator=&quot;,&quot;, const bool &amp;omitEmptyStrings=true)</td></tr>
-<tr class="memdesc:a105280ad458e2aeea94c59174c53ad82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias of <a class="el" href="stevensStringLib_8h.html#ae75dd17730068a151f3f34d299cfb7fa">separate()</a> <br /></td></tr>
-<tr class="separator:a105280ad458e2aeea94c59174c53ad82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af83dd4ced359aa4728438f8e469e6f2e" id="r_af83dd4ced359aa4728438f8e469e6f2e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#af83dd4ced359aa4728438f8e469e6f2e">stevensStringLib::contains</a> (const std::string_view &amp;str, const std::string_view &amp;substring)</td></tr>
+<tr class="separator:af83dd4ced359aa4728438f8e469e6f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaee6af848c3910d695c0c191dd182c7d" id="r_aaee6af848c3910d695c0c191dd182c7d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aaee6af848c3910d695c0c191dd182c7d">stevensStringLib::contains</a> (const std::string_view &amp;str, const char ch)</td></tr>
+<tr class="separator:aaee6af848c3910d695c0c191dd182c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32ffddbdb3678e6b288f2950cc9bce27" id="r_a32ffddbdb3678e6b288f2950cc9bce27"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a32ffddbdb3678e6b288f2950cc9bce27">stevensStringLib::containsOnly</a> (const std::string_view &amp;str, const std::string_view &amp;chars)</td></tr>
+<tr class="memdesc:a32ffddbdb3678e6b288f2950cc9bce27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string, determine if it contains only the characters in the given string.  <br /></td></tr>
+<tr class="separator:a32ffddbdb3678e6b288f2950cc9bce27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3dfd6d4329ab7bf69fb1cfd475508c7" id="r_ad3dfd6d4329ab7bf69fb1cfd475508c7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ad3dfd6d4329ab7bf69fb1cfd475508c7">stevensStringLib::eraseCharsFromEnd</a> (std::string str, size_t n)</td></tr>
+<tr class="separator:ad3dfd6d4329ab7bf69fb1cfd475508c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b92ac54e4eb76eb32d7fd7ccd0f8de3" id="r_a9b92ac54e4eb76eb32d7fd7ccd0f8de3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a9b92ac54e4eb76eb32d7fd7ccd0f8de3">stevensStringLib::eraseCharsFromStart</a> (std::string str, size_t n)</td></tr>
+<tr class="memdesc:a9b92ac54e4eb76eb32d7fd7ccd0f8de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string str, erase the firrst n characters of the string.  <br /></td></tr>
+<tr class="separator:a9b92ac54e4eb76eb32d7fd7ccd0f8de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a608c79000fd38c904b100d5cf9120299" id="r_a608c79000fd38c904b100d5cf9120299"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a608c79000fd38c904b100d5cf9120299">stevensStringLib::startsWith</a> (const std::string_view &amp;str, const std::string_view &amp;substr)</td></tr>
+<tr class="memdesc:a608c79000fd38c904b100d5cf9120299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check a string to see if it begins with a substring.  <br /></td></tr>
+<tr class="separator:a608c79000fd38c904b100d5cf9120299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bcbc19ce3501fa3e06635657c2ded45" id="r_a4bcbc19ce3501fa3e06635657c2ded45"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a4bcbc19ce3501fa3e06635657c2ded45">stevensStringLib::findAll</a> (const std::string &amp;str, const std::string &amp;substr)</td></tr>
+<tr class="separator:a4bcbc19ce3501fa3e06635657c2ded45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba5eea65943a19263c1a018dda78fe81" id="r_aba5eea65943a19263c1a018dda78fe81"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aba5eea65943a19263c1a018dda78fe81">stevensStringLib::findAll</a> (const std::string &amp;str, const char ch)</td></tr>
+<tr class="separator:aba5eea65943a19263c1a018dda78fe81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b29b2661c1430ffbac04f0e8a0876a3" id="r_a1b29b2661c1430ffbac04f0e8a0876a3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a1b29b2661c1430ffbac04f0e8a0876a3">stevensStringLib::separate</a> (const std::string_view &amp;str, const char separator=',', const bool omitEmptyStrings=true)</td></tr>
+<tr class="separator:a1b29b2661c1430ffbac04f0e8a0876a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff7fd2ec486153c3481c1137155c0980" id="r_aff7fd2ec486153c3481c1137155c0980"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aff7fd2ec486153c3481c1137155c0980">stevensStringLib::separate</a> (const std::string_view &amp;str, const std::string_view &amp;separator, const bool omitEmptyStrings=true)</td></tr>
+<tr class="separator:aff7fd2ec486153c3481c1137155c0980"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c1a2d1fc6655066097dcdca512de63f" id="r_a5c1a2d1fc6655066097dcdca512de63f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a5c1a2d1fc6655066097dcdca512de63f">stevensStringLib::cap1stChar</a> (std::string str)</td></tr>
 <tr class="separator:a5c1a2d1fc6655066097dcdca512de63f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c1197f49a832b1beab045ad096c2758" id="r_a7c1197f49a832b1beab045ad096c2758"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a7c1197f49a832b1beab045ad096c2758">stevensStringLib::toUpper</a> (std::string &amp;str)</td></tr>
-<tr class="separator:a7c1197f49a832b1beab045ad096c2758"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a734c980bfd536f7929cd051283ea192c" id="r_a734c980bfd536f7929cd051283ea192c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a734c980bfd536f7929cd051283ea192c">stevensStringLib::isInteger</a> (const std::string &amp;str)</td></tr>
-<tr class="separator:a734c980bfd536f7929cd051283ea192c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c0bf954dd6582f3d6d8781f079689f2" id="r_a9c0bf954dd6582f3d6d8781f079689f2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a9c0bf954dd6582f3d6d8781f079689f2">stevensStringLib::toUpper</a> (std::string str)</td></tr>
+<tr class="separator:a9c0bf954dd6582f3d6d8781f079689f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eccf0d2f3d7970fc342f4c2faac274a" id="r_a8eccf0d2f3d7970fc342f4c2faac274a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a8eccf0d2f3d7970fc342f4c2faac274a">stevensStringLib::isInteger</a> (const std::string_view &amp;str)</td></tr>
+<tr class="separator:a8eccf0d2f3d7970fc342f4c2faac274a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31ee6720d9d0028eb7891e9360b6c68a" id="r_a31ee6720d9d0028eb7891e9360b6c68a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a31ee6720d9d0028eb7891e9360b6c68a">stevensStringLib::isFloat</a> (const std::string &amp;str)</td></tr>
 <tr class="separator:a31ee6720d9d0028eb7891e9360b6c68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72692e6b9776275f737e5087ee1b87cb" id="r_a72692e6b9776275f737e5087ee1b87cb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a72692e6b9776275f737e5087ee1b87cb">stevensStringLib::isNumber</a> (const std::string &amp;str)</td></tr>
-<tr class="separator:a72692e6b9776275f737e5087ee1b87cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac323930776f40cf61fcfd1bbc5128ded" id="r_ac323930776f40cf61fcfd1bbc5128ded"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ac323930776f40cf61fcfd1bbc5128ded">stevensStringLib::string_to_bool</a> (std::string &amp;str)</td></tr>
-<tr class="separator:ac323930776f40cf61fcfd1bbc5128ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34011fafa3843edec6ee27c5ad6dcf95" id="r_a34011fafa3843edec6ee27c5ad6dcf95"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a34011fafa3843edec6ee27c5ad6dcf95">stevensStringLib::bool_to_string</a> (const bool &amp;input)</td></tr>
-<tr class="separator:a34011fafa3843edec6ee27c5ad6dcf95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa44b873d3a3ae1687e1f6641aab5ae99" id="r_aa44b873d3a3ae1687e1f6641aab5ae99"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aa44b873d3a3ae1687e1f6641aab5ae99">stevensStringLib::trim</a> (const std::string &amp;str, const int &amp;charsToTrim)</td></tr>
-<tr class="separator:aa44b873d3a3ae1687e1f6641aab5ae99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf228e15ecf74d3127799a6d28b014a8" id="r_abf228e15ecf74d3127799a6d28b014a8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#abf228e15ecf74d3127799a6d28b014a8">stevensStringLib::isStandardNumber</a> (const std::string_view &amp;str)</td></tr>
+<tr class="memdesc:abf228e15ecf74d3127799a6d28b014a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string, check to see if it represents a number in standard notation. Useful to check numbers that may cause overflow or underflow to be check with isInteger or may be too precise to be checked with isFloat.  <br /></td></tr>
+<tr class="separator:abf228e15ecf74d3127799a6d28b014a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ff84548f35ed049a4cba5ac01fdf4a6" id="r_a5ff84548f35ed049a4cba5ac01fdf4a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a5ff84548f35ed049a4cba5ac01fdf4a6">stevensStringLib::isScientificNumber</a> (const std::string_view &amp;str)</td></tr>
+<tr class="memdesc:a5ff84548f35ed049a4cba5ac01fdf4a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string, check to see if it represents a number in scientific notation. Useful to check numbers that may cause overflow or underflow to be check with isInteger or may be too precise to be checked with isFloat. Essentially, this function checks to see if you have a floating point type number on the left side of a string divided by an x,X,*,e, or an E, and either a 10^n or n on the right side.  <br /></td></tr>
+<tr class="separator:a5ff84548f35ed049a4cba5ac01fdf4a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac011598c8d05818536e48fd96ca2b12d" id="r_ac011598c8d05818536e48fd96ca2b12d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ac011598c8d05818536e48fd96ca2b12d">stevensStringLib::isNumber</a> (const std::string_view &amp;str)</td></tr>
+<tr class="separator:ac011598c8d05818536e48fd96ca2b12d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66cee1aced824a0f8ee615dbf7035478" id="r_a66cee1aced824a0f8ee615dbf7035478"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a66cee1aced824a0f8ee615dbf7035478">stevensStringLib::stringToBool</a> (const std::string &amp;str)</td></tr>
+<tr class="separator:a66cee1aced824a0f8ee615dbf7035478"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac92dec2b0a512e7141df8aa6dd63c86f" id="r_ac92dec2b0a512e7141df8aa6dd63c86f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ac92dec2b0a512e7141df8aa6dd63c86f">stevensStringLib::boolToString</a> (const bool input)</td></tr>
+<tr class="separator:ac92dec2b0a512e7141df8aa6dd63c86f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d846cb4529597c7fd190c026892ff6d" id="r_a5d846cb4529597c7fd190c026892ff6d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a5d846cb4529597c7fd190c026892ff6d">stevensStringLib::trim</a> (const std::string &amp;str, const unsigned int charsToTrim)</td></tr>
+<tr class="separator:a5d846cb4529597c7fd190c026892ff6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc289dc431709640aac960c1322f4278" id="r_acc289dc431709640aac960c1322f4278"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#acc289dc431709640aac960c1322f4278">stevensStringLib::removeWhitespace</a> (std::string str)</td></tr>
 <tr class="separator:acc289dc431709640aac960c1322f4278"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89b34e30265e4aded341b65c49399919" id="r_a89b34e30265e4aded341b65c49399919"><td class="memTemplParams" colspan="2"><a id="a89b34e30265e4aded341b65c49399919" name="a89b34e30265e4aded341b65c49399919"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a89b34e30265e4aded341b65c49399919"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>stevensStringLib::mapifyStringHelper</b> (T map, std::string str, std::string keyValueSeparator, std::string pairSeparator, bool ignoreWhitespace=true)</td></tr>
-<tr class="memdesc:a89b34e30265e4aded341b65c49399919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does the work for mapifyString and unordered_mapifyString. <br /></td></tr>
-<tr class="separator:a89b34e30265e4aded341b65c49399919"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c3c2bc3c3c819fbc8d8e8de6a3d8423" id="r_a2c3c2bc3c3c819fbc8d8e8de6a3d8423"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a2c3c2bc3c3c819fbc8d8e8de6a3d8423">stevensStringLib::mapifyString</a> (std::string str, std::string keyValueSeparator, std::string pairSeparator, bool ignoreWhitespace=true)</td></tr>
-<tr class="separator:a2c3c2bc3c3c819fbc8d8e8de6a3d8423"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a400139dff51fd0cad31ad2f0fcbc1274" id="r_a400139dff51fd0cad31ad2f0fcbc1274"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a400139dff51fd0cad31ad2f0fcbc1274">stevensStringLib::unordered_mapifyString</a> (std::string str, std::string keyValueSeparator=&quot;:&quot;, std::string pairSeparator=&quot;,&quot;, bool ignoreWhitespace=true)</td></tr>
-<tr class="separator:a400139dff51fd0cad31ad2f0fcbc1274"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21e773702461601b8650db910645916e" id="r_a21e773702461601b8650db910645916e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a21e773702461601b8650db910645916e"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a21e773702461601b8650db910645916e">stevensStringLib::stringifyMap</a> (T map, std::string keyValueSeparator=&quot;:&quot;, std::string pairSeparator=&quot;,&quot;)</td></tr>
-<tr class="separator:a21e773702461601b8650db910645916e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec5ecb7f12940ba9db9f0633717c6304" id="r_aec5ecb7f12940ba9db9f0633717c6304"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aec5ecb7f12940ba9db9f0633717c6304">stevensStringLib::countLines</a> (std::string str)</td></tr>
-<tr class="separator:aec5ecb7f12940ba9db9f0633717c6304"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a412f31d61fe4c1f5158e878100267638" id="r_a412f31d61fe4c1f5158e878100267638"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a412f31d61fe4c1f5158e878100267638"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a412f31d61fe4c1f5158e878100267638">stevensStringLib::mapifyStringHelper</a> (T &amp;map, const std::string_view &amp;str, const std::string_view &amp;keyValueSeparator, const std::string_view &amp;pairSeparator)</td></tr>
+<tr class="memdesc:a412f31d61fe4c1f5158e878100267638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does the work step for mapifyString and unordered_mapifyString.  <br /></td></tr>
+<tr class="separator:a412f31d61fe4c1f5158e878100267638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93a3b051465b829d63a0c0867193f4cb" id="r_a93a3b051465b829d63a0c0867193f4cb"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a93a3b051465b829d63a0c0867193f4cb">stevensStringLib::mapifyString</a> (const std::string_view &amp;str, const std::string_view &amp;keyValueSeparator=&quot;:&quot;, const std::string_view &amp;pairSeparator=&quot;,&quot;)</td></tr>
+<tr class="separator:a93a3b051465b829d63a0c0867193f4cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0e9087ef54deb687c501000f3516de6" id="r_af0e9087ef54deb687c501000f3516de6"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#af0e9087ef54deb687c501000f3516de6">stevensStringLib::unorderedMapifyString</a> (const std::string_view &amp;str, const std::string_view &amp;keyValueSeparator=&quot;:&quot;, const std::string_view &amp;pairSeparator=&quot;,&quot;)</td></tr>
+<tr class="separator:af0e9087ef54deb687c501000f3516de6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d11bd6e262a33a72a8bf8ea3e2d2829" id="r_a6d11bd6e262a33a72a8bf8ea3e2d2829"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6d11bd6e262a33a72a8bf8ea3e2d2829"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a6d11bd6e262a33a72a8bf8ea3e2d2829">stevensStringLib::stringifyMap</a> (const T &amp;map, const std::string_view &amp;keyValueSeparator=&quot;:&quot;, const std::string_view &amp;pairSeparator=&quot;,&quot;)</td></tr>
+<tr class="separator:a6d11bd6e262a33a72a8bf8ea3e2d2829"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0f3a5f620ba28f0fb0061b2cf54cde7" id="r_aa0f3a5f620ba28f0fb0061b2cf54cde7"><td class="memItemLeft" align="right" valign="top">unsigned long long int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aa0f3a5f620ba28f0fb0061b2cf54cde7">stevensStringLib::countLines</a> (const std::string_view &amp;str)</td></tr>
+<tr class="separator:aa0f3a5f620ba28f0fb0061b2cf54cde7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af737e054dda2d8cc062e45c288304b6e" id="r_af737e054dda2d8cc062e45c288304b6e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#af737e054dda2d8cc062e45c288304b6e">stevensStringLib::countFileLines</a> (const std::string &amp;filePath)</td></tr>
 <tr class="separator:af737e054dda2d8cc062e45c288304b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a383ce9fb993729b272b68f339add44b1" id="r_a383ce9fb993729b272b68f339add44b1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a383ce9fb993729b272b68f339add44b1">stevensStringLib::wrapToWidth</a> (std::string str, int wrapWidth)</td></tr>
-<tr class="separator:a383ce9fb993729b272b68f339add44b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef46b03fd4e57d73392c25dfd2b580f0" id="r_aef46b03fd4e57d73392c25dfd2b580f0"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aef46b03fd4e57d73392c25dfd2b580f0">stevensStringLib::circularIndex</a> (std::string str, int i)</td></tr>
-<tr class="separator:aef46b03fd4e57d73392c25dfd2b580f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c7979bb34ee40190b84d9750f5a8c94" id="r_a7c7979bb34ee40190b84d9750f5a8c94"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a7c7979bb34ee40190b84d9750f5a8c94">stevensStringLib::eraseCharsFromEnd</a> (std::string str, int n)</td></tr>
-<tr class="separator:a7c7979bb34ee40190b84d9750f5a8c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa97f9b043053f16df01be3344e15ba1" id="r_aaa97f9b043053f16df01be3344e15ba1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aaa97f9b043053f16df01be3344e15ba1">stevensStringLib::findAll</a> (std::string str, std::string substr)</td></tr>
-<tr class="separator:aaa97f9b043053f16df01be3344e15ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13c805758cc20928ee0473b0e0f05b85" id="r_a13c805758cc20928ee0473b0e0f05b85"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a13c805758cc20928ee0473b0e0f05b85">stevensStringLib::wrapToWidth</a> (const std::string &amp;str, size_t wrapWidth)</td></tr>
+<tr class="separator:a13c805758cc20928ee0473b0e0f05b85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1438c0d1b2a167041cbb2f3f95e5220d" id="r_a1438c0d1b2a167041cbb2f3f95e5220d"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a1438c0d1b2a167041cbb2f3f95e5220d">stevensStringLib::circularIndex</a> (const std::string_view &amp;str, size_t i)</td></tr>
+<tr class="separator:a1438c0d1b2a167041cbb2f3f95e5220d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bbbc5f9915fcdea95ccd3536d77964b" id="r_a5bbbc5f9915fcdea95ccd3536d77964b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a5bbbc5f9915fcdea95ccd3536d77964b">stevensStringLib::getWhitespaceString</a> (const std::locale &amp;loc)</td></tr>
 <tr class="separator:a5bbbc5f9915fcdea95ccd3536d77964b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa78a2a94e837596ce18dfb92282b0ea5" id="r_aa78a2a94e837596ce18dfb92282b0ea5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aa78a2a94e837596ce18dfb92282b0ea5">stevensStringLib::trimWhitespace</a> (std::string str)</td></tr>
-<tr class="separator:aa78a2a94e837596ce18dfb92282b0ea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9031d37220df1c65182f588a9e1e998c" id="r_a9031d37220df1c65182f588a9e1e998c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a9031d37220df1c65182f588a9e1e998c">stevensStringLib::char_to_string</a> (const char &amp;c)</td></tr>
-<tr class="separator:a9031d37220df1c65182f588a9e1e998c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fc5a8eb271c99ac169ef509a7faeecb" id="r_a9fc5a8eb271c99ac169ef509a7faeecb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a9fc5a8eb271c99ac169ef509a7faeecb">stevensStringLib::isNotDigit</a> (const char &amp;c)</td></tr>
-<tr class="separator:a9fc5a8eb271c99ac169ef509a7faeecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fe6e850aed7869e0cf82a93c42820c1" id="r_a3fe6e850aed7869e0cf82a93c42820c1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a3fe6e850aed7869e0cf82a93c42820c1">stevensStringLib::trimWhitespace</a> (const std::string &amp;str)</td></tr>
+<tr class="separator:a3fe6e850aed7869e0cf82a93c42820c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6af188690b2237371c369d748223b193" id="r_a6af188690b2237371c369d748223b193"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a6af188690b2237371c369d748223b193">stevensStringLib::charToString</a> (const char &amp;c)</td></tr>
+<tr class="separator:a6af188690b2237371c369d748223b193"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaac70294354fd548c0fcc74c31f3b924" id="r_aaac70294354fd548c0fcc74c31f3b924"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aaac70294354fd548c0fcc74c31f3b924">stevensStringLib::eraseNonNumericChars</a> (std::string str)</td></tr>
 <tr class="separator:aaac70294354fd548c0fcc74c31f3b924"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac69119030f08c04d17f5ec4c59c0a8b6" id="r_ac69119030f08c04d17f5ec4c59c0a8b6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ac69119030f08c04d17f5ec4c59c0a8b6">stevensStringLib::reverse</a> (std::string str)</td></tr>
@@ -162,30 +178,38 @@ template&lt;typename T &gt; </td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An easy-to-use C++ library with convenient functions for working with strings. </p>
 <dl class="section author"><dt>Author</dt><dd>Jeff Stevens (<a href="#" onclick="location.href='mai'+'lto:'+'jef'+'f@'+'buc'+'ep'+'hal'+'us'+'stu'+'di'+'os.'+'co'+'m'; return false;">jeff@<span class="obfuscator">.nosp@m.</span>buce<span class="obfuscator">.nosp@m.</span>phalu<span class="obfuscator">.nosp@m.</span>sstu<span class="obfuscator">.nosp@m.</span>dios.<span class="obfuscator">.nosp@m.</span>com</a>) </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2023-12-21 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>1-11-24 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) Bucephalus Studios 2023</dd></dl>
 <p>Created and released under the MIT license. See the LICENSE file in the repository folder.</p>
 <p>If you'd like to buy me a coffee or send me a tip for my work on this library, you can do that here: <a href="https://ko-fi.com/bucephalus_studios">https://ko-fi.com/bucephalus_studios</a></p>
 <p>Thank you very, very much for being interested in my code! Hope it serves you well &lt;3 </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a34011fafa3843edec6ee27c5ad6dcf95" name="a34011fafa3843edec6ee27c5ad6dcf95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34011fafa3843edec6ee27c5ad6dcf95">&#9670;&#160;</a></span>bool_to_string()</h2>
+<a id="ac92dec2b0a512e7141df8aa6dd63c86f" name="ac92dec2b0a512e7141df8aa6dd63c86f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac92dec2b0a512e7141df8aa6dd63c86f">&#9670;&#160;</a></span>boolToString()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string stevensStringLib::bool_to_string </td>
+          <td class="memname">std::string stevensStringLib::boolToString </td>
           <td>(</td>
-          <td class="paramtype">const bool &amp;&#160;</td>
+          <td class="paramtype">const bool&#160;</td>
           <td class="paramname"><em>input</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Converts a boolean value to a string value.</p>
-<p>Taken from OJ's answer here: <a href="https://stackoverflow.com/questions/29383/converting-bool-to-text-in-c">https://stackoverflow.com/questions/29383/converting-bool-to-text-in-c</a></p>
+<p>Credit to OJ and Igor Ganapolsky: <a href="https://stackoverflow.com/a/29798/16511184">https://stackoverflow.com/a/29798/16511184</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input</td><td>- The boolean value we wish to convert to a string.</td></tr>
@@ -194,7 +218,7 @@ template&lt;typename T &gt; </td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">std::string</td><td>- The boolean value represented as a string. </td></tr>
+    <tr><td class="paramname">The</td><td>boolean value represented as a string. </td></tr>
   </table>
   </dd>
 </dl>
@@ -206,6 +230,9 @@ template&lt;typename T &gt; </td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string stevensStringLib::cap1stChar </td>
@@ -215,6 +242,11 @@ template&lt;typename T &gt; </td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Returns a string with the first letter capitalized. If the string is empty, then we just return the empty string.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -232,20 +264,28 @@ template&lt;typename T &gt; </td></tr>
 
 </div>
 </div>
-<a id="a9031d37220df1c65182f588a9e1e998c" name="a9031d37220df1c65182f588a9e1e998c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9031d37220df1c65182f588a9e1e998c">&#9670;&#160;</a></span>char_to_string()</h2>
+<a id="a6af188690b2237371c369d748223b193" name="a6af188690b2237371c369d748223b193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6af188690b2237371c369d748223b193">&#9670;&#160;</a></span>charToString()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string stevensStringLib::char_to_string </td>
+          <td class="memname">std::string stevensStringLib::charToString </td>
           <td>(</td>
           <td class="paramtype">const char &amp;&#160;</td>
           <td class="paramname"><em>c</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Given a character c, convert it to a std::string.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -256,29 +296,32 @@ template&lt;typename T &gt; </td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">std::string</td><td>- A string representing the character c. </td></tr>
+    <tr><td class="paramname">A</td><td>string representing the character c. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="aef46b03fd4e57d73392c25dfd2b580f0" name="aef46b03fd4e57d73392c25dfd2b580f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef46b03fd4e57d73392c25dfd2b580f0">&#9670;&#160;</a></span>circularIndex()</h2>
+<a id="a1438c0d1b2a167041cbb2f3f95e5220d" name="a1438c0d1b2a167041cbb2f3f95e5220d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1438c0d1b2a167041cbb2f3f95e5220d">&#9670;&#160;</a></span>circularIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">char stevensStringLib::circularIndex </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>str</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>i</em>&#160;</td>
         </tr>
         <tr>
@@ -287,8 +330,13 @@ template&lt;typename T &gt; </td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>Given a string an an integer representing an index, return a single character from the string by the process of circular indexing.</p>
+<p>Given a string and an integer representing an index, return a single character from the string by the process of circular indexing.</p>
 <p>Circular indexing is performed by indexing over the string from left to right. Once the index exceeds the length of the string, we begin indexing again from the lefthand side of the string and repeat the process until we stop at the final index. We return the character at that final index.</p>
 <p>Example: circularIndex("Hello world!", 13) returns 'e', as we loop around to 'H' at 12 and index one space further to reach 'e'.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -300,30 +348,83 @@ template&lt;typename T &gt; </td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">char</td><td>- A character found in str that has been circularly indexed to at position i</td></tr>
+    <tr><td class="paramname">A</td><td>character found in str that has been circularly indexed to at position i </td></tr>
   </table>
   </dd>
 </dl>
-<p>TODO: Create aliases ci and circ_i </p>
 
 </div>
 </div>
-<a id="a86fbb60ec5f626744264a2e0ab5066a9" name="a86fbb60ec5f626744264a2e0ab5066a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86fbb60ec5f626744264a2e0ab5066a9">&#9670;&#160;</a></span>contains()</h2>
+<a id="aaee6af848c3910d695c0c191dd182c7d" name="aaee6af848c3910d695c0c191dd182c7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaee6af848c3910d695c0c191dd182c7d">&#9670;&#160;</a></span>contains() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool stevensStringLib::contains </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>str</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">const char&#160;</td>
+          <td class="paramname"><em>ch</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd>In C++23 and onward, please use the std::string::contains() method instead of this function.</dd></dl>
+<p>Given a string, determine whether it has an occurrence of a character somewhere within it.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we are examining to see if it contains the substring. </td></tr>
+    <tr><td class="paramname">ch</td><td>- The char we are checking to see if it is contained in str.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Boolean</td><td>indicating that input string contains the substring (true) or not (false). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af83dd4ced359aa4728438f8e469e6f2e" name="af83dd4ced359aa4728438f8e469e6f2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af83dd4ced359aa4728438f8e469e6f2e">&#9670;&#160;</a></span>contains() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool stevensStringLib::contains </td>
+          <td>(</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>substring</em>&#160;</td>
         </tr>
         <tr>
@@ -332,21 +433,77 @@ template&lt;typename T &gt; </td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>In C++23 and onward, please use the std::string::contains() method instead of this function.</dd></dl>
 <p>Given a string, determine whether it has an occurrence of the substring somewhere within it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>- The string we are examining to see if it contains the substring. </td></tr>
-    <tr><td class="paramname">substring</td><td>- The substring we are trying to see if it is contained in str.</td></tr>
+    <tr><td class="paramname">substring</td><td>- The substring we are checking to if it is contained in str.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">bool</td><td>- Boolean indicating that input string contains the substring (true) or not (false). </td></tr>
+    <tr><td class="paramname">Boolean</td><td>indicating that input string contains the substring (true) or not (false). </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a32ffddbdb3678e6b288f2950cc9bce27" name="a32ffddbdb3678e6b288f2950cc9bce27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32ffddbdb3678e6b288f2950cc9bce27">&#9670;&#160;</a></span>containsOnly()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool stevensStringLib::containsOnly </td>
+          <td>(</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>chars</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Given a string, determine if it contains only the characters in the given string. </p>
+<p>Example: containsOnly("11101112222","12")</p>
+<p>Result: false, str contains the character '0', which is not equal to '1', or '2';</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we are checking to see if it only contains characters present in the chars string. </td></tr>
+    <tr><td class="paramname">chars</td><td>- A string of characters we are checking to see if str contains any characters that are not in chars. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if str contains only instances of keys in substrs. </dd>
+<dd>
+false if str contains at least one substring that is not present as a key in substrs. </dd></dl>
 
 </div>
 </div>
@@ -355,6 +512,9 @@ template&lt;typename T &gt; </td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">int stevensStringLib::countFileLines </td>
@@ -364,6 +524,11 @@ template&lt;typename T &gt; </td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Given the path to a file, count how many lines are in the file and return the integer count.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -381,24 +546,32 @@ template&lt;typename T &gt; </td></tr>
 
 </div>
 </div>
-<a id="aec5ecb7f12940ba9db9f0633717c6304" name="aec5ecb7f12940ba9db9f0633717c6304"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec5ecb7f12940ba9db9f0633717c6304">&#9670;&#160;</a></span>countLines()</h2>
+<a id="aa0f3a5f620ba28f0fb0061b2cf54cde7" name="aa0f3a5f620ba28f0fb0061b2cf54cde7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0f3a5f620ba28f0fb0061b2cf54cde7">&#9670;&#160;</a></span>countLines()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int stevensStringLib::countLines </td>
+          <td class="memname">unsigned long long int stevensStringLib::countLines </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Given a string, count how many lines are in that string and return the integer count.</p>
 <p>Solution from: <a href="https://stackoverflow.com/questions/3482064/counting-the-number-of-lines-in-a-text-file">https://stackoverflow.com/questions/3482064/counting-the-number-of-lines-in-a-text-file</a></p>
-<p>TODO: Concerned with line counting problems presented here: <a href="https://stackoverflow.com/a/843484/16511184">https://stackoverflow.com/a/843484/16511184</a></p>
+<p>TODO: Concerned with line counting problems presented here: <a href="https://stackoverflow.com/a/843484/16511184">https://stackoverflow.com/a/843484/16511184</a> This function counts only newline characters, not all of the ways new lines can indicated via characters.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>- The string which we wish to count the number of lines of.</td></tr>
@@ -414,11 +587,14 @@ template&lt;typename T &gt; </td></tr>
 
 </div>
 </div>
-<a id="a7c7979bb34ee40190b84d9750f5a8c94" name="a7c7979bb34ee40190b84d9750f5a8c94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c7979bb34ee40190b84d9750f5a8c94">&#9670;&#160;</a></span>eraseCharsFromEnd()</h2>
+<a id="ad3dfd6d4329ab7bf69fb1cfd475508c7" name="ad3dfd6d4329ab7bf69fb1cfd475508c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3dfd6d4329ab7bf69fb1cfd475508c7">&#9670;&#160;</a></span>eraseCharsFromEnd()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string stevensStringLib::eraseCharsFromEnd </td>
@@ -429,7 +605,7 @@ template&lt;typename T &gt; </td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>n</em>&#160;</td>
         </tr>
         <tr>
@@ -438,9 +614,14 @@ template&lt;typename T &gt; </td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Given a string str, erase the last n characters of the string.</p>
-<p>Taken from: <a href="https://thispointer.com/remove-last-n-characters-from-a-string-in-c/">https://thispointer.com/remove-last-n-characters-from-a-string-in-c/</a></p>
+<p>Credit to Varun: <a href="https://thispointer.com/remove-last-n-characters-from-a-string-in-c/">https://thispointer.com/remove-last-n-characters-from-a-string-in-c/</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>- The string we want to erase characters from the end of. </td></tr>
@@ -457,11 +638,60 @@ template&lt;typename T &gt; </td></tr>
 
 </div>
 </div>
+<a id="a9b92ac54e4eb76eb32d7fd7ccd0f8de3" name="a9b92ac54e4eb76eb32d7fd7ccd0f8de3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b92ac54e4eb76eb32d7fd7ccd0f8de3">&#9670;&#160;</a></span>eraseCharsFromStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string stevensStringLib::eraseCharsFromStart </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Given a string str, erase the firrst n characters of the string. </p>
+<p>Credit to Michael Krelin: <a href="https://stackoverflow.com/a/12692267/16511184">https://stackoverflow.com/a/12692267/16511184</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we want to erase characters from the start of. </td></tr>
+    <tr><td class="paramname">n</td><td>- The number of characters we want to erase </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aaac70294354fd548c0fcc74c31f3b924" name="aaac70294354fd548c0fcc74c31f3b924"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaac70294354fd548c0fcc74c31f3b924">&#9670;&#160;</a></span>eraseNonNumericChars()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string stevensStringLib::eraseNonNumericChars </td>
@@ -471,6 +701,11 @@ template&lt;typename T &gt; </td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Erases all non-numeric characters from a string and returns it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -481,29 +716,83 @@ template&lt;typename T &gt; </td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">std::string</td><td>- The string parameter we passed in, but all of its non-numeric characters removed from it. </td></tr>
+    <tr><td class="paramname">The</td><td>string parameter we passed in, but all of its non-numeric characters removed from it. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="aaa97f9b043053f16df01be3344e15ba1" name="aaa97f9b043053f16df01be3344e15ba1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa97f9b043053f16df01be3344e15ba1">&#9670;&#160;</a></span>findAll()</h2>
+<a id="aba5eea65943a19263c1a018dda78fe81" name="aba5eea65943a19263c1a018dda78fe81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba5eea65943a19263c1a018dda78fe81">&#9670;&#160;</a></span>findAll() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt; size_t &gt; stevensStringLib::findAll </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>str</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const char&#160;</td>
+          <td class="paramname"><em>ch</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Given a string str, find all occurrences of a character within it. Returns a vector of all of the indices that the character occurs at within the string str.</p>
+<p>Credit to Benjamin Lindley: <a href="https://stackoverflow.com/a/4034809">https://stackoverflow.com/a/4034809</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we are searching for the substring in. </td></tr>
+    <tr><td class="paramname">ch</td><td>- The character we are looking for within string str.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">std::vector&lt;size_t&gt;</td><td>- A vector containing all indices in increasing order that ch occurs at. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4bcbc19ce3501fa3e06635657c2ded45" name="a4bcbc19ce3501fa3e06635657c2ded45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bcbc19ce3501fa3e06635657c2ded45">&#9670;&#160;</a></span>findAll() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; size_t &gt; stevensStringLib::findAll </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>substr</em>&#160;</td>
         </tr>
         <tr>
@@ -512,9 +801,14 @@ template&lt;typename T &gt; </td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Given a string str, find all occurrences of a substring within it. Returns a vector of all of the indices that the substring occurs at within the string str.</p>
-<p>Based off of: <a href="https://stackoverflow.com/a/4034809">https://stackoverflow.com/a/4034809</a></p>
+<p>Credit to Benjamin Lindley: <a href="https://stackoverflow.com/a/4034809">https://stackoverflow.com/a/4034809</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>- The string we are searching for the substring in. </td></tr>
@@ -536,6 +830,9 @@ template&lt;typename T &gt; </td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string stevensStringLib::getWhitespaceString </td>
@@ -545,9 +842,14 @@ template&lt;typename T &gt; </td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Given a locale, return all of the whitespace characters for that locale in a string.</p>
-<p>Credit: <a href="https://stackoverflow.com/a/36311304/16511184">https://stackoverflow.com/a/36311304/16511184</a></p>
+<p>Credit to Nathan Oliver: <a href="https://stackoverflow.com/a/36311304/16511184">https://stackoverflow.com/a/36311304/16511184</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">loc</td><td>- The locale which we want to obtain a string of all whitespace characters for.</td></tr>
@@ -556,7 +858,7 @@ template&lt;typename T &gt; </td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">std::string</td><td>- A string of all whitespace characters defined in the given locale. </td></tr>
+    <tr><td class="paramname">A</td><td>string of all whitespace characters defined in the given locale. </td></tr>
   </table>
   </dd>
 </dl>
@@ -568,6 +870,9 @@ template&lt;typename T &gt; </td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool stevensStringLib::isFloat </td>
@@ -577,42 +882,55 @@ template&lt;typename T &gt; </td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>Detects if a string is in the form of a valid c++ floating point number.</p>
+<p>Detects if a string is in the form of a valid c++ floating point type (float, double, long double).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>- A string we are checking to see if it represents a floating point number.</td></tr>
+    <tr><td class="paramname">str</td><td>- A string we are checking to see if it represents a floating point type.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">bool</td><td>- true if the string str represents a floating point number. False otherwise. </td></tr>
+    <tr><td class="paramname">bool</td><td>- true if the string str represents a floating point type. False otherwise. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a734c980bfd536f7929cd051283ea192c" name="a734c980bfd536f7929cd051283ea192c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a734c980bfd536f7929cd051283ea192c">&#9670;&#160;</a></span>isInteger()</h2>
+<a id="a8eccf0d2f3d7970fc342f4c2faac274a" name="a8eccf0d2f3d7970fc342f4c2faac274a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eccf0d2f3d7970fc342f4c2faac274a">&#9670;&#160;</a></span>isInteger()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool stevensStringLib::isInteger </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>Detects if a string is in the form of a valid C++ integer.</p>
+<p>Detects if a string is in the form of a valid C++ integer/integral type (bool, char, short, int, long int, long long int).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>- A string we are checking to see if it represents an integer.</td></tr>
+    <tr><td class="paramname">str</td><td>- A string we are checking to see if it represents an integer/integral type.</td></tr>
   </table>
   </dd>
 </dl>
@@ -625,53 +943,30 @@ template&lt;typename T &gt; </td></tr>
 
 </div>
 </div>
-<a id="a9fc5a8eb271c99ac169ef509a7faeecb" name="a9fc5a8eb271c99ac169ef509a7faeecb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fc5a8eb271c99ac169ef509a7faeecb">&#9670;&#160;</a></span>isNotDigit()</h2>
+<a id="ac011598c8d05818536e48fd96ca2b12d" name="ac011598c8d05818536e48fd96ca2b12d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac011598c8d05818536e48fd96ca2b12d">&#9670;&#160;</a></span>isNumber()</h2>
 
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool stevensStringLib::isNotDigit </td>
-          <td>(</td>
-          <td class="paramtype">const char &amp;&#160;</td>
-          <td class="paramname"><em>c</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Predicate function for eraseNonNumericChars. It performs a logical not operation on the result of the isdigit() function.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">c</td><td>- The character we'd like to check to see if it is not a digit.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>Return values</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">bool</td><td>- True if c is not a digit, false otherwise. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a72692e6b9776275f737e5087ee1b87cb" name="a72692e6b9776275f737e5087ee1b87cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72692e6b9776275f737e5087ee1b87cb">&#9670;&#160;</a></span>isNumber()</h2>
-
-<div class="memitem">
-<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool stevensStringLib::isNumber </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>Detects whether or not the user input is in the form of an integer or floating point number. Does not work for mathematical expressions!</p>
+<p>Detects if a string consists of only numeric characters, and potentially a decimal point and leading negative sign.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>- The string we are checking to see if it represents a number.</td></tr>
@@ -692,6 +987,9 @@ template&lt;typename T &gt; </td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool stevensStringLib::isPalindrome </td>
@@ -701,9 +999,14 @@ template&lt;typename T &gt; </td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Checks to see if a std::string is a palindrime or not (the reversed order of characters equals the original order of characters). Note well that character case, spacing, and punctuation present in classic English palindromes like "A man, a plan, a canal, panama" prevent them from being valid C++ palindromes with this function, as the reverse order of this exact string is "amanap ,lanac a ,nalp a ,nam A" is not equivalent to the original order of characters.</p>
-<p>Credit: <a href="https://stackoverflow.com/a/8362657/16511184">https://stackoverflow.com/a/8362657/16511184</a></p>
+<p>Credit to Cubbi: <a href="https://stackoverflow.com/a/8362657/16511184">https://stackoverflow.com/a/8362657/16511184</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>- The string we would like to check.</td></tr>
@@ -712,42 +1015,115 @@ template&lt;typename T &gt; </td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">bool</td><td>- true if str is a palindrome, false otherwise. </td></tr>
+    <tr><td class="paramname">true</td><td>if str is a palindrome, false otherwise. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a2c3c2bc3c3c819fbc8d8e8de6a3d8423" name="a2c3c2bc3c3c819fbc8d8e8de6a3d8423"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c3c2bc3c3c819fbc8d8e8de6a3d8423">&#9670;&#160;</a></span>mapifyString()</h2>
+<a id="a5ff84548f35ed049a4cba5ac01fdf4a6" name="a5ff84548f35ed049a4cba5ac01fdf4a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ff84548f35ed049a4cba5ac01fdf4a6">&#9670;&#160;</a></span>isScientificNumber()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool stevensStringLib::isScientificNumber </td>
+          <td>(</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Given a string, check to see if it represents a number in scientific notation. Useful to check numbers that may cause overflow or underflow to be check with isInteger or may be too precise to be checked with isFloat. Essentially, this function checks to see if you have a floating point type number on the left side of a string divided by an x,X,*,e, or an E, and either a 10^n or n on the right side. </p>
+<p>Example: isScientificNumber(3.521x10^3) == true isScientificNumber(4.68E4) == true isScientificNumber(9001) == false</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we are checking to see if it represents a number in standard notation. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the string represents a number in scientific notation. </dd>
+<dd>
+false if the string does NOT represent a number in scientific notation. </dd></dl>
+
+</div>
+</div>
+<a id="abf228e15ecf74d3127799a6d28b014a8" name="abf228e15ecf74d3127799a6d28b014a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf228e15ecf74d3127799a6d28b014a8">&#9670;&#160;</a></span>isStandardNumber()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool stevensStringLib::isStandardNumber </td>
+          <td>(</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Given a string, check to see if it represents a number in standard notation. Useful to check numbers that may cause overflow or underflow to be check with isInteger or may be too precise to be checked with isFloat. </p>
+<p>Example: isStandardNumber("-214748364721474836472147483647.123123123123123") == true isStandardNumber("2.5e2") == false</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we are checking to see if it represents a number in standard notation. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if str represents a number in standard notation </dd>
+<dd>
+false if str does not represent a number in standard notation </dd></dl>
+
+</div>
+</div>
+<a id="a93a3b051465b829d63a0c0867193f4cb" name="a93a3b051465b829d63a0c0867193f4cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93a3b051465b829d63a0c0867193f4cb">&#9670;&#160;</a></span>mapifyString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::map&lt; std::string, std::string &gt; stevensStringLib::mapifyString </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>str</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>keyValueSeparator</em>, </td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>keyValueSeparator</em> = <code>&quot;:&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>pairSeparator</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>ignoreWhitespace</em> = <code>true</code>&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>pairSeparator</em> = <code>&quot;,&quot;</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -755,6 +1131,11 @@ template&lt;typename T &gt; </td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>TODO: Problem!!! Data could potentially contain separator strings. We need to prevent this, possibly by requiring JSON formatting?</p>
 <p>Given an input string str that can represent a map&lt;std::string,std::string, take two separator strings and separate the pairs from eachother, and the keys and values from each other. Then insert each key value pair into a std::map&lt;std::string,std::string&gt; object.</p>
@@ -762,17 +1143,69 @@ template&lt;typename T &gt; </td></tr>
   <table class="params">
     <tr><td class="paramname">str</td><td>- The string we would like to convert into a map&lt;std::string,std::string&gt;. </td></tr>
     <tr><td class="paramname">keyValueSeparator</td><td>- The string in str using to separate keys from values. </td></tr>
-    <tr><td class="paramname">pairSeparator</td><td>- The string in str we are using separate pairs. </td></tr>
-    <tr><td class="paramname">ignoreWhitespace</td><td>- Bool indicating if we should remove any whitespace from str before creating the map.</td></tr>
+    <tr><td class="paramname">pairSeparator</td><td>- The string in str we are using separate pairs.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">T&lt;std::string,std::string&gt;</td><td>- A map object of string-string key-value pairs. </td></tr>
+    <tr><td class="paramname">A</td><td>map object of string-string key-value pairs. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a412f31d61fe4c1f5158e878100267638" name="a412f31d61fe4c1f5158e878100267638"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a412f31d61fe4c1f5158e878100267638">&#9670;&#160;</a></span>mapifyStringHelper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T stevensStringLib::mapifyStringHelper </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>keyValueSeparator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>pairSeparator</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Does the work step for mapifyString and unordered_mapifyString. </p>
+<p>This function does not need to be directly called, instead, please use mapifyString() and unorderedMapifyString() </p>
 
 </div>
 </div>
@@ -781,6 +1214,9 @@ template&lt;typename T &gt; </td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string stevensStringLib::removeWhitespace </td>
@@ -790,6 +1226,11 @@ template&lt;typename T &gt; </td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Removes all tabs, spaces, newlines, and anything else from a string that is defined as whitespace in the current locale.</p>
 <p>Learn what is defined as whitespace: <a href="https://en.cppreference.com/w/cpp/string/byte/isspace">https://en.cppreference.com/w/cpp/string/byte/isspace</a> Credit to Michael Steller: <a href="https://stackoverflow.com/questions/83439/remove-spaces-from-stdstring-in-c">https://stackoverflow.com/questions/83439/remove-spaces-from-stdstring-in-c</a></p>
@@ -801,7 +1242,7 @@ template&lt;typename T &gt; </td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">std::string</td><td>- The input string but with all of the whitespace removed </td></tr>
+    <tr><td class="paramname">The</td><td>input string but with all of the whitespace removed </td></tr>
   </table>
   </dd>
 </dl>
@@ -813,6 +1254,9 @@ template&lt;typename T &gt; </td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string stevensStringLib::reverse </td>
@@ -822,6 +1266,11 @@ template&lt;typename T &gt; </td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Reverses the order of a string's characters using std::reverse().</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -839,28 +1288,31 @@ template&lt;typename T &gt; </td></tr>
 
 </div>
 </div>
-<a id="ae75dd17730068a151f3f34d299cfb7fa" name="ae75dd17730068a151f3f34d299cfb7fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae75dd17730068a151f3f34d299cfb7fa">&#9670;&#160;</a></span>separate()</h2>
+<a id="a1b29b2661c1430ffbac04f0e8a0876a3" name="a1b29b2661c1430ffbac04f0e8a0876a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b29b2661c1430ffbac04f0e8a0876a3">&#9670;&#160;</a></span>separate() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt; std::string &gt; stevensStringLib::separate </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>str</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>separator</em> = <code>&quot;,&quot;</code>, </td>
+          <td class="paramtype">const char&#160;</td>
+          <td class="paramname"><em>separator</em> = <code>','</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool &amp;&#160;</td>
+          <td class="paramtype">const bool&#160;</td>
           <td class="paramname"><em>omitEmptyStrings</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
@@ -869,11 +1321,77 @@ template&lt;typename T &gt; </td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+<p>Separates a string by a separator character. Returns a vector of strings that were separated.</p>
+<p>Example:</p>
+<p>std::vector&lt;std::string&gt; result = separate("John,Gina,Sebastian,Nick");</p>
+<p>//Value of result is: {"John","Gina","Sebastian","Nick"}</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we intend to separate with this function. </td></tr>
+    <tr><td class="paramname">separator</td><td>- The char we intend to separate str by. </td></tr>
+    <tr><td class="paramname">omitEmptyStrings</td><td>- If true, do not include empty strings in the returned vector.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">A</td><td>vector of substrings of the original string that have been split up by all occurrences of the separator parameter </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aff7fd2ec486153c3481c1137155c0980" name="aff7fd2ec486153c3481c1137155c0980"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff7fd2ec486153c3481c1137155c0980">&#9670;&#160;</a></span>separate() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; stevensStringLib::separate </td>
+          <td>(</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>separator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>omitEmptyStrings</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Variant of separate that lets you separate by strings instead of chars.</p>
 <p>Separates a string by a separator substring. Returns a vector of strings that were separated by the separator substring.</p>
 <p>Example:</p>
-<p>std::vector&lt;std::string&gt; result = separate( "John,Gina,Sebastian,Nick", ",")</p>
-<p>//Value of result is: {"John","Gina","Sebastian","Nick"}</p>
+<p>std::vector&lt;std::string&gt; result = separate("Wakko and Yakko and Dot", " and ");</p>
+<p>//Value of result is: {"Wakko","Yakko","Dot"}</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>- The string we intend to separate with this function. </td></tr>
@@ -884,68 +1402,89 @@ template&lt;typename T &gt; </td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">vector&lt;std::string&gt;</td><td>- A vector of substrings of the original string that have been split up by all occurrences of the separator parameter </td></tr>
+    <tr><td class="paramname">A</td><td>vector of substrings of the original string that have been split up by all occurrences of the separator parameter </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="ac323930776f40cf61fcfd1bbc5128ded" name="ac323930776f40cf61fcfd1bbc5128ded"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac323930776f40cf61fcfd1bbc5128ded">&#9670;&#160;</a></span>string_to_bool()</h2>
+<a id="a608c79000fd38c904b100d5cf9120299" name="a608c79000fd38c904b100d5cf9120299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a608c79000fd38c904b100d5cf9120299">&#9670;&#160;</a></span>startsWith()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool stevensStringLib::string_to_bool </td>
+          <td class="memname">bool stevensStringLib::startsWith </td>
           <td>(</td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>str</em></td><td>)</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>substr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>Takes in a string and checks to see if it is a representation of the word "true" or "0". In those cases, return a true bool. In all other cases, return false.</p>
+
+<p>Check a string to see if it begins with a substring. </p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>In C++20 and onward, please use std::string.starts_with instead.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>- A string we are converting to a bool.</td></tr>
+    <tr><td class="paramname">str</td><td>- The string we are checking to see if it begins with another substring. </td></tr>
+    <tr><td class="paramname">substr</td><td>- The substring we are checking the beginning of str against to see if they are equal. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="retval"><dt>Return values</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">bool</td><td>- True if str is a form of the word true or 0, and false otherwise. </td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the string str begins with substr </dd>
+<dd>
+false if the string str does NOT begin with substr </dd></dl>
 
 </div>
 </div>
-<a id="a21e773702461601b8650db910645916e" name="a21e773702461601b8650db910645916e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21e773702461601b8650db910645916e">&#9670;&#160;</a></span>stringifyMap()</h2>
+<a id="a6d11bd6e262a33a72a8bf8ea3e2d2829" name="a6d11bd6e262a33a72a8bf8ea3e2d2829"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d11bd6e262a33a72a8bf8ea3e2d2829">&#9670;&#160;</a></span>stringifyMap()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string stevensStringLib::stringifyMap </td>
           <td>(</td>
-          <td class="paramtype">T&#160;</td>
+          <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>map</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>keyValueSeparator</em> = <code>&quot;:&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>pairSeparator</em> = <code>&quot;,&quot;</code>&#160;</td>
         </tr>
         <tr>
@@ -954,6 +1493,11 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Given an map or unordered_map of strings, turn it into a string of keys and values paired together, separated by delimiting characters.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -966,27 +1510,74 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">std::string</td><td>- The all contents of the unordered map turned into a string list of separated key-value pairs. </td></tr>
+    <tr><td class="paramname">The</td><td>all contents of the unordered map turned into a string list of separated key-value pairs. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a7c1197f49a832b1beab045ad096c2758" name="a7c1197f49a832b1beab045ad096c2758"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c1197f49a832b1beab045ad096c2758">&#9670;&#160;</a></span>toUpper()</h2>
+<a id="a66cee1aced824a0f8ee615dbf7035478" name="a66cee1aced824a0f8ee615dbf7035478"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66cee1aced824a0f8ee615dbf7035478">&#9670;&#160;</a></span>stringToBool()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string stevensStringLib::toUpper </td>
+          <td class="memname">bool stevensStringLib::stringToBool </td>
           <td>(</td>
-          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Takes in a string and checks to see if it is a representation of the word "true" or a string representing a non-zero number. In those cases, return a true bool. In all other cases, return false.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- A string we are converting to a bool.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">True</td><td>if str is a form of the word true or 0, and false otherwise. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9c0bf954dd6582f3d6d8781f079689f2" name="a9c0bf954dd6582f3d6d8781f079689f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c0bf954dd6582f3d6d8781f079689f2">&#9670;&#160;</a></span>toUpper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string stevensStringLib::toUpper </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Returns a string with all characters in uppercase if possible.</p>
 <p>Credit to this article: <a href="https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-stl-c/">https://www.geeksforgeeks.org/conversion-whole-string-uppercase-lowercase-using-stl-c/</a></p>
@@ -1006,11 +1597,14 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="aa44b873d3a3ae1687e1f6641aab5ae99" name="aa44b873d3a3ae1687e1f6641aab5ae99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa44b873d3a3ae1687e1f6641aab5ae99">&#9670;&#160;</a></span>trim()</h2>
+<a id="a5d846cb4529597c7fd190c026892ff6d" name="a5d846cb4529597c7fd190c026892ff6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d846cb4529597c7fd190c026892ff6d">&#9670;&#160;</a></span>trim()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string stevensStringLib::trim </td>
@@ -1021,7 +1615,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const int &amp;&#160;</td>
+          <td class="paramtype">const unsigned int&#160;</td>
           <td class="paramname"><em>charsToTrim</em>&#160;</td>
         </tr>
         <tr>
@@ -1030,6 +1624,11 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Given a string and integer X, erase (trim) X characters from both the beginning and end of the string.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1041,30 +1640,38 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">std::string</td><td>- A modified version of the string str, with a number characters from both the beginning and end of the string trimmed off equal to charsToTrim. </td></tr>
+    <tr><td class="paramname">A</td><td>modified version of the string str, with a number characters from both the beginning and end of the string trimmed off equal to charsToTrim. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="aa78a2a94e837596ce18dfb92282b0ea5" name="aa78a2a94e837596ce18dfb92282b0ea5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa78a2a94e837596ce18dfb92282b0ea5">&#9670;&#160;</a></span>trimWhitespace()</h2>
+<a id="a3fe6e850aed7869e0cf82a93c42820c1" name="a3fe6e850aed7869e0cf82a93c42820c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fe6e850aed7869e0cf82a93c42820c1">&#9670;&#160;</a></span>trimWhitespace()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string stevensStringLib::trimWhitespace </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Remove all leading and trailing whitespace from a string (spaces, tabs, newlines, etc.), then return it.</p>
-<p>Based on: <a href="https://stackoverflow.com/a/1798170">https://stackoverflow.com/a/1798170</a></p>
+<p>Credit to GManNickG and Kef Schecter: <a href="https://stackoverflow.com/a/1798170">https://stackoverflow.com/a/1798170</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>- The string to remove all of the leading and trailing whitespaces from.</td></tr>
@@ -1073,42 +1680,39 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">std::string</td><td>- str modified by removing all of its leading and trailing whitespaces. </td></tr>
+    <tr><td class="paramname">str</td><td>modified by removing all of its leading and trailing whitespaces. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a400139dff51fd0cad31ad2f0fcbc1274" name="a400139dff51fd0cad31ad2f0fcbc1274"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a400139dff51fd0cad31ad2f0fcbc1274">&#9670;&#160;</a></span>unordered_mapifyString()</h2>
+<a id="af0e9087ef54deb687c501000f3516de6" name="af0e9087ef54deb687c501000f3516de6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0e9087ef54deb687c501000f3516de6">&#9670;&#160;</a></span>unorderedMapifyString()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt; std::string, std::string &gt; stevensStringLib::unordered_mapifyString </td>
+          <td class="memname">std::unordered_map&lt; std::string, std::string &gt; stevensStringLib::unorderedMapifyString </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>str</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
           <td class="paramname"><em>keyValueSeparator</em> = <code>&quot;:&quot;</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>pairSeparator</em> = <code>&quot;,&quot;</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>ignoreWhitespace</em> = <code>true</code>&#160;</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>pairSeparator</em> = <code>&quot;,&quot;</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1116,27 +1720,35 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Variant of mapifyString that works for std::unordered_maps </p>
 
 </div>
 </div>
-<a id="a383ce9fb993729b272b68f339add44b1" name="a383ce9fb993729b272b68f339add44b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a383ce9fb993729b272b68f339add44b1">&#9670;&#160;</a></span>wrapToWidth()</h2>
+<a id="a13c805758cc20928ee0473b0e0f05b85" name="a13c805758cc20928ee0473b0e0f05b85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13c805758cc20928ee0473b0e0f05b85">&#9670;&#160;</a></span>wrapToWidth()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string stevensStringLib::wrapToWidth </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>str</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>wrapWidth</em>&#160;</td>
         </tr>
         <tr>
@@ -1145,18 +1757,23 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Given a string and integer describing the total number of characters that can exist in a line of text, wrap the text by adding newlines between words so it may fit within a certain width.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>- The string which we wish to wrap to a certain width. </td></tr>
-    <tr><td class="paramname">wrapWidth</td><td>- The width in number of characters we wish to wrap.</td></tr>
+    <tr><td class="paramname">wrapWidth</td><td>- The width in number of characters we wish to wrap to each line.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">std::string</td><td>- A modified version of the parameter str, with newlines added to it so that it fits within a certain character width. </td></tr>
+    <tr><td class="paramname">A</td><td>modified version of the parameter str, with newlines added to it so that it fits within a certain character width. </td></tr>
   </table>
   </dd>
 </dl>

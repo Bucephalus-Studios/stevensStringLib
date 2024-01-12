@@ -2,15 +2,15 @@
  * @file stevensStringLib.h
  * @author Jeff Stevens (jeff@bucephalusstudios.com)
  * @brief An easy-to-use C++ library with convenient functions for working with strings.
- * @version 0.1
- * @date 2023-12-21
+ * @version 1.0
+ * @date 1-11-24
  * @copyright Copyright (c) Bucephalus Studios 2023
  * 
  * Created and released under the MIT license. See the LICENSE file in the repository folder.
  * 
  * If you'd like to buy me a coffee or send me a tip for my work on this library, you can do that here: https://ko-fi.com/bucephalus_studios
  * 
- * Thank you very, very much for being interested in my code! Hope it serves you well <3
+ * Thank you very, very much for being interested in my code! I hope it serves you well <3
  */
 
 

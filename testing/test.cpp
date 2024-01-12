@@ -62,6 +62,10 @@ TEST( contains, test_on_large_string)
     //Act and assert
     ASSERT_TRUE(contains(frankenstein_fulltext, substring));
 }
+
+
+/*** containsOnly ***/
+
     
 
 /***  Separate  ***/
@@ -898,6 +902,12 @@ TEST(eraseCharsFromEnd, erase_from_empty_string)
     //Assert
     ASSERT_STREQ(result.c_str(), "");
 }
+
+
+/*** eraseCharsFromStart ***/
+
+
+/*** startsWith ***/
 
 
 /*** findAll ***/

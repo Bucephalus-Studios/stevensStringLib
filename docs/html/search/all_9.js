@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['removewhitespace_0',['removeWhitespace',['../stevensStringLib_8h.html#acc289dc431709640aac960c1322f4278',1,'stevensStringLib']]],
-  ['reverse_1',['reverse',['../stevensStringLib_8h.html#ac69119030f08c04d17f5ec4c59c0a8b6',1,'stevensStringLib']]]
+  ['mapifystring_0',['mapifyString',['../stevensStringLib_8h.html#a93a3b051465b829d63a0c0867193f4cb',1,'stevensStringLib']]],
+  ['mapifystringhelper_1',['mapifyStringHelper',['../stevensStringLib_8h.html#a412f31d61fe4c1f5158e878100267638',1,'stevensStringLib']]]
 ];
