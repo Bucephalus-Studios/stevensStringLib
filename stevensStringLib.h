@@ -1149,7 +1149,86 @@ namespace stevensStringLib
     }
 
 
-    //replace
+    // TODO: figure out alternate method for adding to namespace so that using methods are similar to the rest of namespace
+    // converts multi-type input to string and replaces 
+    class StringTemplateReplace {
+        public:
+            /**
+            * Varadic template to accept infinite arguments
+            * Example syntax:
+            * auto example_vector = multi_type_vector("input: {0}", replace_value); // converts multiple type variables into strings, use indexing starting at 0
+            * 
+            * @param any - example_vector above
+            * @retval vector<string> - returns vector of strings based on values provided
+            */
+            template<typename P1, typename ... Param> 
+            std::vector<std::string> multi_type_vector(const P1 &p1, const Param& ... param)
+            {
+                std::vector<std::string> s;
+                s.push_back(to_string_impl(p1));
+
+                const auto remainder = multi_type_vector(param...);
+                s.insert(s.end(), remainder.begin(), remainder.end());
+
+                return s;
+            }
+            
+            /**
+            * Replaces characters using a vector syntax. Use multi_type_vector to construct proper input.
+            * Example syntax:
+            * 
+            * auto example_vector = multi_type_vector("input: {0}", replace_value); // converts multiple type variables into strings, use indexing starting at 0
+            * std::string output = replace_characters(example_vector); // replaces string selection with specified characters
+            * 
+            * @param vector<str> - example_vector above
+            * @retval str - returns replaced string
+            */
+            std::string replace_characters(std::vector<std::string>& values) 
+            {
+                std::string result = values[0];  // setting intital input
+                values.erase(values.begin()); // removes input value from vector
+
+                size_t index = 0;
+                size_t startPos = 0;
+                while ((startPos = result.find('{', startPos)) != std::string::npos) {
+                    size_t endPos = result.find('}', startPos);
+                    if (endPos != std::string::npos) {
+                        size_t replaceIndex = std::stoi(result.substr(startPos + 1, endPos - startPos - 1));
+                        if (replaceIndex < values.size()) {
+                            result.replace(startPos, endPos - startPos + 1, values[replaceIndex]);
+                            startPos += values[replaceIndex].size();
+                        } else {
+                            ++startPos; // skip the current '{' character
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                return result;
+            }
+
+        private:
+            // converts all values to strings
+            template<typename T>
+            std::string to_string_impl(const T& t) 
+            {
+                std::stringstream ss;
+                ss << t;
+                return ss.str();
+            }
+            
+            // varaidic template sets empty vector to push to
+            std::vector<std::string> multi_type_vector() 
+            {
+                return {};
+            }
+
+    };
+
+
+
+
+
 
 
     //eraseAll
