@@ -1148,8 +1148,39 @@ namespace stevensStringLib
         return std::equal(str.begin(), str.begin() + str.size()/2, str.rbegin());
     }
 
+    /**
+    * Replaces characters using a vector syntax. Use multi_type_vector to construct proper input.
+    * Example syntax:
+    * 
+    * std::string testing = stevensStringLib::replace_characters({"testing {0}{1}", "1", "This is another test"}); // replaces string selection with specified characters
+    * std::cout << testing << std::endl;
+    * 
+    * @param vector<str> - example_vector above
+    * @retval str - returns replaced string
+    */
+    std::string replace_characters( std::vector<std::string> values ) 
+    {
+        std::string result = values[0];  // setting intital input
+        values.erase(values.begin()); // removes input value from vector
 
-    //replace
+        size_t index = 0;
+        size_t startPos = 0;
+        while ((startPos = result.find('{', startPos)) != std::string::npos) {
+            size_t endPos = result.find('}', startPos);
+            if (endPos != std::string::npos) {
+                size_t replaceIndex = std::stoi(result.substr(startPos + 1, endPos - startPos - 1));
+                if (replaceIndex < values.size()) {
+                    result.replace(startPos, endPos - startPos + 1, values[replaceIndex]);
+                    startPos += values[replaceIndex].size();
+                } else {
+                    ++startPos; // skip the current '{' character
+                }
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
 
 
     //eraseAll
