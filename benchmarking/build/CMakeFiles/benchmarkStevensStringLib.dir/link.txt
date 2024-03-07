@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/benchmarkStevensStringLib.dir/benchmark.cpp.o -o benchmarkStevensStringLib  googlebenchmark/src/libbenchmark.a -lrt 
