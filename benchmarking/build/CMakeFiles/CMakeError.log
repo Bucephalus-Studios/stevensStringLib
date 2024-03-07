@@ -1,0 +1,48 @@
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WSHORTEN_64_TO_32 failed with the following output:
+Change Dir: /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_f7f78/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_f7f78.dir/build.make CMakeFiles/cmTC_f7f78.dir/build
+gmake[1]: Entering directory '/home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_f7f78.dir/src.cxx.o
+/usr/bin/c++ -DHAVE_CXX_FLAG_WSHORTEN_64_TO_32  -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -Wshorten-64-to-32   -Wshorten-64-to-32 -std=c++11 -o CMakeFiles/cmTC_f7f78.dir/src.cxx.o -c /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command-line option '-Wshorten-64-to-32'
+c++: error: unrecognized command-line option '-Wshorten-64-to-32'
+gmake[1]: *** [CMakeFiles/cmTC_f7f78.dir/build.make:78: CMakeFiles/cmTC_f7f78.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_f7f78/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WD654 failed with the following output:
+Change Dir: /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_08521/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_08521.dir/build.make CMakeFiles/cmTC_08521.dir/build
+gmake[1]: Entering directory '/home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_08521.dir/src.cxx.o
+/usr/bin/c++ -DHAVE_CXX_FLAG_WD654  -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -wd654   -wd654 -std=c++11 -o CMakeFiles/cmTC_08521.dir/src.cxx.o -c /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command-line option '-wd654'
+c++: error: unrecognized command-line option '-wd654'
+gmake[1]: *** [CMakeFiles/cmTC_08521.dir/build.make:78: CMakeFiles/cmTC_08521.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_08521/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WTHREAD_SAFETY failed with the following output:
+Change Dir: /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_296c4/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_296c4.dir/build.make CMakeFiles/cmTC_296c4.dir/build
+gmake[1]: Entering directory '/home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_296c4.dir/src.cxx.o
+/usr/bin/c++ -DHAVE_CXX_FLAG_WTHREAD_SAFETY  -Wall  -Wextra  -Wshadow  -Wfloat-equal  -Wold-style-cast  -Werror  -Wsuggest-override  -pedantic  -pedantic-errors  -fstrict-aliasing  -Wno-deprecated-declarations  -Wno-deprecated  -Wstrict-aliasing  -Wthread-safety   -Wthread-safety -std=c++11 -o CMakeFiles/cmTC_296c4.dir/src.cxx.o -c /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command-line option '-Wthread-safety'
+c++: error: unrecognized command-line option '-Wthread-safety'
+gmake[1]: *** [CMakeFiles/cmTC_296c4.dir/build.make:78: CMakeFiles/cmTC_296c4.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/home/jeff/stevensStringLib/benchmarking/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_296c4/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }

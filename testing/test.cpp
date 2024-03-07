@@ -202,11 +202,11 @@ TEST( separate, separate_by_a_separator_of_length_5)
 TEST(cap1stChar, capitalize_a_name)
 {
     //Arrange
-    std::string name = "jeff";
+    std::string name = "john";
     //Act
     std::string result = cap1stChar(name);
     //Assert
-    ASSERT_STREQ(result.c_str(),"Jeff");
+    ASSERT_STREQ(result.c_str(),"John");
 }
 
 TEST(cap1stChar, already_capitalized)

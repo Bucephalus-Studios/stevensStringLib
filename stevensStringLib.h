@@ -238,8 +238,6 @@ namespace stevensStringLib
 
 
     /**
-     * 
-     * 
      * Separates a string by a separator character. Returns a vector of strings that were separated.
      * 
      * Example:
@@ -1001,10 +999,10 @@ namespace stevensStringLib
             }
             currLineNum++;
             //Add a new line when printing the next line from the string, or print a newline if we only have a newline character
-            if((currLineNum < numberOfLines) || ((line.length()) == 0 && (numberOfLines == 1)))
-            {
+            // if((currLineNum < numberOfLines) || ((line.length()) == 0 && (numberOfLines == 1)))
+            // {
                 output += "\n";
-            }
+            //}
         }
 
         return output;
@@ -1146,6 +1144,26 @@ namespace stevensStringLib
     inline bool isPalindrome( const std::string & str )
     {
         return std::equal(str.begin(), str.begin() + str.size()/2, str.rbegin());
+    }
+
+
+    /**
+     * @brief Given a string str, concatenate it onto an empty string a given amount of times x, creating a multiply-like effect.
+     * 
+     * @param str - The string we are multiplying.
+     * @param x - The number of times to concatenate str onto the empty string.
+     * 
+     * @return The empty string "" with str concatenated onto its right side x times.
+     */
+    inline std::string multiply(    const std::string_view str,
+                                    const int x )
+    {
+        std::string multipliedString;
+        for(int i = 0; i < x; i++)
+        {
+            multipliedString += str;
+        }
+        return multipliedString;
     }
 
 
