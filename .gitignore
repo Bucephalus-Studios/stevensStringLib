@@ -1,2 +1,4 @@
 ./testing/build/*
+!./testing/build/.gitkeep
 ./benchmarking/build/*
+!./benchmarking/build/.gitkeep
