@@ -1153,7 +1153,7 @@ namespace stevensStringLib
      * @param str - The string we are multiplying.
      * @param x - The number of times to concatenate str onto the empty string.
      * 
-     * @return The empty string "" with str concatenated onto its right side x times.
+     * @retval The empty string "" with str concatenated onto its righthand side x times.
      */
     inline std::string multiply(    const std::string_view str,
                                     const int x )
@@ -1168,37 +1168,134 @@ namespace stevensStringLib
 
 
     /**
-    * Replaces characters using a vector syntax. Use multi_type_vector to construct proper input.
-    * Example syntax:
+    * @authors VikingOfValhalla, Jeff Stevens
     * 
-    * std::string testing = stevensStringLib::replace_characters({"testing {0}{1}", "1", "This is another test"}); // replaces string selection with specified characters
-    * std::cout << testing << std::endl;
+    * @brief Formats a string by replacing format braces with strings stored within a vector.
     * 
-    * @param vector<str> - example_vector above
-    * @retval str - returns replaced string
+    * Example:
+    * std::string testing = stevensStringLib::format({"testing {0}{1}", "1", "This is another test"});
+    * //testing == "testing 1 This is another test"
+    * 
+    * @param str - The string that we'd like to replace the contents of formatted braces with.
+    * @param replaceStrs - A vector containing all of the strings that we'd like to replace str's format braces with in order.
+    * 
+    * @retval Str modified with the replacements made of its format braces.
     */
-    std::string replace_characters( std::vector<std::string> values ) 
+    std::string format( std::string str,
+                        const std::vector<std::string> & replaceStrs,
+                        const char & openingFormatBrace = '{',
+                        const char & closingFormatBrace = '}'   ) 
     {
-        std::string result = values[0];  // setting intital input
-        values.erase(values.begin()); // removes input value from vector
+        size_t startPos = 0; //The position in the string of the opening brace we find
+        size_t endPos = 0; //The position in the string of the closing brace we find
+        std::string braceContents; //Contents of the formatting braces that we find
+        size_t replaceIndex = 0; //The index of the replaceStrs vector that we'll use to replace a format-braced substring
 
-        size_t index = 0;
-        size_t startPos = 0;
-        while ((startPos = result.find('{', startPos)) != std::string::npos) {
-            size_t endPos = result.find('}', startPos);
-            if (endPos != std::string::npos) {
-                size_t replaceIndex = std::stoi(result.substr(startPos + 1, endPos - startPos - 1));
-                if (replaceIndex < values.size()) {
-                    result.replace(startPos, endPos - startPos + 1, values[replaceIndex]);
-                    startPos += values[replaceIndex].size();
-                } else {
-                    ++startPos; // skip the current '{' character
+        //Look for an opening format brace
+        while ((startPos = str.find(openingFormatBrace, startPos)) != std::string::npos)
+        {
+            //When we find an opening format brace, look for the closing format brace
+            endPos = str.find(closingFormatBrace, startPos);
+            if (endPos != std::string::npos)
+            {
+                //Check to see what's inside the formatting braces
+                braceContents = str.substr(startPos + 1, endPos - startPos - 1);
+                if(!isNumber(braceContents))
+                {
+                    //If it's not a number, move on
+                    startPos++;
+                    continue;
                 }
-            } else {
+                //Find the correct replaceStr from our vector to replace the format-braced substring
+                replaceIndex = std::stoi(braceContents);
+                if ( (replaceIndex < replaceStrs.size()) && (replaceIndex >= 0) )
+                {
+                    //Make the replacement
+                    str.replace(startPos, endPos - startPos + 1, replaceStrs[replaceIndex]);
+                    startPos += replaceStrs[replaceIndex].size();
+                }
+                else
+                {
+                    //If the index of replaceStrs does not exist to replace the current format-braced substring, skip it.
+                    startPos++;
+                }
+            }
+            //If we can't find a closing format brace, stop executing the function, as we know there won't be any more replacements we can make
+            else
+            {
                 break;
             }
         }
-        return result;
+
+        return str;
+    }
+
+
+    /**
+     * @brief Formats a string by replacing format braces with strings stored within a map. Variant of the vector-based 
+     * format, where the values of the substrings within format braces are keys of a map parameter, and their replacements
+     * are the respective values of those keys.
+     * 
+     * Example:
+     * std::string formattedString = stevensStringLib::format( "{greeting}, {addressee}. {question}?", {    {"greeting",    "howdy"     }
+     *                                                                                                      {"addressee",   "pardner"   }
+     *                                                                                                      {"question",    "how are you today" }   }   );
+     * //formattedString == "howdy, pardner. how are you today?"
+     * 
+     * @param str The string we are replacing the format brace enclosed substrings of.
+     * @param formatStrMap A map of strings containing keys, which correspond to the the brace-enclosed substrings, and values which will replace their matching brace-enclosed substrings.
+     * @param openingFormatBrace The character marking the beginning of a brace-enclosed substring.
+     * @param closingFormatBrace The character marking the end of a brace-enclosed substring.
+     * 
+     * @retval str modified with the replacements made of its format braces.
+     */
+    std::string format( std::string str,
+                        const std::unordered_map<std::string, std::string> & formatStrMap,
+                        const char & openingFormatBrace = '{',
+                        const char & closingFormatBrace = '}'   )
+    {
+        //Check to see if we actually need to make any formatted replacements before we begin
+        if( str.empty() || formatStrMap.empty() )
+        {
+            return str;
+        }
+
+        size_t startPos = 0; //The position in the string of the opening brace we find
+        size_t endPos = 0; //The position in the string of the closing brace we find
+        std::string braceContents = ""; //Contents of the formatting braces that we find
+        std::string replaceStr = ""; //The string we are replacing format braced content with
+
+        //After we confirm that we need to make formatted replacements, begin looking for an opening brace
+        while ((startPos = str.find(openingFormatBrace, startPos)) != std::string::npos)
+        {
+            //When we find an opening format brace, look for the closing format brace
+            endPos = str.find(closingFormatBrace, startPos);
+            if (endPos != std::string::npos)
+            {
+                //Get the contents of the formatting braces we found
+                braceContents = str.substr(startPos + 1, endPos - startPos - 1);
+                //Can't use umap.contains() in C++17, so we're just going around that by using count instead
+                if(formatStrMap.count(braceContents) >= 1)
+                {
+                    //Make the replacement
+                    replaceStr = formatStrMap.at(braceContents);
+                    str.replace(startPos, endPos - startPos + 1, replaceStr);
+                    startPos += replaceStr.size();
+                }
+                else
+                {
+                    //If we can't find the brace contents in the formatStrMap, then continue onto to the next chars
+                    startPos++;
+                }
+            }
+            //If we can't find a closing format brace, stop executing the function, as we know there won't be any more replacements we can make
+            else
+            {
+                break;
+            }
+        }
+
+        return str;
     }
 
 

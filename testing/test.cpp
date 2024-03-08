@@ -862,7 +862,7 @@ TEST(wrapToWidth, wrap_to_width_3)
     //Arrange
     std::string string = "111222333";
     int width = 3;
-    std::string modelResult = "111\n222\n333";
+    std::string modelResult = "111\n222\n333\n";
     //Act
     std::string result = wrapToWidth(string, width);
     //Assert
@@ -886,7 +886,7 @@ TEST(wrapToWidth, wrap_to_width_5)
     //Arrange
     std::string string = "111112";
     int width = 5;
-    std::string modelResult = "11111\n2";
+    std::string modelResult = "11111\n2\n";
     //Act
     std::string result = wrapToWidth(string, width);
     //Assert
@@ -1361,6 +1361,115 @@ TEST(isPalindrome, check_non_palindrome)
     ASSERT_FALSE(result);
 }
 
+
+/*** multiply ***/
+TEST(multiply, single_char)
+{
+    //Arrange
+    std::string str = "x";
+    //Act
+    std::string result = multiply( "x", 5);
+    //Assert
+    ASSERT_STREQ( result.c_str(), "xxxxx" );
+}
+
+TEST(multiply, multi_char)
+{
+    //Arrange
+    std::string str = "(multiplyThis)";
+    //Act
+    std::string result = multiply( str, 2);
+    //Assert
+    ASSERT_STREQ( result.c_str(), "(multiplyThis)(multiplyThis)" );
+}
+
+TEST(multiply, times_zero)
+{
+    //Arrange
+    std::string str = "poof! gone";
+    //Act
+    std::string result = multiply( str, 0);
+    //Assert
+    ASSERT_STREQ( result.c_str(), "");
+}
+
+
+/*** format (vector variant) ***/
+TEST(format_vectorVariant, single_replace)
+{
+    //Arrange
+    std::string str = "Man, it sure is {0} around here!";
+    //Act
+    std::string result = format(str, {"boring"});
+    //Assert
+    ASSERT_STREQ( result.c_str(), "Man, it sure is boring around here!");
+}
+
+TEST(format_vectorVariant, multi_replace)
+{
+    //Arrange
+    std::string str = "{2}{1}{3}{4}{0}";
+    //Act
+    std::string result = format(str, {"emerald?","DAMN ","Where's that ","fourth ","chaos "});
+    //Assert
+    ASSERT_STREQ( result.c_str(), "Where's that DAMN fourth chaos emerald?");
+}
+
+TEST(format_vectorVariant, no_replace)
+{
+    //Arrange
+    std::string str = "{Bacon} {Lettuce} {Tomato}";
+    //Act
+    std::string result = format(str, {"pb","and","j"});
+    //Assert
+    ASSERT_STREQ( result.c_str(), "{Bacon} {Lettuce} {Tomato}");
+}
+
+TEST(format_vectorVariant, nested_braces)
+{
+    //Arrange
+    std::string str = "{1{2}}{feelin{0}nesty}{{yo}}";
+    //Act
+    std::string result = format(str, {"zero", "one", "two"});
+    //Assert
+    ASSERT_STREQ( result.c_str(), "{1two}{feelinzeronesty}{{yo}}");
+}
+
+
+/*** format (map variant) ***/
+TEST(format_mapVariant, single_replace)
+{
+    //Arrange
+    std::string str = "You are known as jimmy the {title}!";
+    std::unordered_map<std::string,std::string> formatMap = {   {"title","bandit"}    };
+    //Act
+    std::string result = stevensStringLib::format(str, formatMap);
+    //Assert
+    ASSERT_STREQ( result.c_str(), "You are known as jimmy the bandit!");
+}
+
+TEST(format_mapVariant, multi_replace)
+{
+    //Arrange
+    std::string str = "Abandon {noun1}, all ye who {verb1} here!";
+    std::unordered_map<std::string,std::string> formatMap = {   {"noun1",   "smelliness"},
+                                                                {"verb1",   "shower"}  };
+    //Act
+    std::string result = format(str, formatMap);
+    //Assert
+    ASSERT_STREQ( result.c_str(), "Abandon smelliness, all ye who shower here!");
+}
+
+TEST(format_mapVariant, allow_for_style_tokens)
+{
+    //Arrange
+    std::string str = "You enter the {dungeon of {dungeonOwner}}$[textColor=red]!";
+    std::unordered_map<std::string,std::string> formatMap = {  {"dungeonOwner", "jimmy"}  };
+    //Act
+    std::string result = format(str, formatMap);
+    //Assert
+    ASSERT_STREQ( result.c_str(), "You enter the {dungeon of jimmy}$[textColor=red]!");
+}
 
 
 

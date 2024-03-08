@@ -515,5 +515,40 @@ static void BM_isPalindrome_basic(benchmark::State & state)
 BENCHMARK(BM_isPalindrome_basic);
 
 
+/*** format (vector variant) ***/
+static void BM_format_vectorVariant_basic(benchmark::State & state)
+{
+    //Perform setup here
+    std::string string = "{0}{1}{2}";
+    for(auto _ : state)
+    {
+        //Code gets timed
+        stevensStringLib::format(string, {"Hello",", ","world!"});
+    }
+}
+//Register function as a benchmark
+BENCHMARK(BM_format_vectorVariant_basic);
+
+
+/*** format (map variant) ***/
+static void BM_format_mapVariant_basic(benchmark::State & state)
+{
+    //Perform setup here
+    std::string string = "{greeting}{punctuation}{addressee}";
+    std::unordered_map<std::string,std::string> map = { {"greeting",    "Hello" },
+                                                        {"punctuation", ", "    },
+                                                        {"world!",       "addressee"}   };
+    for(auto _ : state)
+    {
+        //Code gets timed
+        stevensStringLib::format(string, map);
+    }
+}
+//Register function as a benchmark
+BENCHMARK(BM_format_mapVariant_basic);
+
+
+
+
 //Run the benchmark
 BENCHMARK_MAIN();
