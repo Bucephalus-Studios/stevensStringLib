@@ -184,6 +184,26 @@ namespace stevensStringLib
 
 
     /**
+     * @breif Check a string to see if it ends with a substring.
+     * 
+     * @param str - The string we are checking the end of to see if it ends with substr.
+     * @param substr - The substr we are checking to see if str ends with.
+     * 
+     * @retval bool - True if the string str ends with substr. False if the str does not end with with substr.
+     */
+    inline bool endsWith(   const std::string_view & str,
+                            const std::string_view & substr    )
+    {
+        //If the substring is longer than the string, then it's not possible for the string to start with the substring
+        if (str.size() < substr.size())
+        {
+            return false;
+        }
+        return std::equal(substr.rbegin(), substr.rend(), str.rbegin());
+    }
+
+
+    /**
      * Given a string str, find all occurrences of a substring within it. Returns a vector of all of the indices that the substring
      * occurs at within the string str.
      * 
@@ -356,6 +376,52 @@ namespace stevensStringLib
         }
 
         return separatedStrings;
+    }
+
+
+    /**
+     * @brief Given a vector of strings, concatenate them all into a single string, separating each string element 
+     * in the final returned string by a given separator string. 
+     * 
+     * Essentially, reverses the operation of the separate function.
+     * 
+     * @param vec The vector of stringlike objects we wish to concatenate together
+     * @param separator A string of characters that will be placed between all concatenated elements
+     * 
+     * @returns A string of all of the string elements in the vector concatenated with the separator string between each element.
+     */
+    inline std::string join(    const std::vector<std::string> & vec,
+                                const std::string & separator,
+                                const bool omitEmptyStrings = true  )
+    {
+        //If an empty vector is passed in for vec, return the empty string.
+        if(vec.size() == 0)
+        {
+            return "";
+        }
+
+        //The string we will return
+        std::string str = "";
+
+        //Concatenate the vector together element-by-element
+        for(int i = 0; i < vec.size(); i++)
+        {
+            //Check to see if the element at the current index is empty and if we're omitting empty strings. If so, we'll skip to the next index.
+            if(vec[i].empty() && omitEmptyStrings)
+            {
+                continue;
+            }
+            //For each element in the vector, concatenate it onto the end of the string
+            str += vec[i];
+            //If we're not at the end of the vector, also concatenate the separator string
+            if(i != vec.size()-1)
+            {
+                str += separator;
+            }
+        }
+
+        //Return the joined vector of strings
+        return str;
     }
 
 
@@ -1181,7 +1247,7 @@ namespace stevensStringLib
     * 
     * @retval Str modified with the replacements made of its format braces.
     */
-    std::string format( std::string str,
+    inline std::string format( std::string str,
                         const std::vector<std::string> & replaceStrs,
                         const char & openingFormatBrace = '{',
                         const char & closingFormatBrace = '}'   ) 
@@ -1249,7 +1315,7 @@ namespace stevensStringLib
      * 
      * @retval str modified with the replacements made of its format braces.
      */
-    std::string format( std::string str,
+    inline std::string format( std::string str,
                         const std::unordered_map<std::string, std::string> & formatStrMap,
                         const char & openingFormatBrace = '{',
                         const char & closingFormatBrace = '}'   )
@@ -1299,14 +1365,112 @@ namespace stevensStringLib
     }
 
 
-    //eraseAll
+    /**
+     * @brief Replaces instances of a target substring in a given string with another substring of your choice.
+     * 
+     * Example: resultString = stevensStringLib::replaceSubstr( "Gee, this neighborhood sure seems safe!",
+     *                                                          " ",
+     *                                                          "BANG!" );
+     * //resultString == "Gee,BANG!thisBANG!neighborhoodBANG!sureBANG!seemsBANG!safe!"
+     * 
+     * @param str The string we are replacing instances of the target substring within.
+     * @param targetSubstr The substring we are replacing with replaceSubstr in str.
+     * @param replaceSubstr The substring we are using to replace instances of targetSubstr.
+     * @param quantity The number of times we wish to make replacements. By default, it replaces all occurrences of the target substring.
+     * @param startFrom The side of the string we would like to begin making replacements from. By default, we begin from the left. Valid values are "left" and "right".
+     */
+    inline std::string replaceSubstr(  std::string str,
+                                const std::string & targetSubstr,
+                                const std::string & replaceSubstr,
+                                size_t quantity = std::string::npos,
+                                const std::string & startFrom = "left"  )
+    {
+        size_t replacementsMade = 0; //The number of replacements we have made so far in this function.
+        size_t occurrencePosition; //The position a target substring is found in str.
+
+        if(startFrom == "left")
+        {
+            size_t startingPosition = 0; //The position we will begin searching for target substrings at
+            while(  replacementsMade < quantity  )
+            {
+                //Find an occurrence of the target substring
+                occurrencePosition = str.find(targetSubstr, startingPosition);
+                //If we found an occurrence of the target substring, replace it
+                if(occurrencePosition != std::string::npos)
+                {
+                    str.replace(occurrencePosition, targetSubstr.size(), replaceSubstr);
+                    startingPosition = occurrencePosition + replaceSubstr.size();
+                    replacementsMade++;
+                }
+                //If we find no more occurrences of the targetSubtr, break out of this loop
+                else
+                {
+                    break;
+                }
+            }
+        }
+        else if(startFrom == "right")
+        {
+            size_t startingPosition = std::string::npos;
+            while(  replacementsMade < quantity  )
+            {
+                //Find an occurrence of the target substring
+                occurrencePosition = str.rfind(targetSubstr, startingPosition);
+                //If we found an occurrence of the target substring, replace it
+                if(occurrencePosition != std::string::npos)
+                {
+                    str.replace(occurrencePosition, targetSubstr.size(), replaceSubstr);
+                    startingPosition = occurrencePosition;
+                    replacementsMade++;
+                }
+                //If we find no more occurrences of the targetSubtr, break out of this loop
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        return str;
+    }
+
+
+    /**
+     * @brief Given a floating point number num, remove trailing zeroes up to a certain point of
+     *        given precision. Return the resulting number as a string.
+     * 
+     * @credit https://stackoverflow.com/a/57883193/16511184
+     * 
+     * @param num The number we are removing trailing zeroes from.
+     * //@param precision The precision of the floating point number we eliminate trailing zeroes up to.
+     * 
+     * @return A string version of the parameter num with all of its trailing zeroes removed up until the given point of precision.
+     */
+    inline std::string eraseTrailingZeroes( const float & num   )
+                                           // const int precision = 0   )
+    {
+        //First, convert num into a string
+        std::string str = std::to_string(num);
+
+        // Ensure that there is a decimal point somewhere (there should be)
+        if(str.find('.') != std::string::npos)
+        {
+            // Remove trailing zeroes
+            str = str.substr(0, str.find_last_not_of('0')+1);
+            // If the decimal point is now the last character, remove that as well
+            if(str.find('.') == str.size()-1)
+            {
+                str = str.substr(0, str.size()-1);
+            }
+        }
+
+        return str;
+    }
 
 
     //scramble
 
 
     //negativeIndex
-
-
 }
 #endif
