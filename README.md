@@ -6,6 +6,39 @@
 Welcome! StevensStringLib is a string library for the rest of us who just want working with strings in C++ to be easier.
 We have lots of convenient functions for manipulating and processing strings. Check them out below!
 
+# Simple installation and usage:
+You can use this string library with the Beldum Package Manager:
+
+## Install
+Import "stevensStringLib.h" into your own project
+
+or
+
+### Beldum Package Manager: https://github.com/Nord-Tech-Systems-LLC/beldum_package_manager
+```
+mkdir new_project
+cd new_project
+beldum init
+beldum install stevensStringLib
+```
+
+## Usage
+`src/main.cpp`
+```cpp
+
+#include "stevensStringLib.h"
+
+int main()
+{
+    stevensStringLib::containsOnly("111011112222", "12");
+    return 0;
+}
+
+
+```
+
+
+
 ## Demo
 #### Separate a string:
 ```
