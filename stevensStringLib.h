@@ -460,6 +460,16 @@ namespace stevensStringLib
 
 
     /**
+     * Returns a string with all characters in lowercase if possible.
+     */
+    inline std::string toLower(std::string str)
+    {
+        std::transform(str.begin(), str.end(), str.begin(), [](unsigned char x) { return std::tolower(x); });
+        return str;
+    }
+
+
+    /**
      * Detects if a string is in the form of a valid C++ integer/integral type (bool, char, short, int, long int, long long int).
      * 
      * @param str - A string we are checking to see if it represents an integer/integral type.
@@ -1000,7 +1010,8 @@ namespace stevensStringLib
      *  
     */
     inline std::string wrapToWidth(     const std::string & str,
-                                        size_t wrapWidth   )
+                                        size_t wrapWidth,
+                                        bool debug = false   )
     {
         //If we have a wrapWdith of zero, we can't fit anything in a column of size zero. Return the empty string.
         if(wrapWidth == 0)
@@ -1043,12 +1054,22 @@ namespace stevensStringLib
                         }
                         else
                         {
+                            if(debug)
+                            {
+                                std::cout << "HERE " << line << std::endl;
+                                getch();
+                            }
                             line = line.substr(wrapWidth);
                         }
                     }
                     //If we find a space...
                     else
                     {
+                        if(debug)
+                        {
+                            std::cout << "THERE " << line << std::endl;
+                            getch();
+                        }
                         // std::cout << "Found space" << std::endl;
                         //Add the part of the string before the cut off point to the output
                         output += line.substr(0, lineCutOffIndex) + "\n";
@@ -1465,6 +1486,30 @@ namespace stevensStringLib
         }
 
         return str;
+    }
+
+
+    /**
+     * @brief  Given a string of delimited values (assumed to be comma-separated values, csvs), append a given value to the string of csvs.
+     * 
+     * @param csvs A string of values delimited by the parameter delimiter which we will add a value onto the end of
+     * @param valueToAdd A string value to append to the end of csvs
+     * @param delimiter The character delimiting the csvs string. ',' by default.
+     * 
+     * @retval None, but operates by reference to add value to the end of parameter csvs.
+     */
+    inline void csvAppend(  std::string & csvs,
+                            const std::string & valueToAdd,
+                            const char delimiter = ',')
+    {
+        //If csvs is empty, just set the value of csvs to the value to add, effectively appending it to nothing.
+        if(csvs.empty())
+        {
+            csvs = valueToAdd;
+            return;
+        }
+        //Otherwise, we add the delimiter character combined with the valueToAdd to the end of csvs
+        csvs += delimiter + valueToAdd;
     }
 
 
