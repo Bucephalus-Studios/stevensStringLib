@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/testStevensStringLib.dir/test.cpp.o -o testStevensStringLib  lib/libgtest_main.a lib/libgtest.a 

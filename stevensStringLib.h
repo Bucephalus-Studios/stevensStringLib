@@ -30,6 +30,7 @@
 #include<charconv>
 #include<map>
 #include<unordered_map>
+#include<random>
 
 
 namespace stevensStringLib
@@ -73,8 +74,7 @@ namespace stevensStringLib
 
 
     /**
-     * @brief 
-     * Given a string, determine if it contains only the characters in the given string.
+     * @brief Given a string, determine if it contains only the characters in the given string.
      * 
      * Example:
      * containsOnly("11101112222","12")
@@ -132,8 +132,7 @@ namespace stevensStringLib
 
 
     /**
-     * @brief
-     * Given a string str, erase the firrst n characters of the string.
+     * @brief Given a string str, erase the first n characters of the string.
      * 
      * Credit to Michael Krelin: https://stackoverflow.com/a/12692267/16511184
      * 
@@ -144,7 +143,7 @@ namespace stevensStringLib
     inline std::string eraseCharsFromStart( std::string str,
                                             size_t n    )
     {
-        //Can't erase from empty strings, and we can't errase more characters from the string than what we have
+        //Can't erase from empty strings, and we can't erase more characters from the string than what we have
         if(str.size() <= n)
         {
             return "";
@@ -184,7 +183,7 @@ namespace stevensStringLib
 
 
     /**
-     * @breif Check a string to see if it ends with a substring.
+     * @brief Check a string to see if it ends with a substring.
      * 
      * @param str - The string we are checking the end of to see if it ends with substr.
      * @param substr - The substr we are checking to see if str ends with.
@@ -348,31 +347,39 @@ namespace stevensStringLib
             return stevensStringLib::separate( str, separator[0], omitEmptyStrings );
         }
 
-        std::vector<std::string> separatedStrings;
-        std::string word;
-        //Iterate through the input string and piece together the strings we want to separate
-        for(int i = 0; i < str.length(); i++)
+        //If separator is empty, split into individual characters
+        if(separator.empty())
         {
-            word += str[i];
-            //Every time we add a character to the word, we check to see if it contains the separator
-            if(contains(word, separator))
+            std::vector<std::string> separatedStrings;
+            separatedStrings.reserve(str.length());
+            for(char c : str)
             {
-                //Extract the separator from the word
-                word.erase(word.find(separator), separator.length());
-                //Push the word into the vector
-                separatedStrings.push_back(word);
-                //Clear the word
-                word.clear();
+                separatedStrings.emplace_back(1, c);
             }
+            return separatedStrings;
         }
-        //If we had no separators at all, or if the string doesn't end in a separator, we push the remaining
-        //word to the vector.
-        separatedStrings.push_back(word);
+
+        std::vector<std::string> separatedStrings;
+        separatedStrings.reserve(8); // Reasonable default to avoid vector reallocations
         
-        //If we are omitting empty strings in our result, erase all of that we found
-        if(omitEmptyStrings)
+        size_t start = 0;
+        size_t pos = 0;
+        
+        // Direct search without building intermediate strings
+        while((pos = str.find(separator, start)) != std::string_view::npos)
         {
-            separatedStrings.erase(std::remove(separatedStrings.begin(), separatedStrings.end(), ""), separatedStrings.end());
+            if(pos > start || !omitEmptyStrings)
+            {
+                // Construct string directly in vector memory - no temporary objects
+                separatedStrings.emplace_back(str.data() + start, pos - start);
+            }
+            start = pos + separator.length();
+        }
+        
+        // Handle final segment
+        if(start < str.length() || (!omitEmptyStrings && start == str.length()))
+        {
+            separatedStrings.emplace_back(str.data() + start, str.length() - start);
         }
 
         return separatedStrings;
@@ -402,6 +409,7 @@ namespace stevensStringLib
 
         //The string we will return
         std::string str = "";
+        bool first = true;
 
         //Concatenate the vector together element-by-element
         for(int i = 0; i < vec.size(); i++)
@@ -411,13 +419,14 @@ namespace stevensStringLib
             {
                 continue;
             }
-            //For each element in the vector, concatenate it onto the end of the string
-            str += vec[i];
-            //If we're not at the end of the vector, also concatenate the separator string
-            if(i != vec.size()-1)
+            //Add separator before non-first elements
+            if(!first)
             {
                 str += separator;
             }
+            //For each element in the vector, concatenate it onto the end of the string
+            str += vec[i];
+            first = false;
         }
 
         //Return the joined vector of strings
@@ -568,10 +577,10 @@ namespace stevensStringLib
 
 
     /**
-     * @brief 
+     * @brief Given a string, check to see if it represents a number in standard notation.
      * 
-     * Given a string, check to see if it represents a number in standard notation. Useful to check numbers that may cause overflow or underflow
-     * to be check with isInteger or may be too precise to be checked with isFloat.
+     * Useful to check numbers that may cause overflow or underflow when checked with isInteger 
+     * or may be too precise to be checked with isFloat.
      * 
      * Example: 
      * isStandardNumber("-214748364721474836472147483647.123123123123123") == true
@@ -648,11 +657,12 @@ namespace stevensStringLib
 
 
     /**
-     * @brief 
+     * @brief Given a string, check to see if it represents a number in scientific notation.
      * 
-     * Given a string, check to see if it represents a number in scientific notation. Useful to check numbers that may cause overflow or underflow
-     * to be check with isInteger or may be too precise to be checked with isFloat. Essentially, this function checks to see if you have a floating
-     * point type number on the left side of a string divided by an x,X,*,e, or an E, and either a 10^n or n on the right side.
+     * Useful to check numbers that may cause overflow or underflow before they are checked by checked with isInteger 
+     * or may be too precise to be checked with isFloat. Essentially, this function checks to see 
+     * if you have a floating point type number on the left side of a string divided by an x,X,*,e, 
+     * or an E, and either a 10^n or n on the right side.
      * 
      * Example:
      * isScientificNumber(3.521x10^3) == true
@@ -743,7 +753,7 @@ namespace stevensStringLib
             }
         }
 
-        //All checks have been passed. The number is in scientfic notation!
+        //All checks have been passed. The number is in scientific notation!
         return true;
     }
 
@@ -1010,10 +1020,9 @@ namespace stevensStringLib
      *  
     */
     inline std::string wrapToWidth(     const std::string & str,
-                                        size_t wrapWidth,
-                                        bool debug = false   )
+                                        size_t wrapWidth   )
     {
-        //If we have a wrapWdith of zero, we can't fit anything in a column of size zero. Return the empty string.
+        //If we have a wrapWidth of zero, we can't fit anything in a column of size zero. Return the empty string.
         if(wrapWidth == 0)
         {
             return "";
@@ -1029,7 +1038,6 @@ namespace stevensStringLib
 
         while(getline(in,line))
         {
-            // std::cout << "Current line number: " << currLineNum << std::endl;
             lineCutOffIndex = 0;
             while(!line.empty())
             {
@@ -1041,8 +1049,6 @@ namespace stevensStringLib
                     //If we can't find a space in the string and the string is too long, we just cut the line and wrap to the next line
                     if(lineCutOffIndex == std::string::npos)
                     {
-                        // std::cout << "Can't find space" << std::endl;
-                        // std::cout << "line: " << line << std::endl;
                         //Add as much of the line as we can to the output and then add a newline
                         output.append(line, 0, wrapWidth);
                         output += '\n';
@@ -1054,23 +1060,12 @@ namespace stevensStringLib
                         }
                         else
                         {
-                            if(debug)
-                            {
-                                std::cout << "HERE " << line << std::endl;
-                                getch();
-                            }
                             line = line.substr(wrapWidth);
                         }
                     }
                     //If we find a space...
                     else
                     {
-                        if(debug)
-                        {
-                            std::cout << "THERE " << line << std::endl;
-                            getch();
-                        }
-                        // std::cout << "Found space" << std::endl;
                         //Add the part of the string before the cut off point to the output
                         output += line.substr(0, lineCutOffIndex) + "\n";
                         //Set the line equal to the cut off portion of the string and continue looping until the rest of the line is added to the output
@@ -1079,17 +1074,13 @@ namespace stevensStringLib
                 }
                 else
                 {
-                    // std::cout << "Adding line to output" << std::endl;
                     output += line;
                     break;
                 }
             }
             currLineNum++;
-            //Add a new line when printing the next line from the string, or print a newline if we only have a newline character
-            // if((currLineNum < numberOfLines) || ((line.length()) == 0 && (numberOfLines == 1)))
-            // {
-                output += "\n";
-            //}
+            //Add a new line when printing the next line from the string
+            output += "\n";
         }
 
         return output;
@@ -1513,9 +1504,32 @@ namespace stevensStringLib
     }
 
 
-    //scramble
-
-
-    //negativeIndex
+    /**
+     * @brief Given a string, randomly scramble the position of all of its characters.
+     * 
+     * @param str The string to scramble
+     * 
+     * @return A string with all of the same characters as str, but scrambled into a random order
+     */
+    inline std::string scramble(std::string str)
+    {
+        if(str.empty())
+        {
+            return str;
+        }
+        
+        // Use Fisher-Yates shuffle algorithm for uniform randomness
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        
+        for(size_t i = str.length() - 1; i > 0; --i)
+        {
+            std::uniform_int_distribution<size_t> dis(0, i);
+            size_t j = dis(gen);
+            std::swap(str[i], str[j]);
+        }
+        
+        return str;
+    }
 }
 #endif

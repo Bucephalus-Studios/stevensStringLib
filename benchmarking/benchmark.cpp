@@ -105,8 +105,8 @@ BENCHMARK(BM_startsWith_basic);
 static void BM_findAll_str_basic(benchmark::State & state)
 {
     //Perform setup here
-    std::string string = "22200010000000000000101011100002220000000000000000000122200000000000000000000000000000022200000000011";
-    std::string strToFind = "222";
+    std::string string = "The quick brown fox jumps over the lazy dog. The fox is quick and the dog is lazy. Quick foxes and lazy dogs are common in stories about quick animals.";
+    std::string strToFind = "quick";
     for(auto _ : state)
     {
         //Code gets timed
@@ -137,7 +137,7 @@ BENCHMARK(BM_findAll_char_basic);
 static void BM_separate_char_basic(benchmark::State & state)
 {
     //Perform setup here
-    std::string string = "67,14,633,99,,,124,6,aquatic,no,no,yes,23,23,standard";
+    std::string string = "apple,banana,cherry,date,elderberry,fig,grape,honeydew,kiwi,lemon,mango,nectarine,orange,papaya,quince,raspberry,strawberry,tangerine,watermelon";
     for(auto _ : state)
     {
         //Code gets timed
@@ -537,7 +537,7 @@ static void BM_format_mapVariant_basic(benchmark::State & state)
     std::string string = "{greeting}{punctuation}{addressee}";
     std::unordered_map<std::string,std::string> map = { {"greeting",    "Hello" },
                                                         {"punctuation", ", "    },
-                                                        {"world!",       "addressee"}   };
+                                                        {"addressee",   "world!"}   };
     for(auto _ : state)
     {
         //Code gets timed
@@ -548,6 +548,132 @@ static void BM_format_mapVariant_basic(benchmark::State & state)
 BENCHMARK(BM_format_mapVariant_basic);
 
 
+
+
+/*** endsWith ***/
+static void BM_endsWith_basic(benchmark::State & state)
+{
+    //Perform setup here
+    std::string string = "The quick brown fox jumps over the lazy dog";
+    std::string suffix = "lazy dog";
+    for(auto _ : state)
+    {
+        //Code gets timed
+        stevensStringLib::endsWith(string, suffix);
+    }
+}
+//Register function as a benchmark
+BENCHMARK(BM_endsWith_basic);
+
+
+/*** join ***/
+static void BM_join_basic(benchmark::State & state)
+{
+    //Perform setup here
+    std::vector<std::string> vec = {"apple", "banana", "cherry", "date", "elderberry"};
+    std::string separator = ", ";
+    for(auto _ : state)
+    {
+        //Code gets timed
+        stevensStringLib::join(vec, separator);
+    }
+}
+//Register function as a benchmark
+BENCHMARK(BM_join_basic);
+
+
+/*** toLower ***/
+static void BM_toLower_basic(benchmark::State & state)
+{
+    //Perform setup here
+    std::string string = "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
+    for(auto _ : state)
+    {
+        //Code gets timed
+        stevensStringLib::toLower(string);
+    }
+}
+//Register function as a benchmark
+BENCHMARK(BM_toLower_basic);
+
+
+/*** multiply ***/
+static void BM_multiply_basic(benchmark::State & state)
+{
+    //Perform setup here
+    std::string string = "Hello";
+    int times = 10;
+    for(auto _ : state)
+    {
+        //Code gets timed
+        stevensStringLib::multiply(string, times);
+    }
+}
+//Register function as a benchmark
+BENCHMARK(BM_multiply_basic);
+
+
+/*** replaceSubstr ***/
+static void BM_replaceSubstr_basic(benchmark::State & state)
+{
+    //Perform setup here
+    std::string string = "The quick brown fox jumps over the lazy dog. The fox is quick.";
+    std::string target = "fox";
+    std::string replacement = "wolf";
+    for(auto _ : state)
+    {
+        //Code gets timed
+        stevensStringLib::replaceSubstr(string, target, replacement);
+    }
+}
+//Register function as a benchmark
+BENCHMARK(BM_replaceSubstr_basic);
+
+
+/*** eraseTrailingZeroes ***/
+static void BM_eraseTrailingZeroes_basic(benchmark::State & state)
+{
+    //Perform setup here
+    float num = 123.45000f;
+    for(auto _ : state)
+    {
+        //Code gets timed
+        stevensStringLib::eraseTrailingZeroes(num);
+    }
+}
+//Register function as a benchmark
+BENCHMARK(BM_eraseTrailingZeroes_basic);
+
+
+/*** csvAppend ***/
+static void BM_csvAppend_basic(benchmark::State & state)
+{
+    //Perform setup here
+    for(auto _ : state)
+    {
+        std::string csvs = "apple,banana,cherry";
+        std::string valueToAdd = "date";
+        //Code gets timed
+        stevensStringLib::csvAppend(csvs, valueToAdd);
+    }
+}
+//Register function as a benchmark
+BENCHMARK(BM_csvAppend_basic);
+
+
+/*** scramble ***/
+static void BM_scramble_basic(benchmark::State & state)
+{
+    //Perform setup here
+    std::string string = "The quick brown fox jumps over the lazy dog";
+    for(auto _ : state)
+    {
+        //Code gets timed
+        stevensStringLib::scramble(string);
+    }
+}
+//Register function as a benchmark
+BENCHMARK(BM_scramble_basic);
 
 
 //Run the benchmark

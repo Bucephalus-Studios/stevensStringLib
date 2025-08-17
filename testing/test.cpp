@@ -111,24 +111,7 @@ TEST( separate, separate_3_comma_delmited_words)
     //Act
     std::vector<std::string> result = separate(string);
     //Assert
-    if(result == modelResult)
-    {
-        SUCCEED();
-    }
-    else
-    {
-        std::cout << "Expected result: " << std::endl;
-        for(int i = 0; i < modelResult.size(); i++)
-        {
-            std::cout << modelResult[i] << std::endl;
-        }
-        std::cout << "Actual result: " << std::endl;
-        for(int i = 0; i < result.size(); i++)
-        {
-            std::cout << result[i] << std::endl;
-        }
-        FAIL();
-    }
+    ASSERT_EQ(result, modelResult);
 }
 
 TEST( separate, separate_a_large_string_with_no_separator_character_found )
@@ -167,14 +150,7 @@ TEST( separate, separate_by_empty_string)
     //Act
     std::vector<std::string> result = separate(string, separator);
     //Assert
-    if(result == modelResult)
-    {
-        SUCCEED();
-    }
-    else
-    {
-        FAIL();
-    }
+    ASSERT_EQ(result, modelResult);
 }
 
 
@@ -187,14 +163,7 @@ TEST( separate, separate_by_a_separator_of_length_5)
     //Act
     std::vector<std::string> result = separate(string, separator);
     //Assert
-    if(result == modelResult)
-    {
-        SUCCEED();
-    }
-    else
-    {
-        FAIL();
-    }
+    ASSERT_EQ(result, modelResult);
 }
 
 
@@ -381,7 +350,7 @@ TEST(isFloat, very_precise_number)
 }
 
 
-TEST(isFLoat, lots_of_insignificant_figures)
+TEST(isFloat, lots_of_insignificant_figures)
 {
     //Arrange
     std::string string = "1.23000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
@@ -526,7 +495,7 @@ TEST(isNumber, check_real_number)
 
 
 /*** stringToBool ***/
-TEST(stringToBoolTest, check_true)
+TEST(stringToBool, check_true)
 {
     //Arrange
     std::string string = "true";
@@ -536,7 +505,7 @@ TEST(stringToBoolTest, check_true)
     ASSERT_TRUE(result);
 }
 
-TEST(stringToBoolTest, check_false)
+TEST(stringToBool, check_false)
 {
     //Arrange
     std::string string = "false";
@@ -546,7 +515,7 @@ TEST(stringToBoolTest, check_false)
     ASSERT_FALSE(result);
 }
 
-TEST(stringToBoolTest, check_TRUE)
+TEST(stringToBool, check_TRUE)
 {
     //Arrange
     std::string string = "TRUE";
@@ -556,7 +525,7 @@ TEST(stringToBoolTest, check_TRUE)
     ASSERT_TRUE(result);
 }
 
-TEST(stringToBoolTest, check_FALSE)
+TEST(stringToBool, check_FALSE)
 {
     //Arrange
     std::string string = "FALSE";
@@ -566,7 +535,7 @@ TEST(stringToBoolTest, check_FALSE)
     ASSERT_FALSE(result);
 }
 
-TEST(stringToBoolTest, check_true_alternating_caps)
+TEST(stringToBool, check_true_alternating_caps)
 {
     //Arrange
     std::string string = "tRuE";
@@ -576,7 +545,7 @@ TEST(stringToBoolTest, check_true_alternating_caps)
     ASSERT_TRUE(result);
 }
 
-TEST(stringToBoolTest, check_0)
+TEST(stringToBool, check_0)
 {
     //Arrange
     std::string string = "0";
@@ -586,7 +555,7 @@ TEST(stringToBoolTest, check_0)
     ASSERT_FALSE(result);
 }
 
-TEST(stringToBoolTest, check_9001)
+TEST(stringToBool, check_9001)
 {
     //Arrange
     std::string string = "9001";
@@ -598,7 +567,7 @@ TEST(stringToBoolTest, check_9001)
 
 
 /*** boolToString ***/
-TEST(boolToStringTest, check_true)
+TEST(boolToString, check_true)
 {
     //Arrange
     bool myBool = true;
@@ -608,7 +577,7 @@ TEST(boolToStringTest, check_true)
     ASSERT_STREQ(result.c_str(), "true");
 }
 
-TEST(boolToStringTest, check_false)
+TEST(boolToString, check_false)
 {
     //Arrange
     bool myBool = false;
@@ -618,7 +587,7 @@ TEST(boolToStringTest, check_false)
     ASSERT_STREQ(result.c_str(), "false");
 }
 
-TEST(boolToStringTest, check_9001)
+TEST(boolToString, check_9001)
 {
     //Arrange
     int myInt = 9001;
@@ -628,7 +597,7 @@ TEST(boolToStringTest, check_9001)
     ASSERT_STREQ(result.c_str(), "true");
 }
 
-TEST(boolToStringTest, check_0)
+TEST(boolToString, check_0)
 {
     //Arrange
     int myInt = 0;
@@ -758,14 +727,7 @@ TEST(unorderedMapifyString, unorderedMapify_cg_style)
     result = unorderedMapifyString(string, "=",",");
     //std::cout << "result:" << result << "\nmodeltResult:" << modelResult << std::endl;
     //Assert
-    if(result == modelResult)
-    {
-        SUCCEED();
-    }
-    else
-    {
-        FAIL();
-    }
+    ASSERT_EQ(result, modelResult);
 }
 
 /*** stringifyMap ***/
@@ -779,16 +741,9 @@ TEST(stringifyMap, stringify_3_pair_map)
     std::string stringifiedMap = stringifyMap(map);
     std::cout << "stringifeidMap:" << stringifiedMap << std::endl;
     //Assert
-    if( contains(stringifiedMap, "Warsim:Huw Milward") &&
-        contains(stringifiedMap, "CultGame:Jeff Stevens") &&
-        contains(stringifiedMap, "Kindred Fates:Rob Cravens") )
-    {
-        SUCCEED();
-    }
-    else
-    {
-        FAIL();
-    }
+    EXPECT_TRUE(contains(stringifiedMap, "Warsim:Huw Milward"));
+    EXPECT_TRUE(contains(stringifiedMap, "CultGame:Jeff Stevens"));
+    ASSERT_TRUE(contains(stringifiedMap, "Kindred Fates:Rob Cravens"));
 }
 
 
@@ -835,15 +790,13 @@ TEST(countFileLines, load_frankenstein_and_count_lines)
     ASSERT_EQ(lineCount, 7742);
 }
 
-// TEST(countFileLines, load_non_existent_file)
-// {
-//     //Arrange
-//     std::string filePath = "test_string_files/loonymcfloonyloo.txt";
-//     //Act
-
-//     //Assert
-    
-// }
+TEST(countFileLines, load_non_existent_file)
+{
+    //Arrange
+    std::string filePath = "nonexistent_file.txt";
+    //Act and Assert
+    ASSERT_THROW(countFileLines(filePath), std::invalid_argument);
+}
 
 TEST(countFileLines, load_empty_file)
 {
@@ -945,6 +898,14 @@ TEST(circularIndex, loop_around_100_times)
     char result = circularIndex(string, 105);
     //Assert
     ASSERT_EQ(result, 'a');
+}
+
+TEST(circularIndex, empty_string_throws_exception)
+{
+    //Arrange
+    std::string string = "";
+    //Act and Assert
+    ASSERT_THROW(circularIndex(string, 0), std::invalid_argument);
 }
 
 
@@ -1211,7 +1172,7 @@ TEST(trimWhitespace, nothing_to_trim)
 
 
 /*** charToString ***/
-TEST(charToStringTest, check_a)
+TEST(charToString, check_a)
 {
     //Arrange
     char myChar = 'a';
@@ -1221,7 +1182,7 @@ TEST(charToStringTest, check_a)
     ASSERT_STREQ(string.c_str(), "a");
 }
 
-TEST(charToStringTest, check_newline)
+TEST(charToString, check_newline)
 {
     //Arrange
     char myChar = '\n';
@@ -1231,7 +1192,7 @@ TEST(charToStringTest, check_newline)
     ASSERT_STREQ(string.c_str(), "\n");
 }
 
-TEST(charToStringTest, check_number)
+TEST(charToString, check_number)
 {
     //Arrange
     char myChar = 90;
@@ -1469,6 +1430,306 @@ TEST(format_mapVariant, allow_for_style_tokens)
     std::string result = format(str, formatMap);
     //Assert
     ASSERT_STREQ( result.c_str(), "You enter the {dungeon of jimmy}$[textColor=red]!");
+}
+
+
+/*** endsWith ***/
+TEST(endsWith, check_basic_sentence_true)
+{
+    //Arrange
+    std::string string = "The quick brown fox jumps over the lazy dog";
+    std::string suffix = "lazy dog";
+    //Act and assert
+    ASSERT_TRUE(endsWith(string, suffix));
+}
+
+TEST(endsWith, check_basic_sentence_false)
+{
+    //Arrange
+    std::string string = "The quick brown fox jumps over the lazy dog";
+    std::string suffix = "lazy cat";
+    //Act and assert
+    ASSERT_FALSE(endsWith(string, suffix));
+}
+
+TEST(endsWith, empty_string_empty_suffix)
+{
+    //Arrange
+    std::string string = "";
+    std::string suffix = "";
+    //Act and assert
+    ASSERT_TRUE(endsWith(string, suffix));
+}
+
+TEST(endsWith, suffix_longer_than_string)
+{
+    //Arrange
+    std::string string = "short";
+    std::string suffix = "this is much longer";
+    //Act and assert
+    ASSERT_FALSE(endsWith(string, suffix));
+}
+
+
+/*** join ***/
+TEST(join, join_fruits_with_comma)
+{
+    //Arrange
+    std::vector<std::string> vec = {"apple", "banana", "cherry"};
+    std::string separator = ", ";
+    std::string expected = "apple, banana, cherry";
+    //Act
+    std::string result = join(vec, separator);
+    //Assert
+    ASSERT_STREQ(result.c_str(), expected.c_str());
+}
+
+TEST(join, join_empty_vector)
+{
+    //Arrange
+    std::vector<std::string> vec = {};
+    std::string separator = ", ";
+    //Act
+    std::string result = join(vec, separator);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "");
+}
+
+TEST(join, join_single_element)
+{
+    //Arrange
+    std::vector<std::string> vec = {"apple"};
+    std::string separator = ", ";
+    //Act
+    std::string result = join(vec, separator);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "apple");
+}
+
+TEST(join, join_with_empty_strings_omit_true)
+{
+    //Arrange
+    std::vector<std::string> vec = {"apple", "", "cherry", ""};
+    std::string separator = ", ";
+    std::string expected = "apple, cherry";
+    //Act
+    std::string result = join(vec, separator, true);
+    //Assert
+    ASSERT_STREQ(result.c_str(), expected.c_str());
+}
+
+
+/*** toLower ***/
+TEST(toLower, hello_world_to_lower_case)
+{
+    //Arrange
+    std::string string = "HELLO, WORLD!";
+    std::string expected = "hello, world!";
+    //Act
+    std::string result = toLower(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), expected.c_str());
+}
+
+TEST(toLower, already_lowercase)
+{
+    //Arrange
+    std::string string = "already lowercase";
+    //Act
+    std::string result = toLower(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), string.c_str());
+}
+
+TEST(toLower, empty_string)
+{
+    //Arrange
+    std::string string = "";
+    //Act
+    std::string result = toLower(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "");
+}
+
+TEST(toLower, mixed_case_with_numbers)
+{
+    //Arrange
+    std::string string = "Hello123World!";
+    std::string expected = "hello123world!";
+    //Act
+    std::string result = toLower(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), expected.c_str());
+}
+
+
+/*** replaceSubstr ***/
+TEST(replaceSubstr, replace_all_occurrences)
+{
+    //Arrange
+    std::string string = "The fox is quick. The fox is clever.";
+    std::string target = "fox";
+    std::string replacement = "wolf";
+    std::string expected = "The wolf is quick. The wolf is clever.";
+    //Act
+    std::string result = replaceSubstr(string, target, replacement);
+    //Assert
+    ASSERT_STREQ(result.c_str(), expected.c_str());
+}
+
+TEST(replaceSubstr, replace_limited_quantity)
+{
+    //Arrange
+    std::string string = "The fox is quick. The fox is clever.";
+    std::string target = "fox";
+    std::string replacement = "wolf";
+    std::string expected = "The wolf is quick. The fox is clever.";
+    //Act
+    std::string result = replaceSubstr(string, target, replacement, 1);
+    //Assert
+    ASSERT_STREQ(result.c_str(), expected.c_str());
+}
+
+TEST(replaceSubstr, replace_from_right)
+{
+    //Arrange
+    std::string string = "The fox is quick. The fox is clever.";
+    std::string target = "fox";
+    std::string replacement = "wolf";
+    std::string expected = "The fox is quick. The wolf is clever.";
+    //Act
+    std::string result = replaceSubstr(string, target, replacement, 1, "right");
+    //Assert
+    ASSERT_STREQ(result.c_str(), expected.c_str());
+}
+
+TEST(replaceSubstr, target_not_found)
+{
+    //Arrange
+    std::string string = "The cat is quick.";
+    std::string target = "fox";
+    std::string replacement = "wolf";
+    //Act
+    std::string result = replaceSubstr(string, target, replacement);
+    //Assert
+    ASSERT_STREQ(result.c_str(), string.c_str());
+}
+
+
+/*** eraseTrailingZeroes ***/
+TEST(eraseTrailingZeroes, remove_trailing_zeroes)
+{
+    //Arrange
+    float num = 123.5f;  // std::to_string produces "123.500000"
+    std::string expected = "123.5";
+    //Act
+    std::string result = eraseTrailingZeroes(num);
+    //Assert
+    ASSERT_STREQ(result.c_str(), expected.c_str());
+}
+
+TEST(eraseTrailingZeroes, remove_decimal_point)
+{
+    //Arrange
+    float num = 123.0f;
+    std::string expected = "123";
+    //Act
+    std::string result = eraseTrailingZeroes(num);
+    //Assert
+    ASSERT_STREQ(result.c_str(), expected.c_str());
+}
+
+TEST(eraseTrailingZeroes, no_decimal_point)
+{
+    //Arrange
+    float num = 123.456f;
+    //Act
+    std::string result = eraseTrailingZeroes(num);
+    //Assert
+    ASSERT_TRUE(result.find("123.456") == 0); // starts with expected, may have precision differences
+}
+
+
+/*** csvAppend ***/
+TEST(csvAppend, append_to_existing_csv)
+{
+    //Arrange
+    std::string csvs = "apple,banana,cherry";
+    std::string valueToAdd = "date";
+    std::string expected = "apple,banana,cherry,date";
+    //Act
+    csvAppend(csvs, valueToAdd);
+    //Assert
+    ASSERT_STREQ(csvs.c_str(), expected.c_str());
+}
+
+TEST(csvAppend, append_to_empty_csv)
+{
+    //Arrange
+    std::string csvs = "";
+    std::string valueToAdd = "apple";
+    //Act
+    csvAppend(csvs, valueToAdd);
+    //Assert
+    ASSERT_STREQ(csvs.c_str(), "apple");
+}
+
+TEST(csvAppend, append_with_custom_delimiter)
+{
+    //Arrange
+    std::string csvs = "apple;banana;cherry";
+    std::string valueToAdd = "date";
+    std::string expected = "apple;banana;cherry;date";
+    //Act
+    csvAppend(csvs, valueToAdd, ';');
+    //Assert
+    ASSERT_STREQ(csvs.c_str(), expected.c_str());
+}
+
+
+/*** scramble ***/
+TEST(scramble, scramble_string_length_unchanged)
+{
+    //Arrange
+    std::string string = "Hello, World!";
+    size_t originalLength = string.length();
+    //Act
+    std::string result = scramble(string);
+    //Assert
+    ASSERT_EQ(result.length(), originalLength);
+}
+
+TEST(scramble, scramble_contains_same_characters)
+{
+    //Arrange
+    std::string string = "abcdef";
+    //Act
+    std::string result = scramble(string);
+    //Assert
+    // Check that each character from original appears in result
+    for(char c : string) {
+        EXPECT_TRUE(result.find(c) != std::string::npos);
+    }
+}
+
+TEST(scramble, scramble_empty_string)
+{
+    //Arrange
+    std::string string = "";
+    //Act
+    std::string result = scramble(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "");
+}
+
+TEST(scramble, scramble_single_char)
+{
+    //Arrange
+    std::string string = "a";
+    //Act
+    std::string result = scramble(string);
+    //Assert
+    ASSERT_STREQ(result.c_str(), "a");
 }
 
 

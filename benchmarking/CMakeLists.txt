@@ -4,7 +4,7 @@ project(benchmarkStevensStringLib C CXX)
 
 add_executable(${PROJECT_NAME} benchmark.cpp)
 
-# GoogleTest requires at least C++14, and stevensStringLib takes C++23
+# Google Benchmark and stevensStringLib require C++17
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

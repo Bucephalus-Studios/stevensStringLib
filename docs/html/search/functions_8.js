@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['separate_0',['separate',['../stevensStringLib_8h.html#a1b29b2661c1430ffbac04f0e8a0876a3',1,'stevensStringLib::separate(const std::string_view &amp;str, const char separator=&apos;,&apos;, const bool omitEmptyStrings=true)'],['../stevensStringLib_8h.html#aff7fd2ec486153c3481c1137155c0980',1,'stevensStringLib::separate(const std::string_view &amp;str, const std::string_view &amp;separator, const bool omitEmptyStrings=true)']]],
-  ['startswith_1',['startsWith',['../stevensStringLib_8h.html#a608c79000fd38c904b100d5cf9120299',1,'stevensStringLib']]],
-  ['stringifymap_2',['stringifyMap',['../stevensStringLib_8h.html#a6d11bd6e262a33a72a8bf8ea3e2d2829',1,'stevensStringLib']]],
-  ['stringtobool_3',['stringToBool',['../stevensStringLib_8h.html#a66cee1aced824a0f8ee615dbf7035478',1,'stevensStringLib']]]
+  ['removewhitespace_0',['removeWhitespace',['../stevensStringLib_8h.html#acc289dc431709640aac960c1322f4278',1,'stevensStringLib']]],
+  ['replacesubstr_1',['replaceSubstr',['../stevensStringLib_8h.html#ac671732a9d22e768387c95c5f9d524a7',1,'stevensStringLib']]],
+  ['reverse_2',['reverse',['../stevensStringLib_8h.html#ac69119030f08c04d17f5ec4c59c0a8b6',1,'stevensStringLib']]]
 ];

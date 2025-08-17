@@ -91,6 +91,7 @@ $(function() {
 <code>#include &lt;charconv&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;random&gt;</code><br />
 </div>
 <p><a href="stevensStringLib_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -106,11 +107,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ad3dfd6d4329ab7bf69fb1cfd475508c7" id="r_ad3dfd6d4329ab7bf69fb1cfd475508c7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ad3dfd6d4329ab7bf69fb1cfd475508c7">stevensStringLib::eraseCharsFromEnd</a> (std::string str, size_t n)</td></tr>
 <tr class="separator:ad3dfd6d4329ab7bf69fb1cfd475508c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b92ac54e4eb76eb32d7fd7ccd0f8de3" id="r_a9b92ac54e4eb76eb32d7fd7ccd0f8de3"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a9b92ac54e4eb76eb32d7fd7ccd0f8de3">stevensStringLib::eraseCharsFromStart</a> (std::string str, size_t n)</td></tr>
-<tr class="memdesc:a9b92ac54e4eb76eb32d7fd7ccd0f8de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string str, erase the firrst n characters of the string.  <br /></td></tr>
+<tr class="memdesc:a9b92ac54e4eb76eb32d7fd7ccd0f8de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string str, erase the first n characters of the string.  <br /></td></tr>
 <tr class="separator:a9b92ac54e4eb76eb32d7fd7ccd0f8de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a608c79000fd38c904b100d5cf9120299" id="r_a608c79000fd38c904b100d5cf9120299"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a608c79000fd38c904b100d5cf9120299">stevensStringLib::startsWith</a> (const std::string_view &amp;str, const std::string_view &amp;substr)</td></tr>
 <tr class="memdesc:a608c79000fd38c904b100d5cf9120299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check a string to see if it begins with a substring.  <br /></td></tr>
 <tr class="separator:a608c79000fd38c904b100d5cf9120299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb69a84e86b3cd194600e38aff7c2f19" id="r_acb69a84e86b3cd194600e38aff7c2f19"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#acb69a84e86b3cd194600e38aff7c2f19">stevensStringLib::endsWith</a> (const std::string_view &amp;str, const std::string_view &amp;substr)</td></tr>
+<tr class="memdesc:acb69a84e86b3cd194600e38aff7c2f19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check a string to see if it ends with a substring.  <br /></td></tr>
+<tr class="separator:acb69a84e86b3cd194600e38aff7c2f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bcbc19ce3501fa3e06635657c2ded45" id="r_a4bcbc19ce3501fa3e06635657c2ded45"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a4bcbc19ce3501fa3e06635657c2ded45">stevensStringLib::findAll</a> (const std::string &amp;str, const std::string &amp;substr)</td></tr>
 <tr class="separator:a4bcbc19ce3501fa3e06635657c2ded45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba5eea65943a19263c1a018dda78fe81" id="r_aba5eea65943a19263c1a018dda78fe81"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aba5eea65943a19263c1a018dda78fe81">stevensStringLib::findAll</a> (const std::string &amp;str, const char ch)</td></tr>
@@ -119,19 +123,24 @@ Functions</h2></td></tr>
 <tr class="separator:a1b29b2661c1430ffbac04f0e8a0876a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff7fd2ec486153c3481c1137155c0980" id="r_aff7fd2ec486153c3481c1137155c0980"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aff7fd2ec486153c3481c1137155c0980">stevensStringLib::separate</a> (const std::string_view &amp;str, const std::string_view &amp;separator, const bool omitEmptyStrings=true)</td></tr>
 <tr class="separator:aff7fd2ec486153c3481c1137155c0980"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a06dfefa8e30a9e16391ac301f0954a" id="r_a0a06dfefa8e30a9e16391ac301f0954a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a0a06dfefa8e30a9e16391ac301f0954a">stevensStringLib::join</a> (const std::vector&lt; std::string &gt; &amp;vec, const std::string &amp;separator, const bool omitEmptyStrings=true)</td></tr>
+<tr class="memdesc:a0a06dfefa8e30a9e16391ac301f0954a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a vector of strings, concatenate them all into a single string, separating each string element in the final returned string by a given separator string.  <br /></td></tr>
+<tr class="separator:a0a06dfefa8e30a9e16391ac301f0954a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c1a2d1fc6655066097dcdca512de63f" id="r_a5c1a2d1fc6655066097dcdca512de63f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a5c1a2d1fc6655066097dcdca512de63f">stevensStringLib::cap1stChar</a> (std::string str)</td></tr>
 <tr class="separator:a5c1a2d1fc6655066097dcdca512de63f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c0bf954dd6582f3d6d8781f079689f2" id="r_a9c0bf954dd6582f3d6d8781f079689f2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a9c0bf954dd6582f3d6d8781f079689f2">stevensStringLib::toUpper</a> (std::string str)</td></tr>
 <tr class="separator:a9c0bf954dd6582f3d6d8781f079689f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd42f6dfa6de31b27f58781c57a7762e" id="r_acd42f6dfa6de31b27f58781c57a7762e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#acd42f6dfa6de31b27f58781c57a7762e">stevensStringLib::toLower</a> (std::string str)</td></tr>
+<tr class="separator:acd42f6dfa6de31b27f58781c57a7762e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eccf0d2f3d7970fc342f4c2faac274a" id="r_a8eccf0d2f3d7970fc342f4c2faac274a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a8eccf0d2f3d7970fc342f4c2faac274a">stevensStringLib::isInteger</a> (const std::string_view &amp;str)</td></tr>
 <tr class="separator:a8eccf0d2f3d7970fc342f4c2faac274a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31ee6720d9d0028eb7891e9360b6c68a" id="r_a31ee6720d9d0028eb7891e9360b6c68a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a31ee6720d9d0028eb7891e9360b6c68a">stevensStringLib::isFloat</a> (const std::string &amp;str)</td></tr>
 <tr class="separator:a31ee6720d9d0028eb7891e9360b6c68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf228e15ecf74d3127799a6d28b014a8" id="r_abf228e15ecf74d3127799a6d28b014a8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#abf228e15ecf74d3127799a6d28b014a8">stevensStringLib::isStandardNumber</a> (const std::string_view &amp;str)</td></tr>
-<tr class="memdesc:abf228e15ecf74d3127799a6d28b014a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string, check to see if it represents a number in standard notation. Useful to check numbers that may cause overflow or underflow to be check with isInteger or may be too precise to be checked with isFloat.  <br /></td></tr>
+<tr class="memdesc:abf228e15ecf74d3127799a6d28b014a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string, check to see if it represents a number in standard notation.  <br /></td></tr>
 <tr class="separator:abf228e15ecf74d3127799a6d28b014a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ff84548f35ed049a4cba5ac01fdf4a6" id="r_a5ff84548f35ed049a4cba5ac01fdf4a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a5ff84548f35ed049a4cba5ac01fdf4a6">stevensStringLib::isScientificNumber</a> (const std::string_view &amp;str)</td></tr>
-<tr class="memdesc:a5ff84548f35ed049a4cba5ac01fdf4a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string, check to see if it represents a number in scientific notation. Useful to check numbers that may cause overflow or underflow to be check with isInteger or may be too precise to be checked with isFloat. Essentially, this function checks to see if you have a floating point type number on the left side of a string divided by an x,X,*,e, or an E, and either a 10^n or n on the right side.  <br /></td></tr>
+<tr class="memdesc:a5ff84548f35ed049a4cba5ac01fdf4a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string, check to see if it represents a number in scientific notation.  <br /></td></tr>
 <tr class="separator:a5ff84548f35ed049a4cba5ac01fdf4a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac011598c8d05818536e48fd96ca2b12d" id="r_ac011598c8d05818536e48fd96ca2b12d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ac011598c8d05818536e48fd96ca2b12d">stevensStringLib::isNumber</a> (const std::string_view &amp;str)</td></tr>
 <tr class="separator:ac011598c8d05818536e48fd96ca2b12d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,6 +183,27 @@ Functions</h2></td></tr>
 <tr class="separator:ac69119030f08c04d17f5ec4c59c0a8b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3dc7a7ba1770dbc595aa351f8137bb4e" id="r_a3dc7a7ba1770dbc595aa351f8137bb4e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a3dc7a7ba1770dbc595aa351f8137bb4e">stevensStringLib::isPalindrome</a> (const std::string &amp;str)</td></tr>
 <tr class="separator:a3dc7a7ba1770dbc595aa351f8137bb4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af09205aa6fe016654d45436a4048a027" id="r_af09205aa6fe016654d45436a4048a027"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#af09205aa6fe016654d45436a4048a027">stevensStringLib::multiply</a> (const std::string_view str, const int x)</td></tr>
+<tr class="memdesc:af09205aa6fe016654d45436a4048a027"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string str, concatenate it onto an empty string a given amount of times x, creating a multiply-like effect.  <br /></td></tr>
+<tr class="separator:af09205aa6fe016654d45436a4048a027"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7058ec839e8d8052fa05c951a4fc0f15" id="r_a7058ec839e8d8052fa05c951a4fc0f15"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a7058ec839e8d8052fa05c951a4fc0f15">stevensStringLib::format</a> (std::string str, const std::vector&lt; std::string &gt; &amp;replaceStrs, const char &amp;openingFormatBrace='{', const char &amp;closingFormatBrace='}')</td></tr>
+<tr class="memdesc:a7058ec839e8d8052fa05c951a4fc0f15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats a string by replacing format braces with strings stored within a vector.  <br /></td></tr>
+<tr class="separator:a7058ec839e8d8052fa05c951a4fc0f15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5e3a24c71708945cfc73bf2625604c0" id="r_ac5e3a24c71708945cfc73bf2625604c0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ac5e3a24c71708945cfc73bf2625604c0">stevensStringLib::format</a> (std::string str, const std::unordered_map&lt; std::string, std::string &gt; &amp;formatStrMap, const char &amp;openingFormatBrace='{', const char &amp;closingFormatBrace='}')</td></tr>
+<tr class="memdesc:ac5e3a24c71708945cfc73bf2625604c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats a string by replacing format braces with strings stored within a map. Variant of the vector-based format, where the values of the substrings within format braces are keys of a map parameter, and their replacements are the respective values of those keys.  <br /></td></tr>
+<tr class="separator:ac5e3a24c71708945cfc73bf2625604c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac671732a9d22e768387c95c5f9d524a7" id="r_ac671732a9d22e768387c95c5f9d524a7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#ac671732a9d22e768387c95c5f9d524a7">stevensStringLib::replaceSubstr</a> (std::string str, const std::string &amp;targetSubstr, const std::string &amp;replaceSubstr, size_t quantity=std::string::npos, const std::string &amp;startFrom=&quot;left&quot;)</td></tr>
+<tr class="memdesc:ac671732a9d22e768387c95c5f9d524a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces instances of a target substring in a given string with another substring of your choice.  <br /></td></tr>
+<tr class="separator:ac671732a9d22e768387c95c5f9d524a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c1be0b03e259aaa8af0f604f104c364" id="r_a4c1be0b03e259aaa8af0f604f104c364"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#a4c1be0b03e259aaa8af0f604f104c364">stevensStringLib::eraseTrailingZeroes</a> (const float &amp;num)</td></tr>
+<tr class="memdesc:a4c1be0b03e259aaa8af0f604f104c364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a floating point number num, remove trailing zeroes up to a certain point of given precision. Return the resulting number as a string.  <br /></td></tr>
+<tr class="separator:a4c1be0b03e259aaa8af0f604f104c364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af43e43c8ee6cd84e832998e00c8564fc" id="r_af43e43c8ee6cd84e832998e00c8564fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#af43e43c8ee6cd84e832998e00c8564fc">stevensStringLib::csvAppend</a> (std::string &amp;csvs, const std::string &amp;valueToAdd, const char delimiter=',')</td></tr>
+<tr class="memdesc:af43e43c8ee6cd84e832998e00c8564fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string of delimited values (assumed to be comma-separated values, csvs), append a given value to the string of csvs.  <br /></td></tr>
+<tr class="separator:af43e43c8ee6cd84e832998e00c8564fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafbe94d5777094f6671fd77997f5d4b5" id="r_aafbe94d5777094f6671fd77997f5d4b5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stevensStringLib_8h.html#aafbe94d5777094f6671fd77997f5d4b5">stevensStringLib::scramble</a> (std::string str)</td></tr>
+<tr class="memdesc:aafbe94d5777094f6671fd77997f5d4b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a string, randomly scramble the position of all of its characters.  <br /></td></tr>
+<tr class="separator:aafbe94d5777094f6671fd77997f5d4b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An easy-to-use C++ library with convenient functions for working with strings. </p>
@@ -590,6 +620,115 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af43e43c8ee6cd84e832998e00c8564fc" name="af43e43c8ee6cd84e832998e00c8564fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af43e43c8ee6cd84e832998e00c8564fc">&#9670;&#160;</a></span>csvAppend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void stevensStringLib::csvAppend </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>csvs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>valueToAdd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char&#160;</td>
+          <td class="paramname"><em>delimiter</em> = <code>','</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Given a string of delimited values (assumed to be comma-separated values, csvs), append a given value to the string of csvs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">csvs</td><td>A string of values delimited by the parameter delimiter which we will add a value onto the end of </td></tr>
+    <tr><td class="paramname">valueToAdd</td><td>A string value to append to the end of csvs </td></tr>
+    <tr><td class="paramname">delimiter</td><td>The character delimiting the csvs string. ',' by default.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">None,but</td><td>operates by reference to add value to the end of parameter csvs. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acb69a84e86b3cd194600e38aff7c2f19" name="acb69a84e86b3cd194600e38aff7c2f19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb69a84e86b3cd194600e38aff7c2f19">&#9670;&#160;</a></span>endsWith()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool stevensStringLib::endsWith </td>
+          <td>(</td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>substr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check a string to see if it ends with a substring. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we are checking the end of to see if it ends with substr. </td></tr>
+    <tr><td class="paramname">substr</td><td>- The substr we are checking to see if str ends with.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">bool</td><td>- True if the string str ends with substr. False if the str does not end with with substr. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ad3dfd6d4329ab7bf69fb1cfd475508c7" name="ad3dfd6d4329ab7bf69fb1cfd475508c7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad3dfd6d4329ab7bf69fb1cfd475508c7">&#9670;&#160;</a></span>eraseCharsFromEnd()</h2>
 
@@ -675,7 +814,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Given a string str, erase the firrst n characters of the string. </p>
+<p>Given a string str, erase the first n characters of the string. </p>
 <p>Credit to Michael Krelin: <a href="https://stackoverflow.com/a/12692267/16511184">https://stackoverflow.com/a/12692267/16511184</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -723,6 +862,43 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a4c1be0b03e259aaa8af0f604f104c364" name="a4c1be0b03e259aaa8af0f604f104c364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c1be0b03e259aaa8af0f604f104c364">&#9670;&#160;</a></span>eraseTrailingZeroes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string stevensStringLib::eraseTrailingZeroes </td>
+          <td>(</td>
+          <td class="paramtype">const float &amp;&#160;</td>
+          <td class="paramname"><em>num</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Given a floating point number num, remove trailing zeroes up to a certain point of given precision. Return the resulting number as a string. </p>
+<p>@credit <a href="https://stackoverflow.com/a/57883193/16511184">https://stackoverflow.com/a/57883193/16511184</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num</td><td>The number we are removing trailing zeroes from. //</td></tr>
+    <tr><td class="paramname">precision</td><td>The precision of the floating point number we eliminate trailing zeroes up to.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A string version of the parameter num with all of its trailing zeroes removed up until the given point of precision. </dd></dl>
 
 </div>
 </div>
@@ -822,6 +998,137 @@ Functions</h2></td></tr>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
     <tr><td class="paramname">std::vector&lt;size_t&gt;</td><td>- A vector containing all indices in increasing order that the substr occurs at. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac5e3a24c71708945cfc73bf2625604c0" name="ac5e3a24c71708945cfc73bf2625604c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5e3a24c71708945cfc73bf2625604c0">&#9670;&#160;</a></span>format() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string stevensStringLib::format </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::unordered_map&lt; std::string, std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>formatStrMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char &amp;&#160;</td>
+          <td class="paramname"><em>openingFormatBrace</em> = <code>'{'</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char &amp;&#160;</td>
+          <td class="paramname"><em>closingFormatBrace</em> = <code>'}'</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Formats a string by replacing format braces with strings stored within a map. Variant of the vector-based format, where the values of the substrings within format braces are keys of a map parameter, and their replacements are the respective values of those keys. </p>
+<p>Example: std::string formattedString = <a class="el" href="stevensStringLib_8h.html#a7058ec839e8d8052fa05c951a4fc0f15" title="Formats a string by replacing format braces with strings stored within a vector.">stevensStringLib::format</a>( "{greeting}, {addressee}. {question}?", { {"greeting", "howdy" } {"addressee", "pardner" } {"question", "how are you today" } } ); //formattedString == "howdy, pardner. how are you today?"</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string we are replacing the format brace enclosed substrings of. </td></tr>
+    <tr><td class="paramname">formatStrMap</td><td>A map of strings containing keys, which correspond to the the brace-enclosed substrings, and values which will replace their matching brace-enclosed substrings. </td></tr>
+    <tr><td class="paramname">openingFormatBrace</td><td>The character marking the beginning of a brace-enclosed substring. </td></tr>
+    <tr><td class="paramname">closingFormatBrace</td><td>The character marking the end of a brace-enclosed substring.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">str</td><td>modified with the replacements made of its format braces. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7058ec839e8d8052fa05c951a4fc0f15" name="a7058ec839e8d8052fa05c951a4fc0f15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7058ec839e8d8052fa05c951a4fc0f15">&#9670;&#160;</a></span>format() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string stevensStringLib::format </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>replaceStrs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char &amp;&#160;</td>
+          <td class="paramname"><em>openingFormatBrace</em> = <code>'{'</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char &amp;&#160;</td>
+          <td class="paramname"><em>closingFormatBrace</em> = <code>'}'</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Formats a string by replacing format braces with strings stored within a vector. </p>
+<dl class="section author"><dt>Authors</dt><dd>VikingOfValhalla, Jeff Stevens</dd></dl>
+<p>Example: std::string testing = <a class="el" href="stevensStringLib_8h.html#a7058ec839e8d8052fa05c951a4fc0f15" title="Formats a string by replacing format braces with strings stored within a vector.">stevensStringLib::format</a>({"testing {0}{1}", "1", "This is another test"}); //testing == "testing 1 This is another test"</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string that we'd like to replace the contents of formatted braces with. </td></tr>
+    <tr><td class="paramname">replaceStrs</td><td>- A vector containing all of the strings that we'd like to replace str's format braces with in order.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">Str</td><td>modified with the replacements made of its format braces. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1049,7 +1356,8 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Given a string, check to see if it represents a number in scientific notation. Useful to check numbers that may cause overflow or underflow to be check with isInteger or may be too precise to be checked with isFloat. Essentially, this function checks to see if you have a floating point type number on the left side of a string divided by an x,X,*,e, or an E, and either a 10^n or n on the right side. </p>
+<p>Given a string, check to see if it represents a number in scientific notation. </p>
+<p>Useful to check numbers that may cause overflow or underflow before they are checked by checked with isInteger or may be too precise to be checked with isFloat. Essentially, this function checks to see if you have a floating point type number on the left side of a string divided by an x,X,*,e, or an E, and either a 10^n or n on the right side.</p>
 <p>Example: isScientificNumber(3.521x10^3) == true isScientificNumber(4.68E4) == true isScientificNumber(9001) == false</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1090,7 +1398,8 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Given a string, check to see if it represents a number in standard notation. Useful to check numbers that may cause overflow or underflow to be check with isInteger or may be too precise to be checked with isFloat. </p>
+<p>Given a string, check to see if it represents a number in standard notation. </p>
+<p>Useful to check numbers that may cause overflow or underflow when checked with isInteger or may be too precise to be checked with isFloat.</p>
 <p>Example: isStandardNumber("-214748364721474836472147483647.123123123123123") == true isStandardNumber("2.5e2") == false</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1104,6 +1413,59 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a0a06dfefa8e30a9e16391ac301f0954a" name="a0a06dfefa8e30a9e16391ac301f0954a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a06dfefa8e30a9e16391ac301f0954a">&#9670;&#160;</a></span>join()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string stevensStringLib::join </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>separator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>omitEmptyStrings</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Given a vector of strings, concatenate them all into a single string, separating each string element in the final returned string by a given separator string. </p>
+<p>Essentially, reverses the operation of the separate function.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vec</td><td>The vector of stringlike objects we wish to concatenate together </td></tr>
+    <tr><td class="paramname">separator</td><td>A string of characters that will be placed between all concatenated elements</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A string of all of the string elements in the vector concatenated with the separator string between each element. </dd></dl>
 
 </div>
 </div>
@@ -1218,6 +1580,57 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="af09205aa6fe016654d45436a4048a027" name="af09205aa6fe016654d45436a4048a027"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af09205aa6fe016654d45436a4048a027">&#9670;&#160;</a></span>multiply()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string stevensStringLib::multiply </td>
+          <td>(</td>
+          <td class="paramtype">const std::string_view&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Given a string str, concatenate it onto an empty string a given amount of times x, creating a multiply-like effect. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- The string we are multiplying. </td></tr>
+    <tr><td class="paramname">x</td><td>- The number of times to concatenate str onto the empty string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">The</td><td>empty string "" with str concatenated onto its righthand side x times. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="acc289dc431709640aac960c1322f4278" name="acc289dc431709640aac960c1322f4278"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acc289dc431709640aac960c1322f4278">&#9670;&#160;</a></span>removeWhitespace()</h2>
 
@@ -1252,6 +1665,73 @@ template&lt;typename T &gt; </div>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
     <tr><td class="paramname">std::string</td><td>- The input string but with all of the whitespace removed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac671732a9d22e768387c95c5f9d524a7" name="ac671732a9d22e768387c95c5f9d524a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac671732a9d22e768387c95c5f9d524a7">&#9670;&#160;</a></span>replaceSubstr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string stevensStringLib::replaceSubstr </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>targetSubstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>replaceSubstr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>quantity</em> = <code>std::string::npos</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>startFrom</em> = <code>&quot;left&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Replaces instances of a target substring in a given string with another substring of your choice. </p>
+<p>Example: resultString = <a class="el" href="stevensStringLib_8h.html#ac671732a9d22e768387c95c5f9d524a7" title="Replaces instances of a target substring in a given string with another substring of your choice.">stevensStringLib::replaceSubstr</a>( "Gee, this neighborhood sure seems safe!", " ", "BANG!" ); //resultString == "Gee,BANG!thisBANG!neighborhoodBANG!sureBANG!seemsBANG!safe!"</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string we are replacing instances of the target substring within. </td></tr>
+    <tr><td class="paramname">targetSubstr</td><td>The substring we are replacing with replaceSubstr in str. </td></tr>
+    <tr><td class="paramname">replaceSubstr</td><td>The substring we are using to replace instances of targetSubstr. </td></tr>
+    <tr><td class="paramname">quantity</td><td>The number of times we wish to make replacements. By default, it replaces all occurrences of the target substring. </td></tr>
+    <tr><td class="paramname">startFrom</td><td>The side of the string we would like to begin making replacements from. By default, we begin from the left. Valid values are "left" and "right". </td></tr>
   </table>
   </dd>
 </dl>
@@ -1294,6 +1774,41 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aafbe94d5777094f6671fd77997f5d4b5" name="aafbe94d5777094f6671fd77997f5d4b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafbe94d5777094f6671fd77997f5d4b5">&#9670;&#160;</a></span>scramble()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string stevensStringLib::scramble </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Given a string, randomly scramble the position of all of its characters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to scramble</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A string with all of the same characters as str, but scrambled into a random order </dd></dl>
 
 </div>
 </div>
@@ -1565,6 +2080,33 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="acd42f6dfa6de31b27f58781c57a7762e" name="acd42f6dfa6de31b27f58781c57a7762e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd42f6dfa6de31b27f58781c57a7762e">&#9670;&#160;</a></span>toLower()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string stevensStringLib::toLower </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns a string with all characters in lowercase if possible. </p>
 
 </div>
 </div>

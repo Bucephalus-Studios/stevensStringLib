@@ -1,13 +1,7 @@
 var searchData=
 [
-  ['separate_0',['separate',['../stevensStringLib_8h.html#a1b29b2661c1430ffbac04f0e8a0876a3',1,'stevensStringLib::separate(const std::string_view &amp;str, const char separator=&apos;,&apos;, const bool omitEmptyStrings=true)'],['../stevensStringLib_8h.html#aff7fd2ec486153c3481c1137155c0980',1,'stevensStringLib::separate(const std::string_view &amp;str, const std::string_view &amp;separator, const bool omitEmptyStrings=true)']]],
-  ['separate_20a_20string_3a_1',['Separate a string:',['../md__2home_2jeff_2stevensStringLib_2README.html#autotoc_md2',1,'']]],
-  ['special_20thanks_2',['Special Thanks',['../md__2home_2jeff_2stevensStringLib_2README.html#autotoc_md10',1,'']]],
-  ['startswith_3',['startsWith',['../stevensStringLib_8h.html#a608c79000fd38c904b100d5cf9120299',1,'stevensStringLib']]],
-  ['stevensstringlib_4',['stevensStringLib',['../md__2home_2jeff_2stevensStringLib_2README.html',1,'']]],
-  ['stevensstringlib_2eh_5',['stevensStringLib.h',['../stevensStringLib_8h.html',1,'']]],
-  ['string_20to_20a_20certain_20width_3a_6',['Wrap a string to a certain width:',['../md__2home_2jeff_2stevensStringLib_2README.html#autotoc_md4',1,'']]],
-  ['string_3a_7',['string:',['../md__2home_2jeff_2stevensStringLib_2README.html#autotoc_md3',1,'Remove all whitespace from a string:'],['../md__2home_2jeff_2stevensStringLib_2README.html#autotoc_md2',1,'Separate a string:']]],
-  ['stringifymap_8',['stringifyMap',['../stevensStringLib_8h.html#a6d11bd6e262a33a72a8bf8ea3e2d2829',1,'stevensStringLib']]],
-  ['stringtobool_9',['stringToBool',['../stevensStringLib_8h.html#a66cee1aced824a0f8ee615dbf7035478',1,'stevensStringLib']]]
+  ['manager_3a_20https_3a_20github_20com_20nord_20tech_20systems_20llc_20beldum_5fpackage_5fmanager_0',['Beldum Package Manager: https://github.com/Nord-Tech-Systems-LLC/beldum_package_manager',['../md__2home_2jeff_2stevensStringLib_2README.html#autotoc_md3',1,'']]],
+  ['mapifystring_1',['mapifyString',['../stevensStringLib_8h.html#a93a3b051465b829d63a0c0867193f4cb',1,'stevensStringLib']]],
+  ['mapifystringhelper_2',['mapifyStringHelper',['../stevensStringLib_8h.html#a412f31d61fe4c1f5158e878100267638',1,'stevensStringLib']]],
+  ['multiply_3',['multiply',['../stevensStringLib_8h.html#af09205aa6fe016654d45436a4048a027',1,'stevensStringLib']]]
 ];
