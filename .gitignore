@@ -1,4 +1,26 @@
+# Build directories
 ./testing/build/*
 !./testing/build/.gitkeep
 ./benchmarking/build/*
 !./benchmarking/build/.gitkeep
+
+testing/build*/
+benchmarking/build*/
+
+# FetchContent dependencies (downloaded by CMake)
+testing/_deps/
+benchmarking/_deps/
+
+# Test and benchmark results
+testing/results/
+benchmarking/results/
+
+# Coverage reports
+testing/build*/coverage_report/
+testing/build*/coverage*.info
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
