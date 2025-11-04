@@ -2,3 +2,9 @@
 !./testing/build/.gitkeep
 ./benchmarking/build/*
 !./benchmarking/build/.gitkeep
+
+# Test and benchmark build directories
+testing/build*/
+benchmarking/build*/
+testing/results/
+benchmarking/results/

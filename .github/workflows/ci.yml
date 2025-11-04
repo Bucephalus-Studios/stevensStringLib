@@ -1,0 +1,228 @@
+name: CI - Tests and Benchmarks
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  # ============================================================================
+  # Unit Tests
+  # ============================================================================
+  test:
+    name: Tests (${{ matrix.compiler }}, ${{ matrix.build_type }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [g++-11, clang++-14]
+        build_type: [Debug, Release]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake lcov
+
+    - name: Configure CMake
+      working-directory: testing
+      run: |
+        cmake -S . -B build \
+          -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} \
+          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+          -DENABLE_COVERAGE=${{ matrix.build_type == 'Debug' && 'ON' || 'OFF' }}
+
+    - name: Build tests
+      working-directory: testing
+      run: cmake --build build -j$(nproc)
+
+    - name: Run tests
+      working-directory: testing/build
+      run: |
+        ./stevensStringLibTest --gtest_output=xml:test_results.xml --gtest_color=yes
+
+    - name: Generate coverage report
+      if: matrix.build_type == 'Debug' && matrix.compiler == 'g++-11'
+      working-directory: testing/build
+      run: |
+        lcov --capture --directory . --output-file coverage.info
+        lcov --remove coverage.info '/usr/*' '*/googletest/*' --output-file coverage_filtered.info
+        lcov --list coverage_filtered.info
+
+    - name: Upload coverage to Codecov
+      if: matrix.build_type == 'Debug' && matrix.compiler == 'g++-11'
+      uses: codecov/codecov-action@v3
+      with:
+        files: testing/build/coverage_filtered.info
+        fail_ci_if_error: false
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results-${{ matrix.compiler }}-${{ matrix.build_type }}
+        path: testing/build/test_results.xml
+
+  # ============================================================================
+  # Sanitizer Tests
+  # ============================================================================
+  sanitizers:
+    name: Sanitizers (AddressSanitizer + UBSan)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake
+
+    - name: Configure CMake with sanitizers
+      working-directory: testing
+      run: |
+        cmake -S . -B build \
+          -DCMAKE_BUILD_TYPE=Debug \
+          -DENABLE_SANITIZERS=ON
+
+    - name: Build tests
+      working-directory: testing
+      run: cmake --build build -j$(nproc)
+
+    - name: Run tests with sanitizers
+      working-directory: testing/build
+      run: |
+        ASAN_OPTIONS=detect_leaks=1:check_initialization_order=1 \
+        UBSAN_OPTIONS=print_stacktrace=1 \
+        ./stevensStringLibTest --gtest_color=yes
+
+  # ============================================================================
+  # Benchmarks
+  # ============================================================================
+  benchmark:
+    name: Benchmarks
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Install Python dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+
+    - name: Configure CMake
+      working-directory: benchmarking
+      run: |
+        cmake -S . -B build \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_CXX_FLAGS="-O3 -march=native"
+
+    - name: Build benchmarks
+      working-directory: benchmarking
+      run: cmake --build build -j$(nproc)
+
+    - name: Run benchmarks
+      working-directory: benchmarking/build
+      run: |
+        ./stevensStringLibBenchmark \
+          --benchmark_out=results.json \
+          --benchmark_out_format=json \
+          --benchmark_repetitions=3 \
+          --benchmark_report_aggregates_only=true
+
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v3
+      with:
+        name: benchmark-results
+        path: benchmarking/build/results.json
+
+    # Compare with baseline if it exists
+    - name: Compare with baseline
+      if: github.event_name == 'pull_request'
+      continue-on-error: true
+      run: |
+        if [ -f benchmarking/benchmark_baseline.json ]; then
+          python3 scripts/compare_benchmarks.py \
+            benchmarking/benchmark_baseline.json \
+            benchmarking/build/results.json
+        else
+          echo "No baseline found, skipping comparison"
+        fi
+
+  # ============================================================================
+  # Code Quality Checks
+  # ============================================================================
+  code-quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Check for TODOs in code
+      run: |
+        echo "Checking for TODO comments..."
+        if grep -rn "TODO" stevensStringLib.h; then
+          echo "⚠️  Found TODO comments in code"
+        else
+          echo "✓ No TODO comments found"
+        fi
+
+    - name: Check line length
+      run: |
+        echo "Checking for overly long lines (>120 chars)..."
+        if grep -rn ".\{121\}" stevensStringLib.h; then
+          echo "⚠️  Found lines longer than 120 characters"
+        else
+          echo "✓ All lines within limit"
+        fi
+
+  # ============================================================================
+  # Documentation Check
+  # ============================================================================
+  documentation:
+    name: Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Doxygen
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y doxygen graphviz
+
+    - name: Generate documentation
+      working-directory: docs
+      run: doxygen Doxyfile
+
+    - name: Check for documentation warnings
+      working-directory: docs
+      run: |
+        if [ -f doxygen_warnings.log ] && [ -s doxygen_warnings.log ]; then
+          echo "⚠️  Doxygen warnings found:"
+          cat doxygen_warnings.log
+          exit 1
+        else
+          echo "✓ Documentation generated without warnings"
+        fi
+
+    - name: Upload documentation
+      uses: actions/upload-artifact@v3
+      with:
+        name: documentation
+        path: docs/html/
