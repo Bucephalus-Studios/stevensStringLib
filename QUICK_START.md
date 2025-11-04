@@ -17,8 +17,8 @@ sudo apt-get install -y cmake g++ lcov python3
 git clone <your-repo-url>
 cd stevensStringLib
 
-# Initialize submodules (IMPORTANT!)
-git submodule update --init --recursive
+# Dependencies (Google Test & Benchmark) are automatically downloaded by CMake!
+# No submodule initialization needed - just build and run!
 ```
 
 ## Run Tests
@@ -55,10 +55,10 @@ stevensStringLib/
 ├── testing/                    # Test suite
 │   ├── unit/                   # Modular test files
 │   ├── fixtures/               # Shared test data
-│   └── googletest/             # Google Test (submodule)
+│   └── _deps/                  # Google Test (auto-downloaded by CMake)
 ├── benchmarking/              # Benchmark suite
 │   ├── benchmarks/            # Modular benchmark files
-│   └── googlebenchmark/       # Google Benchmark (submodule)
+│   └── _deps/                  # Google Benchmark (auto-downloaded)
 ├── scripts/                   # Automation scripts
 │   ├── run_tests.sh          # Test runner
 │   ├── run_benchmarks.sh     # Benchmark runner
@@ -157,9 +157,14 @@ View results: GitHub → Actions tab
 ## Troubleshooting
 
 ### "googletest not found"
+This should not happen as CMake automatically downloads dependencies.
+If you see this error:
 ```bash
-# Initialize submodules
-git submodule update --init --recursive
+# Clean and rebuild
+cd testing
+rm -rf build _deps
+cmake -S . -B build
+cmake --build build
 ```
 
 ### "lcov not found"

@@ -177,10 +177,10 @@ USAGE
 =====
 
 Quick start:
-  git submodule update --init --recursive
   ./scripts/run_tests.sh --coverage
   ./scripts/run_benchmarks.sh --format json
 
+Dependencies (Google Test & Benchmark) are automatically downloaded by CMake!
 See QUICK_START.md for complete guide.
 
 STATISTICS

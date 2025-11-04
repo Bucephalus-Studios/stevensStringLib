@@ -418,8 +418,8 @@ BENCHMARK(BM_YourFunction);
 **Required:**
 - CMake 3.22.1+
 - C++17 compiler (GCC 11+ or Clang 14+)
-- Google Test (submodule)
-- Google Benchmark (submodule)
+- Google Test (auto-downloaded by CMake FetchContent)
+- Google Benchmark (auto-downloaded by CMake FetchContent)
 
 **Optional:**
 - lcov (for coverage)

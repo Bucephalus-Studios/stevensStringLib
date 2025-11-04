@@ -18,10 +18,26 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 option(BUILD_LEGACY_BENCHMARKS "Build legacy monolithic benchmark file" ON)
 
 # ============================================================================
-# Add Google Benchmark
+# Add Google Benchmark - Using FetchContent (no submodules needed!)
 # ============================================================================
 
-add_subdirectory(googlebenchmark)
+include(FetchContent)
+
+message(STATUS "Fetching Google Benchmark...")
+FetchContent_Declare(
+    googlebenchmark
+    GIT_REPOSITORY https://github.com/google/benchmark.git
+    GIT_TAG        v1.8.3   # Latest stable release
+    GIT_SHALLOW    TRUE     # Only download latest commit
+    FIND_PACKAGE_ARGS NAMES benchmark
+)
+
+# Disable benchmark tests
+set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "" FORCE)
+set(BENCHMARK_ENABLE_GTEST_TESTS OFF CACHE BOOL "" FORCE)
+
+# Make Google Benchmark available
+FetchContent_MakeAvailable(googlebenchmark)
 
 # ============================================================================
 # Benchmark Source Files - New Modular Structure

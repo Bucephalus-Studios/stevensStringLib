@@ -22,8 +22,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      with:
-        submodules: recursive
 
     - name: Install dependencies
       run: |
@@ -52,7 +50,7 @@ jobs:
       working-directory: testing/build
       run: |
         lcov --capture --directory . --output-file coverage.info
-        lcov --remove coverage.info '/usr/*' '*/googletest/*' --output-file coverage_filtered.info
+        lcov --remove coverage.info '/usr/*' '*/_deps/*' --output-file coverage_filtered.info
         lcov --list coverage_filtered.info
 
     - name: Upload coverage to Codecov
@@ -79,8 +77,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      with:
-        submodules: recursive
 
     - name: Install dependencies
       run: |
@@ -115,8 +111,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      with:
-        submodules: recursive
 
     - name: Install Python dependencies
       run: |

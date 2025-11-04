@@ -20,10 +20,25 @@ option(ENABLE_SANITIZERS "Enable address and undefined behavior sanitizers" OFF)
 option(BUILD_LEGACY_TESTS "Build legacy monolithic test file" ON)
 
 # ============================================================================
-# Add GoogleTest
+# Add GoogleTest - Using FetchContent (no submodules needed!)
 # ============================================================================
 
-add_subdirectory(googletest)
+include(FetchContent)
+
+message(STATUS "Fetching Google Test...")
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG        v1.14.0  # Latest stable release
+    GIT_SHALLOW    TRUE     # Only download latest commit
+    FIND_PACKAGE_ARGS NAMES GTest
+)
+
+# Prevent GoogleTest from overriding compiler/linker options
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+# Make GoogleTest available
+FetchContent_MakeAvailable(googletest)
 
 # Enable GoogleTest
 enable_testing()
