@@ -44,6 +44,7 @@ FetchContent_MakeAvailable(googlebenchmark)
 # ============================================================================
 
 set(BENCHMARK_SOURCES
+    benchmarks/benchmark_main.cpp
     benchmarks/benchmark_separate.cpp
     benchmarks/benchmark_join.cpp
     benchmarks/benchmark_validation.cpp
