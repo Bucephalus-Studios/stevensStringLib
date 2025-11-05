@@ -11,7 +11,7 @@
 // BASELINE BENCHMARKS
 // ============================================================================
 
-static void BM_Join_Baseline_Accumulate(benchmark::State& state) {
+static void Join_Baseline_Accumulate(benchmark::State& state) {
     std::vector<std::string> vec = {"apple", "banana", "cherry", "date", "elderberry"};
     std::string separator = ", ";
 
@@ -24,13 +24,13 @@ static void BM_Join_Baseline_Accumulate(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Join_Baseline_Accumulate);
+BENCHMARK(Join_Baseline_Accumulate);
 
 // ============================================================================
 // LIBRARY BENCHMARKS
 // ============================================================================
 
-static void BM_Join_Library_Small(benchmark::State& state) {
+static void Join_Library_Small(benchmark::State& state) {
     std::vector<std::string> vec = {"apple", "banana", "cherry", "date", "elderberry"};
     std::string separator = ", ";
 
@@ -39,13 +39,13 @@ static void BM_Join_Library_Small(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Join_Library_Small);
+BENCHMARK(Join_Library_Small);
 
 // ============================================================================
 // SCALING TESTS
 // ============================================================================
 
-static void BM_Join_Scaling(benchmark::State& state) {
+static void Join_Scaling(benchmark::State& state) {
     size_t num_elements = state.range(0);
 
     // Generate vector with N elements
@@ -63,7 +63,7 @@ static void BM_Join_Scaling(benchmark::State& state) {
     state.SetComplexityN(num_elements);
     state.SetItemsProcessed(state.iterations() * num_elements);
 }
-BENCHMARK(BM_Join_Scaling)
+BENCHMARK(Join_Scaling)
     ->RangeMultiplier(2)
     ->Range(8, 8<<10)
     ->Complexity(benchmark::oN);
@@ -72,7 +72,7 @@ BENCHMARK(BM_Join_Scaling)
 // WORST CASE - Many empty strings
 // ============================================================================
 
-static void BM_Join_WorstCase_EmptyStrings(benchmark::State& state) {
+static void Join_WorstCase_EmptyStrings(benchmark::State& state) {
     size_t num_elements = state.range(0);
     std::vector<std::string> vec(num_elements, "");  // All empty
 
@@ -81,14 +81,14 @@ static void BM_Join_WorstCase_EmptyStrings(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Join_WorstCase_EmptyStrings)
+BENCHMARK(Join_WorstCase_EmptyStrings)
     ->Range(8, 8<<10);
 
 // ============================================================================
 // SEPARATOR LENGTH IMPACT
 // ============================================================================
 
-static void BM_Join_LongSeparator(benchmark::State& state) {
+static void Join_LongSeparator(benchmark::State& state) {
     std::vector<std::string> vec = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
     std::string long_sep = " --- separator --- ";
 
@@ -97,9 +97,9 @@ static void BM_Join_LongSeparator(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Join_LongSeparator);
+BENCHMARK(Join_LongSeparator);
 
-static void BM_Join_ShortSeparator(benchmark::State& state) {
+static void Join_ShortSeparator(benchmark::State& state) {
     std::vector<std::string> vec = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"};
 
     for (auto _ : state) {
@@ -107,13 +107,13 @@ static void BM_Join_ShortSeparator(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Join_ShortSeparator);
+BENCHMARK(Join_ShortSeparator);
 
 // ============================================================================
 // REAL WORLD - CSV generation
 // ============================================================================
 
-static void BM_Join_CSV_RealWorld(benchmark::State& state) {
+static void Join_CSV_RealWorld(benchmark::State& state) {
     std::vector<std::string> record = {
         "John", "Doe", "john.doe@email.com", "555-1234",
         "123 Main St", "New York", "NY", "10001"
@@ -124,13 +124,13 @@ static void BM_Join_CSV_RealWorld(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Join_CSV_RealWorld);
+BENCHMARK(Join_CSV_RealWorld);
 
 // ============================================================================
 // ROUNDTRIP - separate then join
 // ============================================================================
 
-static void BM_Join_Roundtrip(benchmark::State& state) {
+static void Join_Roundtrip(benchmark::State& state) {
     std::string original = "apple,banana,cherry,date,elderberry,fig,grape";
 
     for (auto _ : state) {
@@ -139,4 +139,4 @@ static void BM_Join_Roundtrip(benchmark::State& state) {
         benchmark::DoNotOptimize(rejoined);
     }
 }
-BENCHMARK(BM_Join_Roundtrip);
+BENCHMARK(Join_Roundtrip);

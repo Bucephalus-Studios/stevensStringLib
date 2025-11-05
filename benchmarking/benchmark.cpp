@@ -4,7 +4,7 @@
 #include "../stevensStringLib.h"
 
 /*** contains (string variant) ***/
-static void BM_contains_str_basic(benchmark::State & state)
+static void contains_str_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "Live and learn! Hanging on the edge of tomorrow! Live and learn! From the works of yesterday! "
@@ -17,11 +17,11 @@ static void BM_contains_str_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_contains_str_basic);
+BENCHMARK(contains_str_basic);
 
 
 /*** contains (char variant) ***/
-static void BM_contains_char_basic(benchmark::State & state)
+static void contains_char_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "Live and learn! Hanging on the edge of tomorrow! Live and learn! From the works of yesterday! "
@@ -34,11 +34,11 @@ static void BM_contains_char_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_contains_char_basic);
+BENCHMARK(contains_char_basic);
 
 
 /*** containsOnly ***/
-static void BM_containsOnly_basic(benchmark::State & state)
+static void containsOnly_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "111122222222222222!333333333333333";
@@ -50,11 +50,11 @@ static void BM_containsOnly_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_containsOnly_basic);
+BENCHMARK(containsOnly_basic);
 
 
 /*** eraseCharsFromEnd ***/
-static void BM_eraseCharsFromEnd_basic(benchmark::State & state)
+static void eraseCharsFromEnd_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "I am the eggman, I have the masterplan!";
@@ -66,11 +66,11 @@ static void BM_eraseCharsFromEnd_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_eraseCharsFromEnd_basic);
+BENCHMARK(eraseCharsFromEnd_basic);
 
 
 /*** eraseCharsFromEnd ***/
-static void BM_eraseCharsFromStart_basic(benchmark::State & state)
+static void eraseCharsFromStart_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "I am the eggman, I have the masterplan!";
@@ -82,11 +82,11 @@ static void BM_eraseCharsFromStart_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_eraseCharsFromStart_basic);
+BENCHMARK(eraseCharsFromStart_basic);
 
 
 /*** eraseCharsFromEnd ***/
-static void BM_startsWith_basic(benchmark::State & state)
+static void startsWith_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "Can you feel the sunshine!";
@@ -98,11 +98,11 @@ static void BM_startsWith_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_startsWith_basic);
+BENCHMARK(startsWith_basic);
 
 
 /*** findAll (string variant) ***/
-static void BM_findAll_str_basic(benchmark::State & state)
+static void findAll_str_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "The quick brown fox jumps over the lazy dog. The fox is quick and the dog is lazy. Quick foxes and lazy dogs are common in stories about quick animals.";
@@ -114,11 +114,11 @@ static void BM_findAll_str_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_findAll_str_basic);
+BENCHMARK(findAll_str_basic);
 
 
 /*** findAll (char variant) ***/
-static void BM_findAll_char_basic(benchmark::State & state)
+static void findAll_char_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "00010000000000000101011100000000000000000000000100000000000000000000000000000000000000011";
@@ -130,11 +130,11 @@ static void BM_findAll_char_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_findAll_char_basic);
+BENCHMARK(findAll_char_basic);
 
 
 /*** separate (char variant) ***/
-static void BM_separate_char_basic(benchmark::State & state)
+static void separate_char_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "apple,banana,cherry,date,elderberry,fig,grape,honeydew,kiwi,lemon,mango,nectarine,orange,papaya,quince,raspberry,strawberry,tangerine,watermelon";
@@ -145,11 +145,11 @@ static void BM_separate_char_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_separate_char_basic);
+BENCHMARK(separate_char_basic);
 
 
 /*** separate (char variant) ***/
-static void BM_separate_str_basic(benchmark::State & state)
+static void separate_str_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "67$%$14$%$633$%$99$%$$%$$%$124$%$6$%$aquatic$%$no$%$no$%$yes$%$23$%$23$%$standard";
@@ -160,11 +160,11 @@ static void BM_separate_str_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_separate_str_basic);
+BENCHMARK(separate_str_basic);
 
 
 /*** cap1stChar ***/
-static void BM_cap1stChar_basic(benchmark::State & state)
+static void cap1stChar_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "smitty werbenjaegermanjensen";
@@ -175,11 +175,11 @@ static void BM_cap1stChar_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_cap1stChar_basic);
+BENCHMARK(cap1stChar_basic);
 
 
 /*** toUpper ***/
-static void BM_toUpper_basic(benchmark::State & state)
+static void toUpper_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "smitty werbenjaegermanjensen";
@@ -190,11 +190,11 @@ static void BM_toUpper_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_toUpper_basic);
+BENCHMARK(toUpper_basic);
 
 
 /*** isInteger ***/
-static void BM_isInteger_basic(benchmark::State & state)
+static void isInteger_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "9001.0";
@@ -205,11 +205,11 @@ static void BM_isInteger_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_isInteger_basic);
+BENCHMARK(isInteger_basic);
 
 
 /*** isFloat ***/
-static void BM_isFloat_basic(benchmark::State & state)
+static void isFloat_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "9001.0";
@@ -220,11 +220,11 @@ static void BM_isFloat_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_isFloat_basic);
+BENCHMARK(isFloat_basic);
 
 
 /*** isStandardNumber ***/
-static void BM_isStandardNumber_basic(benchmark::State & state)
+static void isStandardNumber_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "9001.0";
@@ -235,11 +235,11 @@ static void BM_isStandardNumber_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_isStandardNumber_basic);
+BENCHMARK(isStandardNumber_basic);
 
 
 /*** isScientificNumber ***/
-static void BM_isScientificNumber_basic(benchmark::State & state)
+static void isScientificNumber_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "9.001e3";
@@ -250,11 +250,11 @@ static void BM_isScientificNumber_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_isScientificNumber_basic);
+BENCHMARK(isScientificNumber_basic);
 
 
 /*** isNumber ***/
-static void BM_isNumber_basic(benchmark::State & state)
+static void isNumber_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "9.001e3";
@@ -265,11 +265,11 @@ static void BM_isNumber_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_isNumber_basic);
+BENCHMARK(isNumber_basic);
 
 
 /*** stringToBool ***/
-static void BM_stringToBool_basic(benchmark::State & state)
+static void stringToBool_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "FALSE";
@@ -280,11 +280,11 @@ static void BM_stringToBool_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_stringToBool_basic);
+BENCHMARK(stringToBool_basic);
 
 
 /*** boolToString ***/
-static void BM_boolToString_basic(benchmark::State & state)
+static void boolToString_basic(benchmark::State & state)
 {
     //Perform setup here
     bool b = false;
@@ -295,11 +295,11 @@ static void BM_boolToString_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_boolToString_basic);
+BENCHMARK(boolToString_basic);
 
 
 /*** trim ***/
-static void BM_trim_basic(benchmark::State & state)
+static void trim_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "xXxEpic-GamerxXx";
@@ -310,11 +310,11 @@ static void BM_trim_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_trim_basic);
+BENCHMARK(trim_basic);
 
 
 /*** removeWhiteSpace ***/
-static void BM_removeWhitespace_basic(benchmark::State & state)
+static void removeWhitespace_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "All\tof\tyour\tfears\tare\twell-founded\tand\ttrue\n"
@@ -328,11 +328,11 @@ static void BM_removeWhitespace_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_removeWhitespace_basic);
+BENCHMARK(removeWhitespace_basic);
 
 
 /*** mapifyString ***/
-static void BM_mapifyString_basic(benchmark::State & state)
+static void mapifyString_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "Warsim:Huw Milward,CultGame:Jeff Stevens,Kindred Fates:Rob Cravens,Photo Fighter:John Fernow";
@@ -343,11 +343,11 @@ static void BM_mapifyString_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_mapifyString_basic);
+BENCHMARK(mapifyString_basic);
 
 
 /*** unorderedMapifyString ***/
-static void BM_unorderedMapifyString_basic(benchmark::State & state)
+static void unorderedMapifyString_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "Warsim:Huw Milward,CultGame:Jeff Stevens,Kindred Fates:Rob Cravens,Photo Fighter:John Fernow";
@@ -358,11 +358,11 @@ static void BM_unorderedMapifyString_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_unorderedMapifyString_basic);
+BENCHMARK(unorderedMapifyString_basic);
 
 
 /*** stringifyMap ***/
-static void BM_stringifyMap_basic(benchmark::State & state)
+static void stringifyMap_basic(benchmark::State & state)
 {
     //Perform setup here
     std::map<std::string,std::string> map = {   {"Warsim","Huw Milward"},
@@ -376,11 +376,11 @@ static void BM_stringifyMap_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_stringifyMap_basic);
+BENCHMARK(stringifyMap_basic);
 
 
 /*** countLines ***/
-static void BM_countLines_basic(benchmark::State & state)
+static void countLines_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "firstline\nsecondline\nthirdline\n";
@@ -391,11 +391,11 @@ static void BM_countLines_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_countLines_basic);
+BENCHMARK(countLines_basic);
 
 
 /*** wrapToWidth ***/
-static void BM_wrapToWidth_basic(benchmark::State & state)
+static void wrapToWidth_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "111222333";
@@ -407,11 +407,11 @@ static void BM_wrapToWidth_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_wrapToWidth_basic);
+BENCHMARK(wrapToWidth_basic);
 
 
 /*** circularIndex ***/
-static void BM_circularIndex_basic(benchmark::State & state)
+static void circularIndex_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "resonance!";
@@ -423,11 +423,11 @@ static void BM_circularIndex_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_circularIndex_basic);
+BENCHMARK(circularIndex_basic);
 
 
 /*** getWhiteSpaceString ***/
-static void BM_getWhitespaceString_basic(benchmark::State & state)
+static void getWhitespaceString_basic(benchmark::State & state)
 {
     //Perform setup here
     for(auto _ : state)
@@ -437,11 +437,11 @@ static void BM_getWhitespaceString_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_getWhitespaceString_basic);
+BENCHMARK(getWhitespaceString_basic);
 
 
 /*** getWhiteSpaceString ***/
-static void BM_trimWhitespace_basic(benchmark::State & state)
+static void trimWhitespace_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = " \n\t\r\v\f Hello, world! \n\t\r\v\f";
@@ -452,11 +452,11 @@ static void BM_trimWhitespace_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_trimWhitespace_basic);
+BENCHMARK(trimWhitespace_basic);
 
 
 /*** charToString ***/
-static void BM_charToString_basic(benchmark::State & state)
+static void charToString_basic(benchmark::State & state)
 {
     //Perform setup here
     char c = '$';
@@ -467,11 +467,11 @@ static void BM_charToString_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_charToString_basic);
+BENCHMARK(charToString_basic);
 
 
 /*** eraseNonNumericChars ***/
-static void BM_eraseNonNumericChars_basic(benchmark::State & state)
+static void eraseNonNumericChars_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "1 pumpkin, 5 eggplant, 3 squash, 9001 nappa cabbage";
@@ -482,11 +482,11 @@ static void BM_eraseNonNumericChars_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_eraseNonNumericChars_basic);
+BENCHMARK(eraseNonNumericChars_basic);
 
 
 /*** reverse ***/
-static void BM_reverse_basic(benchmark::State & state)
+static void reverse_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "1 pumpkin, 5 eggplant, 3 squash, 9001 nappa cabbage";
@@ -497,11 +497,11 @@ static void BM_reverse_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_reverse_basic);
+BENCHMARK(reverse_basic);
 
 
 /*** isPalindrome ***/
-static void BM_isPalindrome_basic(benchmark::State & state)
+static void isPalindrome_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "racecar";
@@ -512,11 +512,11 @@ static void BM_isPalindrome_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_isPalindrome_basic);
+BENCHMARK(isPalindrome_basic);
 
 
 /*** format (vector variant) ***/
-static void BM_format_vectorVariant_basic(benchmark::State & state)
+static void format_vectorVariant_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "{0}{1}{2}";
@@ -527,11 +527,11 @@ static void BM_format_vectorVariant_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_format_vectorVariant_basic);
+BENCHMARK(format_vectorVariant_basic);
 
 
 /*** format (map variant) ***/
-static void BM_format_mapVariant_basic(benchmark::State & state)
+static void format_mapVariant_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "{greeting}{punctuation}{addressee}";
@@ -545,13 +545,13 @@ static void BM_format_mapVariant_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_format_mapVariant_basic);
+BENCHMARK(format_mapVariant_basic);
 
 
 
 
 /*** endsWith ***/
-static void BM_endsWith_basic(benchmark::State & state)
+static void endsWith_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "The quick brown fox jumps over the lazy dog";
@@ -563,11 +563,11 @@ static void BM_endsWith_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_endsWith_basic);
+BENCHMARK(endsWith_basic);
 
 
 /*** join ***/
-static void BM_join_basic(benchmark::State & state)
+static void join_basic(benchmark::State & state)
 {
     //Perform setup here
     std::vector<std::string> vec = {"apple", "banana", "cherry", "date", "elderberry"};
@@ -579,11 +579,11 @@ static void BM_join_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_join_basic);
+BENCHMARK(join_basic);
 
 
 /*** toLower ***/
-static void BM_toLower_basic(benchmark::State & state)
+static void toLower_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
@@ -594,11 +594,11 @@ static void BM_toLower_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_toLower_basic);
+BENCHMARK(toLower_basic);
 
 
 /*** multiply ***/
-static void BM_multiply_basic(benchmark::State & state)
+static void multiply_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "Hello";
@@ -610,11 +610,11 @@ static void BM_multiply_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_multiply_basic);
+BENCHMARK(multiply_basic);
 
 
 /*** replaceSubstr ***/
-static void BM_replaceSubstr_basic(benchmark::State & state)
+static void replaceSubstr_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "The quick brown fox jumps over the lazy dog. The fox is quick.";
@@ -627,11 +627,11 @@ static void BM_replaceSubstr_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_replaceSubstr_basic);
+BENCHMARK(replaceSubstr_basic);
 
 
 /*** eraseTrailingZeroes ***/
-static void BM_eraseTrailingZeroes_basic(benchmark::State & state)
+static void eraseTrailingZeroes_basic(benchmark::State & state)
 {
     //Perform setup here
     float num = 123.45000f;
@@ -642,11 +642,11 @@ static void BM_eraseTrailingZeroes_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_eraseTrailingZeroes_basic);
+BENCHMARK(eraseTrailingZeroes_basic);
 
 
 /*** csvAppend ***/
-static void BM_csvAppend_basic(benchmark::State & state)
+static void csvAppend_basic(benchmark::State & state)
 {
     //Perform setup here
     for(auto _ : state)
@@ -658,11 +658,11 @@ static void BM_csvAppend_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_csvAppend_basic);
+BENCHMARK(csvAppend_basic);
 
 
 /*** scramble ***/
-static void BM_scramble_basic(benchmark::State & state)
+static void scramble_basic(benchmark::State & state)
 {
     //Perform setup here
     std::string string = "The quick brown fox jumps over the lazy dog";
@@ -673,7 +673,7 @@ static void BM_scramble_basic(benchmark::State & state)
     }
 }
 //Register function as a benchmark
-BENCHMARK(BM_scramble_basic);
+BENCHMARK(scramble_basic);
 
 
 //Run the benchmark

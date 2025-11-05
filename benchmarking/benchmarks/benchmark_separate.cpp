@@ -14,7 +14,7 @@
 // BASELINE BENCHMARKS - Compare against standard library
 // ============================================================================
 
-static void BM_Separate_Baseline_IStringStream(benchmark::State& state) {
+static void Separate_Baseline_IStringStream(benchmark::State& state) {
     std::string input = "apple,banana,cherry,date,elderberry,fig,grape,honeydew";
 
     for (auto _ : state) {
@@ -27,9 +27,9 @@ static void BM_Separate_Baseline_IStringStream(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Separate_Baseline_IStringStream);
+BENCHMARK(Separate_Baseline_IStringStream);
 
-static void BM_Separate_Baseline_ManualFind(benchmark::State& state) {
+static void Separate_Baseline_ManualFind(benchmark::State& state) {
     std::string input = "apple,banana,cherry,date,elderberry,fig,grape,honeydew";
     const char sep = ',';
 
@@ -48,13 +48,13 @@ static void BM_Separate_Baseline_ManualFind(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Separate_Baseline_ManualFind);
+BENCHMARK(Separate_Baseline_ManualFind);
 
 // ============================================================================
 // LIBRARY BENCHMARKS - Char separator
 // ============================================================================
 
-static void BM_Separate_Library_Char(benchmark::State& state) {
+static void Separate_Library_Char(benchmark::State& state) {
     std::string input = "apple,banana,cherry,date,elderberry,fig,grape,honeydew";
 
     for (auto _ : state) {
@@ -62,13 +62,13 @@ static void BM_Separate_Library_Char(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Separate_Library_Char);
+BENCHMARK(Separate_Library_Char);
 
 // ============================================================================
 // LIBRARY BENCHMARKS - String separator
 // ============================================================================
 
-static void BM_Separate_Library_String(benchmark::State& state) {
+static void Separate_Library_String(benchmark::State& state) {
     std::string input = "apple and banana and cherry and date and elderberry";
 
     for (auto _ : state) {
@@ -76,13 +76,13 @@ static void BM_Separate_Library_String(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Separate_Library_String);
+BENCHMARK(Separate_Library_String);
 
 // ============================================================================
 // SCALING TESTS - How performance changes with input size
 // ============================================================================
 
-static void BM_Separate_Scaling(benchmark::State& state) {
+static void Separate_Scaling(benchmark::State& state) {
     size_t num_elements = state.range(0);
 
     // Generate input with N elements
@@ -101,7 +101,7 @@ static void BM_Separate_Scaling(benchmark::State& state) {
     state.SetItemsProcessed(state.iterations() * num_elements);
     state.SetBytesProcessed(state.iterations() * input.size());
 }
-BENCHMARK(BM_Separate_Scaling)
+BENCHMARK(Separate_Scaling)
     ->RangeMultiplier(2)
     ->Range(8, 8<<10)
     ->Complexity(benchmark::oN);
@@ -110,7 +110,7 @@ BENCHMARK(BM_Separate_Scaling)
 // WORST CASE - No separators found
 // ============================================================================
 
-static void BM_Separate_WorstCase_NoSeparators(benchmark::State& state) {
+static void Separate_WorstCase_NoSeparators(benchmark::State& state) {
     size_t str_len = state.range(0);
     std::string input(str_len, 'a');  // Long string with no commas
 
@@ -121,14 +121,14 @@ static void BM_Separate_WorstCase_NoSeparators(benchmark::State& state) {
 
     state.SetBytesProcessed(state.iterations() * input.size());
 }
-BENCHMARK(BM_Separate_WorstCase_NoSeparators)
+BENCHMARK(Separate_WorstCase_NoSeparators)
     ->Range(8, 8<<15);
 
 // ============================================================================
 // WORST CASE - Many empty elements
 // ============================================================================
 
-static void BM_Separate_WorstCase_ManySeparators(benchmark::State& state) {
+static void Separate_WorstCase_ManySeparators(benchmark::State& state) {
     size_t num_seps = state.range(0);
     std::string input(num_seps, ',');  // Just separators: ",,,,,,"
 
@@ -137,14 +137,14 @@ static void BM_Separate_WorstCase_ManySeparators(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Separate_WorstCase_ManySeparators)
+BENCHMARK(Separate_WorstCase_ManySeparators)
     ->Range(8, 8<<10);
 
 // ============================================================================
 // REAL WORLD - CSV parsing
 // ============================================================================
 
-static void BM_Separate_CSV_RealWorld(benchmark::State& state) {
+static void Separate_CSV_RealWorld(benchmark::State& state) {
     const std::string csv_line =
         "John,Doe,john.doe@email.com,555-1234,123 Main St,New York,NY,10001";
 
@@ -153,13 +153,13 @@ static void BM_Separate_CSV_RealWorld(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Separate_CSV_RealWorld);
+BENCHMARK(Separate_CSV_RealWorld);
 
 // ============================================================================
 // REAL WORLD - Path parsing
 // ============================================================================
 
-static void BM_Separate_Path_RealWorld(benchmark::State& state) {
+static void Separate_Path_RealWorld(benchmark::State& state) {
     const std::string path = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
 
     for (auto _ : state) {
@@ -167,13 +167,13 @@ static void BM_Separate_Path_RealWorld(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Separate_Path_RealWorld);
+BENCHMARK(Separate_Path_RealWorld);
 
 // ============================================================================
 // COMPARISON - Empty separator (split into chars)
 // ============================================================================
 
-static void BM_Separate_EmptySeparator(benchmark::State& state) {
+static void Separate_EmptySeparator(benchmark::State& state) {
     const std::string input = "Hello, World!";
 
     for (auto _ : state) {
@@ -181,4 +181,4 @@ static void BM_Separate_EmptySeparator(benchmark::State& state) {
         benchmark::DoNotOptimize(result);
     }
 }
-BENCHMARK(BM_Separate_EmptySeparator);
+BENCHMARK(Separate_EmptySeparator);
