@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22.1)
 
-project(stevensStringLibTest C CXX)
+project(test C CXX)
 
 # ============================================================================
 # Compiler Settings

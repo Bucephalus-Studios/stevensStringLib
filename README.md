@@ -119,7 +119,7 @@ stevensStringLib contains a suite of tests to validate its functionality within 
 
 To run these tests on your computer, you should use the cmake tool in the `testing` folder by running the command `cmake -S . -B ./build`.
 This will generate an makefile to create an executable in the `testing/build` folder. Then, go to the `testing/build` folder and run the command `make`.
-Once you have done this, you should have an executable named `stevensStringLibTest` in the `testing/build` folder which you can run the tests with.
+Once you have done this, you should have an executable named `test` in the `testing/build` folder which you can run the tests with.
 
 ## Benchmarking
 
@@ -127,7 +127,7 @@ stevensStringLib also contains benchmarking so you can see how fast and efficien
 
 
 To run the benchmark on your computer, the process of creating the benchmark executable works very much the same way as the test executable: you should use the cmake tool in the `benchmarking` folder by running the command `cmake -S . -B ./build`.
-This will generate a makefile to create an executable in the `benchmarking/build` folder. Then, go to the `benchmarking/build` folder and run the command `make`. Once you have done this, you should have an executable named `stevensStringLibBenchmark` in the `benchmarking/build` folder which you can run to benchmark the library.
+This will generate a makefile to create an executable in the `benchmarking/build` folder. Then, go to the `benchmarking/build` folder and run the command `make`. Once you have done this, you should have an executable named `benchmark` in the `benchmarking/build` folder which you can run to benchmark the library.
 
 
 ## Special Thanks
