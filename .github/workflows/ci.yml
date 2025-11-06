@@ -220,3 +220,54 @@ jobs:
       with:
         name: documentation
         path: docs/html/
+
+  # ============================================================================
+  # Deploy Documentation to Company Site
+  # ============================================================================
+  deploy-docs:
+    name: Deploy Documentation
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Doxygen
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y doxygen graphviz
+
+    - name: Generate documentation
+      working-directory: docs
+      run: doxygen Doxyfile
+
+    - name: Clone company site repository
+      run: |
+        git clone https://x-access-token:${{ secrets.DOCS_DEPLOY_TOKEN }}@github.com/Bucephalus-Studios/company-site.git company-site
+
+    - name: Update documentation in company site
+      run: |
+        # Remove old documentation
+        rm -rf company-site/softwareDocs/stevensStringLibDocs/*
+
+        # Copy new documentation
+        mkdir -p company-site/softwareDocs/stevensStringLibDocs
+        cp -r docs/html/* company-site/softwareDocs/stevensStringLibDocs/
+
+    - name: Commit and push documentation
+      working-directory: company-site
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add softwareDocs/stevensStringLibDocs/
+
+        # Check if there are changes to commit
+        if git diff --staged --quiet; then
+          echo "No documentation changes to commit"
+        else
+          git commit -m "docs: Update stevensStringLib documentation
+
+Automated documentation update from stevensStringLib@${{ github.sha }}"
+          git push
+        fi
