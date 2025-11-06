@@ -43,7 +43,7 @@ jobs:
     - name: Run tests
       working-directory: testing/build
       run: |
-        ./testStevensStringLib --gtest_output=xml:test_results.xml --gtest_color=yes
+        ./stevensStringLibTest --gtest_output=xml:test_results.xml --gtest_color=yes
 
     - name: Generate coverage report
       if: matrix.build_type == 'Debug' && matrix.compiler == 'g++-11'
@@ -99,7 +99,7 @@ jobs:
       run: |
         ASAN_OPTIONS=detect_leaks=1:check_initialization_order=1 \
         UBSAN_OPTIONS=print_stacktrace=1 \
-        ./testStevensStringLib --gtest_color=yes
+        ./stevensStringLibTest --gtest_color=yes
 
   # ============================================================================
   # Benchmarks
