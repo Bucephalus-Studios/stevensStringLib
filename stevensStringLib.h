@@ -1397,6 +1397,11 @@ namespace stevensStringLib
                                 size_t quantity = std::string::npos,
                                 const std::string & startFrom = "left"  )
     {
+        // If target is empty, return unchanged (cannot replace nothing)
+        if(targetSubstr.empty()) {
+            return str;
+        }
+
         size_t replacementsMade = 0; //The number of replacements we have made so far in this function.
         size_t occurrencePosition; //The position a target substring is found in str.
 

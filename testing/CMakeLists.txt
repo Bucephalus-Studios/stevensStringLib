@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22.1)
 
-project(stevensStringLibTest C CXX)
+project(Test C CXX)
 
 # ============================================================================
 # Compiler Settings
@@ -17,7 +17,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(ENABLE_COVERAGE "Enable code coverage reporting" OFF)
 option(ENABLE_SANITIZERS "Enable address and undefined behavior sanitizers" OFF)
-option(BUILD_LEGACY_TESTS "Build legacy monolithic test file" ON)
 
 # ============================================================================
 # Add GoogleTest - Using FetchContent (no submodules needed!)
@@ -40,9 +39,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 # Make GoogleTest available
 FetchContent_MakeAvailable(googletest)
 
-# Enable GoogleTest
-enable_testing()
-include(GoogleTest)
+# GoogleTest module (for gtest_main)
 
 # ============================================================================
 # Test Source Files - New Modular Structure
@@ -120,41 +117,10 @@ if(ENABLE_SANITIZERS)
 endif()
 
 # ============================================================================
-# Register Tests with CTest
+# Tests can be run directly - no CTest integration needed
 # ============================================================================
+# Just run: ./Test
 
-gtest_discover_tests(${PROJECT_NAME}
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    PROPERTIES
-        TIMEOUT 300
-)
-
-# ============================================================================
-# Legacy Test Executable (Optional)
-# ============================================================================
-
-if(BUILD_LEGACY_TESTS)
-    add_executable(${PROJECT_NAME}_legacy test.cpp)
-
-    target_link_libraries(${PROJECT_NAME}_legacy PRIVATE
-        gtest_main
-    )
-
-    # Apply same coverage/sanitizer settings
-    if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-        target_compile_options(${PROJECT_NAME}_legacy PRIVATE --coverage -fprofile-arcs -ftest-coverage -O0 -g)
-        target_link_options(${PROJECT_NAME}_legacy PRIVATE --coverage)
-    endif()
-
-    if(ENABLE_SANITIZERS AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-        target_compile_options(${PROJECT_NAME}_legacy PRIVATE -fsanitize=address -fsanitize=undefined -fno-omit-frame-pointer -g)
-        target_link_options(${PROJECT_NAME}_legacy PRIVATE -fsanitize=address -fsanitize=undefined)
-    endif()
-
-    gtest_discover_tests(${PROJECT_NAME}_legacy
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-endif()
 
 # ============================================================================
 # Print Configuration Summary
@@ -166,6 +132,5 @@ message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "C++ Standard: ${CMAKE_CXX_STANDARD}")
 message(STATUS "Code Coverage: ${ENABLE_COVERAGE}")
 message(STATUS "Sanitizers: ${ENABLE_SANITIZERS}")
-message(STATUS "Legacy Tests: ${BUILD_LEGACY_TESTS}")
 message(STATUS "===================================")
 message(STATUS "")

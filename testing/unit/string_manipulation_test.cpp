@@ -409,3 +409,99 @@ TEST(EraseNonNumericChars, MixedContent) {
 TEST(EraseNonNumericChars, EmptyString_ReturnsEmpty) {
     EXPECT_EQ(eraseNonNumericChars(""), "");
 }
+
+// ============================================================================
+// TESTS - wrapToWidth()
+// ============================================================================
+
+TEST(WrapToWidth, WrapToWidth3) {
+    std::string str = "111222333";
+    auto result = wrapToWidth(str, 3);
+    EXPECT_EQ(result, "111\n222\n333\n");
+}
+
+TEST(WrapToWidth, WrapToWidth0_ReturnsEmpty) {
+    std::string str = "111222333";
+    auto result = wrapToWidth(str, 0);
+    EXPECT_EQ(result, "");
+}
+
+TEST(WrapToWidth, WrapToWidth5) {
+    std::string str = "111112";
+    auto result = wrapToWidth(str, 5);
+    EXPECT_EQ(result, "11111\n2\n");
+}
+
+TEST(WrapToWidth, EmptyString_ReturnsEmpty) {
+    std::string str = "";
+    auto result = wrapToWidth(str, 10);
+    EXPECT_EQ(result, "");
+}
+
+// ============================================================================
+// TESTS - countLines()
+// ============================================================================
+
+TEST(CountLines, ThreeLineString) {
+    std::string str = "firstline\nsecondline\nthirdline\n";
+    EXPECT_EQ(countLines(str), 3);
+}
+
+TEST(CountLines, EmptyString_ReturnsZero) {
+    std::string str = "";
+    EXPECT_EQ(countLines(str), 0);
+}
+
+TEST(CountLines, LargeText_Frankenstein) {
+    class LocalFixture : public TestData::LargeTextFixture {};
+    LocalFixture::SetUpTestSuite();
+    EXPECT_EQ(countLines(LocalFixture::getFrankenstein()), 7742);
+}
+
+// ============================================================================
+// TESTS - countFileLines()
+// ============================================================================
+
+TEST(CountFileLines, LoadFrankenstein) {
+    std::string filePath = "../test_string_files/frankenstein.txt";
+    EXPECT_EQ(countFileLines(filePath), 7742);
+}
+
+TEST(CountFileLines, NonExistentFile_Throws) {
+    std::string filePath = "nonexistent_file.txt";
+    EXPECT_THROW(countFileLines(filePath), std::invalid_argument);
+}
+
+TEST(CountFileLines, EmptyFile_ReturnsZero) {
+    std::string filePath = "../test_string_files/emptyFile.txt";
+    EXPECT_EQ(countFileLines(filePath), 0);
+}
+
+// ============================================================================
+// TESTS - circularIndex()
+// ============================================================================
+
+TEST(CircularIndex, NormalIndexing) {
+    std::string str = "resonance!";
+    EXPECT_EQ(circularIndex(str, 0), 'r');
+}
+
+TEST(CircularIndex, LastIndex) {
+    std::string str = "resonance!";
+    EXPECT_EQ(circularIndex(str, 9), '!');
+}
+
+TEST(CircularIndex, LoopAroundOnce) {
+    std::string str = "resonance!";
+    EXPECT_EQ(circularIndex(str, 15), 'a');
+}
+
+TEST(CircularIndex, LoopAround100Times) {
+    std::string str = "resonance!";
+    EXPECT_EQ(circularIndex(str, 105), 'a');
+}
+
+TEST(CircularIndex, EmptyString_Throws) {
+    std::string str = "";
+    EXPECT_THROW(circularIndex(str, 0), std::invalid_argument);
+}

@@ -24,9 +24,10 @@ namespace TestData {
  */
 class LargeTextFixture : public ::testing::Test {
 protected:
-    static std::string frankenstein_text;
-    static bool loaded;
+    inline static std::string frankenstein_text;
+    inline static bool loaded = false;
 
+public:
     static void SetUpTestSuite() {
         if (!loaded) {
             std::filesystem::path test_file =
@@ -53,10 +54,6 @@ protected:
         return frankenstein_text;
     }
 };
-
-// Initialize static members
-std::string LargeTextFixture::frankenstein_text;
-bool LargeTextFixture::loaded = false;
 
 /**
  * @brief Common test strings used across multiple test suites

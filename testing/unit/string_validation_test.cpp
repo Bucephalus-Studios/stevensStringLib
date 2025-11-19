@@ -259,3 +259,37 @@ TEST(IsNumber, MixedAlphanumeric_ReturnsFalse) {
 TEST(IsNumber, EmptyString_ReturnsFalse) {
     EXPECT_FALSE(isNumber(""));
 }
+
+// ============================================================================
+// TESTS - getWhitespaceString()
+// ============================================================================
+
+TEST(GetWhitespaceString, ContainsTab) {
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
+    EXPECT_TRUE(contains(whitespaceString, "\t"));
+}
+
+TEST(GetWhitespaceString, ContainsNewline) {
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
+    EXPECT_TRUE(contains(whitespaceString, "\n"));
+}
+
+TEST(GetWhitespaceString, ContainsVerticalTab) {
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
+    EXPECT_TRUE(contains(whitespaceString, "\v"));
+}
+
+TEST(GetWhitespaceString, ContainsFormFeed) {
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
+    EXPECT_TRUE(contains(whitespaceString, "\f"));
+}
+
+TEST(GetWhitespaceString, ContainsCarriageReturn) {
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
+    EXPECT_TRUE(contains(whitespaceString, "\r"));
+}
+
+TEST(GetWhitespaceString, ContainsSpace) {
+    std::string whitespaceString = getWhitespaceString(std::locale(""));
+    EXPECT_TRUE(contains(whitespaceString, " "));
+}

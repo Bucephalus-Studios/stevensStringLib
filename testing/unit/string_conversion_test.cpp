@@ -122,7 +122,7 @@ TEST(Format_Vector, NoMatchingIndices_Unchanged) {
 
 TEST(Format_Vector, OutOfBoundsIndex_Unchanged) {
     std::string str = "{0} {1} {5}";
-    auto result = format(str, {"first", "second"});
+    auto result = format(str, std::vector<std::string>{"first", "second"});
     EXPECT_EQ(result, "first second {5}");
 }
 
@@ -138,7 +138,7 @@ TEST(Format_Vector, EmptyString) {
 }
 
 TEST(Format_Vector, EmptyVector) {
-    auto result = format("{0} {1}", {});
+    auto result = format("{0} {1}", std::vector<std::string>{});
     EXPECT_EQ(result, "{0} {1}");
 }
 
@@ -351,4 +351,21 @@ TEST(CsvAppend, CustomDelimiter) {
     std::string csvs = "apple;banana";
     csvAppend(csvs, "cherry", ';');
     EXPECT_EQ(csvs, "apple;banana;cherry");
+}
+
+// ============================================================================
+// TESTS - unorderedMapifyString()
+// ============================================================================
+
+TEST(UnorderedMapifyString, CGStyleFormat) {
+    std::string str = "textColor=red,bgColor=green,bold=true";
+    auto result = unorderedMapifyString(str, "=", ",");
+    
+    std::unordered_map<std::string, std::string> expected = {
+        {"textColor", "red"},
+        {"bgColor", "green"},
+        {"bold", "true"}
+    };
+    
+    EXPECT_EQ(result, expected);
 }

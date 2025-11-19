@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22.1)
 
-project(stevensStringLibBenchmark C CXX)
+project(Benchmark C CXX)
 
 # ============================================================================
 # Compiler Settings
@@ -15,7 +15,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Build Options
 # ============================================================================
 
-option(BUILD_LEGACY_BENCHMARKS "Build legacy monolithic benchmark file" ON)
 
 # ============================================================================
 # Add Google Benchmark - Using FetchContent (no submodules needed!)
@@ -61,7 +60,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    benchmark::benchmark
+    benchmark::benchmark_main
 )
 
 # ============================================================================
@@ -83,24 +82,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
     endif()
 endif()
 
-# ============================================================================
-# Legacy Benchmark Executable (Optional)
-# ============================================================================
-
-if(BUILD_LEGACY_BENCHMARKS)
-    add_executable(${PROJECT_NAME}_legacy benchmark.cpp)
-
-    target_link_libraries(${PROJECT_NAME}_legacy PRIVATE
-        benchmark::benchmark
-    )
-
-    # Apply same optimization flags
-    if(CMAKE_BUILD_TYPE STREQUAL "Release" AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-        target_compile_options(${PROJECT_NAME}_legacy PRIVATE -O3 -march=native -DNDEBUG)
-    elseif(CMAKE_BUILD_TYPE STREQUAL "Release" AND CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-        target_compile_options(${PROJECT_NAME}_legacy PRIVATE /O2 /DNDEBUG)
-    endif()
-endif()
 
 # ============================================================================
 # Print Configuration Summary
@@ -111,6 +92,5 @@ message(STATUS "=== Benchmark Configuration Summary ===")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "C++ Standard: ${CMAKE_CXX_STANDARD}")
 message(STATUS "Compiler: ${CMAKE_CXX_COMPILER_ID}")
-message(STATUS "Legacy Benchmarks: ${BUILD_LEGACY_BENCHMARKS}")
 message(STATUS "========================================")
 message(STATUS "")
