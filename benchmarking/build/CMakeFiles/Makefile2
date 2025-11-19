@@ -54,137 +54,138 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jeff/stevensStringLib/benchmarking
+CMAKE_SOURCE_DIR = /home/jeff/cppLibs/stevensStringLib/benchmarking
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jeff/stevensStringLib/benchmarking/build
+CMAKE_BINARY_DIR = /home/jeff/cppLibs/stevensStringLib/benchmarking/build
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/benchmarkStevensStringLib.dir/all
-all: googlebenchmark/all
+all: CMakeFiles/Benchmark.dir/all
+all: _deps/googlebenchmark-build/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall: googlebenchmark/preinstall
+preinstall: _deps/googlebenchmark-build/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/benchmarkStevensStringLib.dir/clean
-clean: googlebenchmark/clean
+clean: CMakeFiles/Benchmark.dir/clean
+clean: _deps/googlebenchmark-build/clean
 .PHONY : clean
 
 #=============================================================================
-# Directory level rules for directory googlebenchmark
+# Directory level rules for directory _deps/googlebenchmark-build
 
 # Recursive "all" directory target.
-googlebenchmark/all: googlebenchmark/src/all
-.PHONY : googlebenchmark/all
+_deps/googlebenchmark-build/all: _deps/googlebenchmark-build/src/all
+.PHONY : _deps/googlebenchmark-build/all
 
 # Recursive "preinstall" directory target.
-googlebenchmark/preinstall: googlebenchmark/src/preinstall
-.PHONY : googlebenchmark/preinstall
+_deps/googlebenchmark-build/preinstall: _deps/googlebenchmark-build/src/preinstall
+.PHONY : _deps/googlebenchmark-build/preinstall
 
 # Recursive "clean" directory target.
-googlebenchmark/clean: googlebenchmark/src/clean
-.PHONY : googlebenchmark/clean
+_deps/googlebenchmark-build/clean: _deps/googlebenchmark-build/src/clean
+.PHONY : _deps/googlebenchmark-build/clean
 
 #=============================================================================
-# Directory level rules for directory googlebenchmark/src
+# Directory level rules for directory _deps/googlebenchmark-build/src
 
 # Recursive "all" directory target.
-googlebenchmark/src/all: googlebenchmark/src/CMakeFiles/benchmark.dir/all
-googlebenchmark/src/all: googlebenchmark/src/CMakeFiles/benchmark_main.dir/all
-.PHONY : googlebenchmark/src/all
+_deps/googlebenchmark-build/src/all: _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/all
+_deps/googlebenchmark-build/src/all: _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/all
+.PHONY : _deps/googlebenchmark-build/src/all
 
 # Recursive "preinstall" directory target.
-googlebenchmark/src/preinstall:
-.PHONY : googlebenchmark/src/preinstall
+_deps/googlebenchmark-build/src/preinstall:
+.PHONY : _deps/googlebenchmark-build/src/preinstall
 
 # Recursive "clean" directory target.
-googlebenchmark/src/clean: googlebenchmark/src/CMakeFiles/benchmark.dir/clean
-googlebenchmark/src/clean: googlebenchmark/src/CMakeFiles/benchmark_main.dir/clean
-.PHONY : googlebenchmark/src/clean
+_deps/googlebenchmark-build/src/clean: _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/clean
+_deps/googlebenchmark-build/src/clean: _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/clean
+.PHONY : _deps/googlebenchmark-build/src/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/benchmarkStevensStringLib.dir
+# Target rules for target CMakeFiles/Benchmark.dir
 
 # All Build rule for target.
-CMakeFiles/benchmarkStevensStringLib.dir/all: googlebenchmark/src/CMakeFiles/benchmark.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmarkStevensStringLib.dir/build.make CMakeFiles/benchmarkStevensStringLib.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmarkStevensStringLib.dir/build.make CMakeFiles/benchmarkStevensStringLib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jeff/stevensStringLib/benchmarking/build/CMakeFiles --progress-num=21,22 "Built target benchmarkStevensStringLib"
-.PHONY : CMakeFiles/benchmarkStevensStringLib.dir/all
+CMakeFiles/Benchmark.dir/all: _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/all
+CMakeFiles/Benchmark.dir/all: _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jeff/cppLibs/stevensStringLib/benchmarking/build/CMakeFiles --progress-num=1,2,3,4 "Built target Benchmark"
+.PHONY : CMakeFiles/Benchmark.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/benchmarkStevensStringLib.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles 22
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/benchmarkStevensStringLib.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles 0
-.PHONY : CMakeFiles/benchmarkStevensStringLib.dir/rule
+CMakeFiles/Benchmark.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/cppLibs/stevensStringLib/benchmarking/build/CMakeFiles 26
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Benchmark.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/cppLibs/stevensStringLib/benchmarking/build/CMakeFiles 0
+.PHONY : CMakeFiles/Benchmark.dir/rule
 
 # Convenience name for target.
-benchmarkStevensStringLib: CMakeFiles/benchmarkStevensStringLib.dir/rule
-.PHONY : benchmarkStevensStringLib
+Benchmark: CMakeFiles/Benchmark.dir/rule
+.PHONY : Benchmark
 
 # clean rule for target.
-CMakeFiles/benchmarkStevensStringLib.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmarkStevensStringLib.dir/build.make CMakeFiles/benchmarkStevensStringLib.dir/clean
-.PHONY : CMakeFiles/benchmarkStevensStringLib.dir/clean
+CMakeFiles/Benchmark.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/clean
+.PHONY : CMakeFiles/Benchmark.dir/clean
 
 #=============================================================================
-# Target rules for target googlebenchmark/src/CMakeFiles/benchmark.dir
+# Target rules for target _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir
 
 # All Build rule for target.
-googlebenchmark/src/CMakeFiles/benchmark.dir/all:
-	$(MAKE) $(MAKESILENT) -f googlebenchmark/src/CMakeFiles/benchmark.dir/build.make googlebenchmark/src/CMakeFiles/benchmark.dir/depend
-	$(MAKE) $(MAKESILENT) -f googlebenchmark/src/CMakeFiles/benchmark.dir/build.make googlebenchmark/src/CMakeFiles/benchmark.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jeff/stevensStringLib/benchmarking/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 "Built target benchmark"
-.PHONY : googlebenchmark/src/CMakeFiles/benchmark.dir/all
+_deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/all:
+	$(MAKE) $(MAKESILENT) -f _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/build.make _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/depend
+	$(MAKE) $(MAKESILENT) -f _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/build.make _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jeff/cppLibs/stevensStringLib/benchmarking/build/CMakeFiles --progress-num=5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24 "Built target benchmark"
+.PHONY : _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/all
 
 # Build rule for subdir invocation for target.
-googlebenchmark/src/CMakeFiles/benchmark.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles 20
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googlebenchmark/src/CMakeFiles/benchmark.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles 0
-.PHONY : googlebenchmark/src/CMakeFiles/benchmark.dir/rule
+_deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/cppLibs/stevensStringLib/benchmarking/build/CMakeFiles 20
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/cppLibs/stevensStringLib/benchmarking/build/CMakeFiles 0
+.PHONY : _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/rule
 
 # Convenience name for target.
-benchmark: googlebenchmark/src/CMakeFiles/benchmark.dir/rule
+benchmark: _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/rule
 .PHONY : benchmark
 
 # clean rule for target.
-googlebenchmark/src/CMakeFiles/benchmark.dir/clean:
-	$(MAKE) $(MAKESILENT) -f googlebenchmark/src/CMakeFiles/benchmark.dir/build.make googlebenchmark/src/CMakeFiles/benchmark.dir/clean
-.PHONY : googlebenchmark/src/CMakeFiles/benchmark.dir/clean
+_deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/clean:
+	$(MAKE) $(MAKESILENT) -f _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/build.make _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/clean
+.PHONY : _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/clean
 
 #=============================================================================
-# Target rules for target googlebenchmark/src/CMakeFiles/benchmark_main.dir
+# Target rules for target _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir
 
 # All Build rule for target.
-googlebenchmark/src/CMakeFiles/benchmark_main.dir/all: googlebenchmark/src/CMakeFiles/benchmark.dir/all
-	$(MAKE) $(MAKESILENT) -f googlebenchmark/src/CMakeFiles/benchmark_main.dir/build.make googlebenchmark/src/CMakeFiles/benchmark_main.dir/depend
-	$(MAKE) $(MAKESILENT) -f googlebenchmark/src/CMakeFiles/benchmark_main.dir/build.make googlebenchmark/src/CMakeFiles/benchmark_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jeff/stevensStringLib/benchmarking/build/CMakeFiles --progress-num=23,24 "Built target benchmark_main"
-.PHONY : googlebenchmark/src/CMakeFiles/benchmark_main.dir/all
+_deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/all: _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/all
+	$(MAKE) $(MAKESILENT) -f _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/build.make _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/depend
+	$(MAKE) $(MAKESILENT) -f _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/build.make _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jeff/cppLibs/stevensStringLib/benchmarking/build/CMakeFiles --progress-num=25,26 "Built target benchmark_main"
+.PHONY : _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/all
 
 # Build rule for subdir invocation for target.
-googlebenchmark/src/CMakeFiles/benchmark_main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles 22
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googlebenchmark/src/CMakeFiles/benchmark_main.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles 0
-.PHONY : googlebenchmark/src/CMakeFiles/benchmark_main.dir/rule
+_deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/cppLibs/stevensStringLib/benchmarking/build/CMakeFiles 22
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/cppLibs/stevensStringLib/benchmarking/build/CMakeFiles 0
+.PHONY : _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/rule
 
 # Convenience name for target.
-benchmark_main: googlebenchmark/src/CMakeFiles/benchmark_main.dir/rule
+benchmark_main: _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/rule
 .PHONY : benchmark_main
 
 # clean rule for target.
-googlebenchmark/src/CMakeFiles/benchmark_main.dir/clean:
-	$(MAKE) $(MAKESILENT) -f googlebenchmark/src/CMakeFiles/benchmark_main.dir/build.make googlebenchmark/src/CMakeFiles/benchmark_main.dir/clean
-.PHONY : googlebenchmark/src/CMakeFiles/benchmark_main.dir/clean
+_deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/clean:
+	$(MAKE) $(MAKESILENT) -f _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/build.make _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/clean
+.PHONY : _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

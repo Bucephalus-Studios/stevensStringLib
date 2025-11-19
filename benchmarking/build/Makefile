@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jeff/stevensStringLib/benchmarking
+CMAKE_SOURCE_DIR = /home/jeff/cppLibs/stevensStringLib/benchmarking
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jeff/stevensStringLib/benchmarking/build
+CMAKE_BINARY_DIR = /home/jeff/cppLibs/stevensStringLib/benchmarking/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,9 +132,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles /home/jeff/stevensStringLib/benchmarking/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/cppLibs/stevensStringLib/benchmarking/build/CMakeFiles /home/jeff/cppLibs/stevensStringLib/benchmarking/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/stevensStringLib/benchmarking/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/cppLibs/stevensStringLib/benchmarking/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -162,17 +162,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named benchmarkStevensStringLib
+# Target rules for targets named Benchmark
 
 # Build rule for target.
-benchmarkStevensStringLib: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 benchmarkStevensStringLib
-.PHONY : benchmarkStevensStringLib
+Benchmark: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Benchmark
+.PHONY : Benchmark
 
 # fast build rule for target.
-benchmarkStevensStringLib/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmarkStevensStringLib.dir/build.make CMakeFiles/benchmarkStevensStringLib.dir/build
-.PHONY : benchmarkStevensStringLib/fast
+Benchmark/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/build
+.PHONY : Benchmark/fast
 
 #=============================================================================
 # Target rules for targets named benchmark
@@ -184,7 +184,7 @@ benchmark: cmake_check_build_system
 
 # fast build rule for target.
 benchmark/fast:
-	$(MAKE) $(MAKESILENT) -f googlebenchmark/src/CMakeFiles/benchmark.dir/build.make googlebenchmark/src/CMakeFiles/benchmark.dir/build
+	$(MAKE) $(MAKESILENT) -f _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/build.make _deps/googlebenchmark-build/src/CMakeFiles/benchmark.dir/build
 .PHONY : benchmark/fast
 
 #=============================================================================
@@ -197,32 +197,80 @@ benchmark_main: cmake_check_build_system
 
 # fast build rule for target.
 benchmark_main/fast:
-	$(MAKE) $(MAKESILENT) -f googlebenchmark/src/CMakeFiles/benchmark_main.dir/build.make googlebenchmark/src/CMakeFiles/benchmark_main.dir/build
+	$(MAKE) $(MAKESILENT) -f _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/build.make _deps/googlebenchmark-build/src/CMakeFiles/benchmark_main.dir/build
 .PHONY : benchmark_main/fast
 
-benchmark.o: benchmark.cpp.o
-.PHONY : benchmark.o
+benchmarks/benchmark_join.o: benchmarks/benchmark_join.cpp.o
+.PHONY : benchmarks/benchmark_join.o
 
 # target to build an object file
-benchmark.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmarkStevensStringLib.dir/build.make CMakeFiles/benchmarkStevensStringLib.dir/benchmark.cpp.o
-.PHONY : benchmark.cpp.o
+benchmarks/benchmark_join.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/benchmarks/benchmark_join.cpp.o
+.PHONY : benchmarks/benchmark_join.cpp.o
 
-benchmark.i: benchmark.cpp.i
-.PHONY : benchmark.i
+benchmarks/benchmark_join.i: benchmarks/benchmark_join.cpp.i
+.PHONY : benchmarks/benchmark_join.i
 
 # target to preprocess a source file
-benchmark.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmarkStevensStringLib.dir/build.make CMakeFiles/benchmarkStevensStringLib.dir/benchmark.cpp.i
-.PHONY : benchmark.cpp.i
+benchmarks/benchmark_join.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/benchmarks/benchmark_join.cpp.i
+.PHONY : benchmarks/benchmark_join.cpp.i
 
-benchmark.s: benchmark.cpp.s
-.PHONY : benchmark.s
+benchmarks/benchmark_join.s: benchmarks/benchmark_join.cpp.s
+.PHONY : benchmarks/benchmark_join.s
 
 # target to generate assembly for a file
-benchmark.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/benchmarkStevensStringLib.dir/build.make CMakeFiles/benchmarkStevensStringLib.dir/benchmark.cpp.s
-.PHONY : benchmark.cpp.s
+benchmarks/benchmark_join.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/benchmarks/benchmark_join.cpp.s
+.PHONY : benchmarks/benchmark_join.cpp.s
+
+benchmarks/benchmark_separate.o: benchmarks/benchmark_separate.cpp.o
+.PHONY : benchmarks/benchmark_separate.o
+
+# target to build an object file
+benchmarks/benchmark_separate.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/benchmarks/benchmark_separate.cpp.o
+.PHONY : benchmarks/benchmark_separate.cpp.o
+
+benchmarks/benchmark_separate.i: benchmarks/benchmark_separate.cpp.i
+.PHONY : benchmarks/benchmark_separate.i
+
+# target to preprocess a source file
+benchmarks/benchmark_separate.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/benchmarks/benchmark_separate.cpp.i
+.PHONY : benchmarks/benchmark_separate.cpp.i
+
+benchmarks/benchmark_separate.s: benchmarks/benchmark_separate.cpp.s
+.PHONY : benchmarks/benchmark_separate.s
+
+# target to generate assembly for a file
+benchmarks/benchmark_separate.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/benchmarks/benchmark_separate.cpp.s
+.PHONY : benchmarks/benchmark_separate.cpp.s
+
+benchmarks/benchmark_validation.o: benchmarks/benchmark_validation.cpp.o
+.PHONY : benchmarks/benchmark_validation.o
+
+# target to build an object file
+benchmarks/benchmark_validation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/benchmarks/benchmark_validation.cpp.o
+.PHONY : benchmarks/benchmark_validation.cpp.o
+
+benchmarks/benchmark_validation.i: benchmarks/benchmark_validation.cpp.i
+.PHONY : benchmarks/benchmark_validation.i
+
+# target to preprocess a source file
+benchmarks/benchmark_validation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/benchmarks/benchmark_validation.cpp.i
+.PHONY : benchmarks/benchmark_validation.cpp.i
+
+benchmarks/benchmark_validation.s: benchmarks/benchmark_validation.cpp.s
+.PHONY : benchmarks/benchmark_validation.s
+
+# target to generate assembly for a file
+benchmarks/benchmark_validation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Benchmark.dir/build.make CMakeFiles/Benchmark.dir/benchmarks/benchmark_validation.cpp.s
+.PHONY : benchmarks/benchmark_validation.cpp.s
 
 # Help Target
 help:
@@ -236,12 +284,18 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... Benchmark"
 	@echo "... benchmark"
-	@echo "... benchmarkStevensStringLib"
 	@echo "... benchmark_main"
-	@echo "... benchmark.o"
-	@echo "... benchmark.i"
-	@echo "... benchmark.s"
+	@echo "... benchmarks/benchmark_join.o"
+	@echo "... benchmarks/benchmark_join.i"
+	@echo "... benchmarks/benchmark_join.s"
+	@echo "... benchmarks/benchmark_separate.o"
+	@echo "... benchmarks/benchmark_separate.i"
+	@echo "... benchmarks/benchmark_separate.s"
+	@echo "... benchmarks/benchmark_validation.o"
+	@echo "... benchmarks/benchmark_validation.i"
+	@echo "... benchmarks/benchmark_validation.s"
 .PHONY : help
 
 

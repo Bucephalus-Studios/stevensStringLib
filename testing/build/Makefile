@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/jeff/stevensStringLib/testing
+CMAKE_SOURCE_DIR = /home/jeff/cppLibs/stevensStringLib/testing
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/jeff/stevensStringLib/testing/build
+CMAKE_BINARY_DIR = /home/jeff/cppLibs/stevensStringLib/testing/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,9 +132,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/stevensStringLib/testing/build/CMakeFiles /home/jeff/stevensStringLib/testing/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/cppLibs/stevensStringLib/testing/build/CMakeFiles /home/jeff/cppLibs/stevensStringLib/testing/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/stevensStringLib/testing/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jeff/cppLibs/stevensStringLib/testing/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -162,17 +162,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named testStevensStringLib
+# Target rules for targets named Test
 
 # Build rule for target.
-testStevensStringLib: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 testStevensStringLib
-.PHONY : testStevensStringLib
+Test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Test
+.PHONY : Test
 
 # fast build rule for target.
-testStevensStringLib/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/testStevensStringLib.dir/build.make CMakeFiles/testStevensStringLib.dir/build
-.PHONY : testStevensStringLib/fast
+Test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
+.PHONY : Test/fast
 
 #=============================================================================
 # Target rules for targets named gmock
@@ -184,7 +184,7 @@ gmock: cmake_check_build_system
 
 # fast build rule for target.
 gmock/fast:
-	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock.dir/build.make googletest/googlemock/CMakeFiles/gmock.dir/build
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build
 .PHONY : gmock/fast
 
 #=============================================================================
@@ -197,7 +197,7 @@ gmock_main: cmake_check_build_system
 
 # fast build rule for target.
 gmock_main/fast:
-	$(MAKE) $(MAKESILENT) -f googletest/googlemock/CMakeFiles/gmock_main.dir/build.make googletest/googlemock/CMakeFiles/gmock_main.dir/build
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build
 .PHONY : gmock_main/fast
 
 #=============================================================================
@@ -210,7 +210,7 @@ gtest: cmake_check_build_system
 
 # fast build rule for target.
 gtest/fast:
-	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest.dir/build.make googletest/googletest/CMakeFiles/gtest.dir/build
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
 #=============================================================================
@@ -223,32 +223,128 @@ gtest_main: cmake_check_build_system
 
 # fast build rule for target.
 gtest_main/fast:
-	$(MAKE) $(MAKESILENT) -f googletest/googletest/CMakeFiles/gtest_main.dir/build.make googletest/googletest/CMakeFiles/gtest_main.dir/build
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
-test.o: test.cpp.o
-.PHONY : test.o
+unit/property_based_test.o: unit/property_based_test.cpp.o
+.PHONY : unit/property_based_test.o
 
 # target to build an object file
-test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/testStevensStringLib.dir/build.make CMakeFiles/testStevensStringLib.dir/test.cpp.o
-.PHONY : test.cpp.o
+unit/property_based_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/property_based_test.cpp.o
+.PHONY : unit/property_based_test.cpp.o
 
-test.i: test.cpp.i
-.PHONY : test.i
+unit/property_based_test.i: unit/property_based_test.cpp.i
+.PHONY : unit/property_based_test.i
 
 # target to preprocess a source file
-test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/testStevensStringLib.dir/build.make CMakeFiles/testStevensStringLib.dir/test.cpp.i
-.PHONY : test.cpp.i
+unit/property_based_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/property_based_test.cpp.i
+.PHONY : unit/property_based_test.cpp.i
 
-test.s: test.cpp.s
-.PHONY : test.s
+unit/property_based_test.s: unit/property_based_test.cpp.s
+.PHONY : unit/property_based_test.s
 
 # target to generate assembly for a file
-test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/testStevensStringLib.dir/build.make CMakeFiles/testStevensStringLib.dir/test.cpp.s
-.PHONY : test.cpp.s
+unit/property_based_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/property_based_test.cpp.s
+.PHONY : unit/property_based_test.cpp.s
+
+unit/string_conversion_test.o: unit/string_conversion_test.cpp.o
+.PHONY : unit/string_conversion_test.o
+
+# target to build an object file
+unit/string_conversion_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_conversion_test.cpp.o
+.PHONY : unit/string_conversion_test.cpp.o
+
+unit/string_conversion_test.i: unit/string_conversion_test.cpp.i
+.PHONY : unit/string_conversion_test.i
+
+# target to preprocess a source file
+unit/string_conversion_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_conversion_test.cpp.i
+.PHONY : unit/string_conversion_test.cpp.i
+
+unit/string_conversion_test.s: unit/string_conversion_test.cpp.s
+.PHONY : unit/string_conversion_test.s
+
+# target to generate assembly for a file
+unit/string_conversion_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_conversion_test.cpp.s
+.PHONY : unit/string_conversion_test.cpp.s
+
+unit/string_manipulation_test.o: unit/string_manipulation_test.cpp.o
+.PHONY : unit/string_manipulation_test.o
+
+# target to build an object file
+unit/string_manipulation_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_manipulation_test.cpp.o
+.PHONY : unit/string_manipulation_test.cpp.o
+
+unit/string_manipulation_test.i: unit/string_manipulation_test.cpp.i
+.PHONY : unit/string_manipulation_test.i
+
+# target to preprocess a source file
+unit/string_manipulation_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_manipulation_test.cpp.i
+.PHONY : unit/string_manipulation_test.cpp.i
+
+unit/string_manipulation_test.s: unit/string_manipulation_test.cpp.s
+.PHONY : unit/string_manipulation_test.s
+
+# target to generate assembly for a file
+unit/string_manipulation_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_manipulation_test.cpp.s
+.PHONY : unit/string_manipulation_test.cpp.s
+
+unit/string_searching_test.o: unit/string_searching_test.cpp.o
+.PHONY : unit/string_searching_test.o
+
+# target to build an object file
+unit/string_searching_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_searching_test.cpp.o
+.PHONY : unit/string_searching_test.cpp.o
+
+unit/string_searching_test.i: unit/string_searching_test.cpp.i
+.PHONY : unit/string_searching_test.i
+
+# target to preprocess a source file
+unit/string_searching_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_searching_test.cpp.i
+.PHONY : unit/string_searching_test.cpp.i
+
+unit/string_searching_test.s: unit/string_searching_test.cpp.s
+.PHONY : unit/string_searching_test.s
+
+# target to generate assembly for a file
+unit/string_searching_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_searching_test.cpp.s
+.PHONY : unit/string_searching_test.cpp.s
+
+unit/string_validation_test.o: unit/string_validation_test.cpp.o
+.PHONY : unit/string_validation_test.o
+
+# target to build an object file
+unit/string_validation_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_validation_test.cpp.o
+.PHONY : unit/string_validation_test.cpp.o
+
+unit/string_validation_test.i: unit/string_validation_test.cpp.i
+.PHONY : unit/string_validation_test.i
+
+# target to preprocess a source file
+unit/string_validation_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_validation_test.cpp.i
+.PHONY : unit/string_validation_test.cpp.i
+
+unit/string_validation_test.s: unit/string_validation_test.cpp.s
+.PHONY : unit/string_validation_test.s
+
+# target to generate assembly for a file
+unit/string_validation_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/unit/string_validation_test.cpp.s
+.PHONY : unit/string_validation_test.cpp.s
 
 # Help Target
 help:
@@ -262,14 +358,26 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... Test"
 	@echo "... gmock"
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
-	@echo "... testStevensStringLib"
-	@echo "... test.o"
-	@echo "... test.i"
-	@echo "... test.s"
+	@echo "... unit/property_based_test.o"
+	@echo "... unit/property_based_test.i"
+	@echo "... unit/property_based_test.s"
+	@echo "... unit/string_conversion_test.o"
+	@echo "... unit/string_conversion_test.i"
+	@echo "... unit/string_conversion_test.s"
+	@echo "... unit/string_manipulation_test.o"
+	@echo "... unit/string_manipulation_test.i"
+	@echo "... unit/string_manipulation_test.s"
+	@echo "... unit/string_searching_test.o"
+	@echo "... unit/string_searching_test.i"
+	@echo "... unit/string_searching_test.s"
+	@echo "... unit/string_validation_test.o"
+	@echo "... unit/string_validation_test.i"
+	@echo "... unit/string_validation_test.s"
 .PHONY : help
 
 
