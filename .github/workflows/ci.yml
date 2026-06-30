@@ -266,8 +266,7 @@ jobs:
         if git diff --staged --quiet; then
           echo "No documentation changes to commit"
         else
-          git commit -m "docs: Update stevensStringLib documentation
-
-Automated documentation update from stevensStringLib@${{ github.sha }}"
+          git commit -m "docs: Update stevensStringLib documentation" \
+                     -m "Automated documentation update from stevensStringLib@${{ github.sha }}"
           git push
         fi
