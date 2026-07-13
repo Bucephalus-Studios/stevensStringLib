@@ -31,6 +31,8 @@
 #include<unordered_map>
 #include<random>
 
+#include<utf8.h> // utf8cpp - UTF-8 <-> UTF-32 codec, see utf8ToUtf32()/circularIndex()
+
 
 namespace stevensStringLib
 {
@@ -1087,28 +1089,78 @@ namespace stevensStringLib
 
 
     /**
-     * Given a std::string and an integer representing an index, return a single character from the std::string by the process of circular 
-     * indexing.
-     *  
-     * Circular indexing is performed by indexing over the std::string from left to right. Once the index exceeds the length of the string, we begin
-     * indexing again from the lefthand side of the std::string and repeat the process until we stop at the final index. We return the character at 
-     * that final index.
-     * 
-     * Example: circularIndex("Hello world!", 13) returns 'e', as we loop around to 'H' at 12 and index one space further to reach 'e'.
-     * 
-     * @param str - The std::string we are circularly indexing through.
-     * @param i - The index of the std::string to circularly index to.
-     * 
-     * @retval char - A character found in str that has been circularly indexed to at position i
+     * Return the number of Unicode codepoints (characters) in a UTF-8 encoded std::string.
+     *
+     * Unlike std::string::length()/size(), which count bytes, this counts characters - a single
+     * multi-byte character (Cyrillic, CJK, box-drawing glyphs, etc.) counts as 1, not 2-4. Backed by
+     * utf8cpp, which throws utf8::invalid_utf8 on malformed input rather than silently miscounting.
+     *
+     * @param utf8Str - A UTF-8 encoded std::string.
+     *
+     * @retval size_t - The number of codepoints (characters) in utf8Str.
     */
-    inline char circularIndex(  const std::string_view & str,
-                                size_t i )
+    inline size_t utf8Length(const std::string_view & utf8Str)
+    {
+        return utf8::utf8to32(utf8Str).length();
+    }
+
+
+    /**
+     * Resize a UTF-8 encoded std::string by Unicode codepoint count rather than byte count - the
+     * character-counting equivalent of std::string::resize().
+     *
+     * std::string::resize() truncates/pads by byte count, so on multi-byte content (Cyrillic, CJK,
+     * box-drawing glyphs) it can both tear a character in half when truncating and pad to the wrong
+     * displayed width when growing. This truncates/pads by codepoint instead, so the resulting string's
+     * codepoint count always matches desiredLength exactly, with no torn characters.
+     *
+     * @param utf8Str - A UTF-8 encoded std::string to resize.
+     * @param desiredLength - The desired number of codepoints (characters) in the result.
+     * @param fillChar - The (single-byte) character to pad with if growing the string.
+     *
+     * @retval std::string - utf8Str resized to desiredLength codepoints.
+    */
+    inline std::string utf8Resize( const std::string_view & utf8Str,
+                                    size_t desiredLength,
+                                    char fillChar = ' ' )
+    {
+        std::u32string codepoints = utf8::utf8to32(utf8Str);
+        codepoints.resize(desiredLength, static_cast<char32_t>(static_cast<unsigned char>(fillChar)));
+        return utf8::utf32to8(codepoints);
+    }
+
+
+    /**
+     * Given a std::string and an integer representing an index, return a single character (which may be a
+     * multi-byte UTF-8 codepoint, e.g. a box-drawing glyph) from the std::string by the process of circular
+     * indexing.
+     *
+     * Circular indexing is performed by indexing over the std::string's Unicode codepoints from left to right.
+     * Once the index exceeds the number of codepoints, we begin indexing again from the lefthand side of the
+     * std::string and repeat the process until we stop at the final index. We return the character at
+     * that final index.
+     *
+     * Example: circularIndex("Hello world!", 13) returns "e", as we loop around to 'H' at 12 and index one space further to reach 'e'.
+     *
+     * Indexes by codepoint (via utf8cpp's utf8::utf8to32()) rather than by byte, so a raw str[i % str.length()]
+     * can't tear a multi-byte character (e.g. one byte of "═") in half.
+     *
+     * @param str - The std::string we are circularly indexing through.
+     * @param i - The codepoint index of the std::string to circularly index to.
+     *
+     * @retval std::string - The (possibly multi-byte) UTF-8 character found in str that has been circularly indexed to at codepoint position i
+    */
+    inline std::string circularIndex(  const std::string_view & str,
+                                        size_t i )
     {
         if(str.empty())
         {
             throw std::invalid_argument("str cannot be empty for circularIndex()");
         }
-        return str[i % str.length()];
+
+        std::u32string codepoints = utf8::utf8to32(str);
+        char32_t codepoint = codepoints[i % codepoints.length()];
+        return utf8::utf32to8(std::u32string_view(&codepoint, 1));
     }
 
 

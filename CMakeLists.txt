@@ -1,6 +1,17 @@
 cmake_minimum_required(VERSION 3.16)
 project(stevensStringLib LANGUAGES CXX)
 
+include(FetchContent)
+
+# Header-only UTF-8 codec (encode/decode/validate against std::u32string) used by circularIndex()
+# and other codepoint-aware string functions - see utf8ToUtf32()/utf32ToUtf8() in stevensStringLib.h.
+FetchContent_Declare(utf8cpp
+    GIT_REPOSITORY https://github.com/nemtrif/utfcpp.git
+    GIT_TAG        v4.1.1
+    GIT_SHALLOW    TRUE
+)
+FetchContent_MakeAvailable(utf8cpp)
+
 add_library(stevensStringLib INTERFACE)
 add_library(stevensStringLib::stevensStringLib ALIAS stevensStringLib)
 
@@ -9,13 +20,10 @@ target_include_directories(stevensStringLib INTERFACE
     $<INSTALL_INTERFACE:include>
 )
 target_compile_features(stevensStringLib INTERFACE cxx_std_17)
+target_link_libraries(stevensStringLib INTERFACE utf8cpp)
 
 option(STEVENSSTRINGLIB_BUILD_TESTS "Build tests" OFF)
 option(STEVENSSTRINGLIB_BUILD_BENCHMARKS "Build benchmarks" OFF)
-
-if(STEVENSSTRINGLIB_BUILD_TESTS OR STEVENSSTRINGLIB_BUILD_BENCHMARKS)
-    include(FetchContent)
-endif()
 
 if(STEVENSSTRINGLIB_BUILD_TESTS)
     FetchContent_Declare(

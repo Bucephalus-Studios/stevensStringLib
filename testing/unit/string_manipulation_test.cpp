@@ -483,25 +483,97 @@ TEST(CountFileLines, EmptyFile_ReturnsZero) {
 
 TEST(CircularIndex, NormalIndexing) {
     std::string str = "resonance!";
-    EXPECT_EQ(circularIndex(str, 0), 'r');
+    EXPECT_EQ(circularIndex(str, 0), "r");
 }
 
 TEST(CircularIndex, LastIndex) {
     std::string str = "resonance!";
-    EXPECT_EQ(circularIndex(str, 9), '!');
+    EXPECT_EQ(circularIndex(str, 9), "!");
 }
 
 TEST(CircularIndex, LoopAroundOnce) {
     std::string str = "resonance!";
-    EXPECT_EQ(circularIndex(str, 15), 'a');
+    EXPECT_EQ(circularIndex(str, 15), "a");
 }
 
 TEST(CircularIndex, LoopAround100Times) {
     std::string str = "resonance!";
-    EXPECT_EQ(circularIndex(str, 105), 'a');
+    EXPECT_EQ(circularIndex(str, 105), "a");
 }
 
 TEST(CircularIndex, EmptyString_Throws) {
     std::string str = "";
     EXPECT_THROW(circularIndex(str, 0), std::invalid_argument);
+}
+
+TEST(CircularIndex, MultiByteCodepoint_ReturnsWholeCharacterNotTornByte) {
+    std::string str = "═"; // U+2550, a 3-byte UTF-8 box-drawing character
+    EXPECT_EQ(circularIndex(str, 0), "═");
+    EXPECT_EQ(circularIndex(str, 0).length(), 3u); // whole 3-byte sequence, not a lone interior byte
+}
+
+TEST(CircularIndex, MixedAsciiAndMultiByte_IndexesByCodepointNotByte) {
+    std::string str = "aбc"; // 'a' (1 byte) + Cyrillic 'б' (2 bytes) + 'c' (1 byte) = 3 codepoints, 4 bytes
+    EXPECT_EQ(circularIndex(str, 0), "a");
+    EXPECT_EQ(circularIndex(str, 1), "б");
+    EXPECT_EQ(circularIndex(str, 2), "c");
+    EXPECT_EQ(circularIndex(str, 3), "a"); // wraps by codepoint count (3), not byte count (4)
+}
+
+// ============================================================================
+// TESTS - utf8Length()
+// ============================================================================
+
+TEST(Utf8Length, AsciiString_CountsBytes) {
+    EXPECT_EQ(utf8Length("hello"), 5u);
+}
+
+TEST(Utf8Length, EmptyString_ReturnsZero) {
+    EXPECT_EQ(utf8Length(""), 0u);
+}
+
+TEST(Utf8Length, MultiByteCharacters_CountsCodepointsNotBytes) {
+    std::string str = "aбc"; // 4 bytes, but 3 codepoints
+    EXPECT_EQ(str.length(), 4u);    // byte count
+    EXPECT_EQ(utf8Length(str), 3u); // codepoint count
+}
+
+// ============================================================================
+// TESTS - utf8Resize()
+// ============================================================================
+
+TEST(Utf8Resize, AsciiGrow_PadsWithFillChar) {
+    EXPECT_EQ(utf8Resize("hi", 5, '-'), "hi---");
+}
+
+TEST(Utf8Resize, AsciiShrink_TruncatesByCharacter) {
+    EXPECT_EQ(utf8Resize("hello", 3), "hel");
+}
+
+TEST(Utf8Resize, AsciiExactLength_Unchanged) {
+    EXPECT_EQ(utf8Resize("hello", 5), "hello");
+}
+
+TEST(Utf8Resize, MultiByteShrink_DoesNotTearCharacterInHalf) {
+    std::string str = "aбc"; // 3 codepoints, 4 bytes
+    std::string result = utf8Resize(str, 2);
+    EXPECT_EQ(result, "aб");           // whole codepoints kept, not a mangled trailing byte
+    EXPECT_EQ(utf8Length(result), 2u);
+}
+
+TEST(Utf8Resize, MultiByteGrow_PadsToCorrectDisplayedWidth) {
+    std::string str = "世界"; // 2 codepoints, 6 bytes
+    std::string result = utf8Resize(str, 5, ' ');
+    EXPECT_EQ(utf8Length(result), 5u); // 2 real characters + 3 padding spaces, not measured in bytes
+    EXPECT_EQ(result, "世界   ");
+}
+
+TEST(Utf8Resize, ShrinkToZero_ReturnsEmptyString) {
+    EXPECT_EQ(utf8Resize("hello", 0), "");
+}
+
+TEST(Utf8Length, CJKCharacters_CountsCodepoints) {
+    std::string str = "世界"; // 2 codepoints, 3 bytes each = 6 bytes
+    EXPECT_EQ(str.length(), 6u);
+    EXPECT_EQ(utf8Length(str), 2u);
 }

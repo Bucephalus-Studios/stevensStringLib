@@ -345,10 +345,10 @@ TEST_F(PropertyTest, CircularIndex_WrapsCorrectly) {
         std::string str = randomString(randomInt(1, 20));
         size_t index = randomInt(0, 1000);
 
-        char result = circularIndex(str, index);
-        char expected = str[index % str.length()];
+        std::string result = circularIndex(str, index);
+        char expected = str[index % str.length()]; // randomString() is ASCII-only, so byte index == codepoint index here
 
-        EXPECT_EQ(result, expected)
+        EXPECT_EQ(result, std::string(1, expected))
             << "Trial " << trial << " failed\n"
             << "String: " << str << "\n"
             << "Index: " << index;
