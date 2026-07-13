@@ -1131,6 +1131,41 @@ namespace stevensStringLib
 
 
     /**
+     * Decode a UTF-8 encoded std::string into a std::u32string, one element per Unicode codepoint.
+     * Thin wrapper around utf8cpp's utf8::utf8to32() - named to match it directly.
+     *
+     * Intended for callers (e.g. stevensTerminal's word-wrap logic) that need to do several
+     * character-position operations (length, rfind, substr) on the same string - decoding once and
+     * working in std::u32string (where those operations are correct and native, no per-call wrapper
+     * needed) is both simpler and cheaper than converting on every individual operation. Encode back
+     * with utf32to8() before the string leaves the caller's function.
+     *
+     * @param utf8Str - A UTF-8 encoded std::string.
+     *
+     * @retval std::u32string - The same characters, one char32_t codepoint per element.
+    */
+    inline std::u32string utf8to32(const std::string_view & utf8Str)
+    {
+        return utf8::utf8to32(utf8Str);
+    }
+
+
+    /**
+     * Encode a std::u32string (one Unicode codepoint per element) into a UTF-8 encoded std::string.
+     * Thin wrapper around utf8cpp's utf8::utf32to8() - named to match it directly. The inverse of
+     * utf8to32() - see that function's doc comment.
+     *
+     * @param utf32Str - A std::u32string of Unicode codepoints.
+     *
+     * @retval std::string - The same characters, UTF-8 encoded.
+    */
+    inline std::string utf32to8(const std::u32string_view & utf32Str)
+    {
+        return utf8::utf32to8(utf32Str);
+    }
+
+
+    /**
      * Given a std::string and an integer representing an index, return a single character (which may be a
      * multi-byte UTF-8 codepoint, e.g. a box-drawing glyph) from the std::string by the process of circular
      * indexing.
