@@ -446,6 +446,30 @@ TEST(WrapToWidth, EmptyString_ReturnsEmpty) {
     EXPECT_EQ(result, "");
 }
 
+TEST(WrapToWidth, BreaksAtSpaceRatherThanMidWord) {
+    std::string str = "the quick brown fox";
+    auto result = wrapToWidth(str, 9);
+    EXPECT_EQ(result, "the quick\nbrown fox\n"); // breaks at spaces, not mid-word
+}
+
+TEST(WrapToWidth, CjkWrapsAtDisplayWidthNotCodepointCount) {
+    std::string str = "世界世界世界"; // 6 codepoints, 12 display columns
+    auto result = wrapToWidth(str, 4); // 4 columns = 2 double-width codepoints per line
+    EXPECT_EQ(result, "世界\n世界\n世界\n");
+}
+
+TEST(WrapToWidth, FirstLineWidthAppliesOnlyToFirstSegment) {
+    std::string str = "the quick brown fox";
+    // First segment budget is tiny (3), every segment after gets the full 20
+    auto result = wrapToWidth(str, 20, 3);
+    EXPECT_EQ(result, "the\nquick brown fox\n");
+}
+
+TEST(WrapToWidth, FirstLineWidthDefaultsToWrapWidth) {
+    std::string str = "the quick brown fox";
+    EXPECT_EQ(wrapToWidth(str, 9), wrapToWidth(str, 9, 9));
+}
+
 // ============================================================================
 // TESTS - countLines()
 // ============================================================================
@@ -547,37 +571,64 @@ TEST(CharCount, MultiByteCharacters_CountsCodepointsNotBytes) {
 }
 
 // ============================================================================
-// TESTS - utf8Resize()
+// TESTS - resizeToCodepoints()
 // ============================================================================
 
-TEST(Utf8Resize, AsciiGrow_PadsWithFillChar) {
-    EXPECT_EQ(utf8Resize("hi", 5, '-'), "hi---");
+TEST(ResizeToCodepoints, AsciiGrow_PadsWithFillChar) {
+    EXPECT_EQ(resizeToCodepoints("hi", 5, '-'), "hi---");
 }
 
-TEST(Utf8Resize, AsciiShrink_TruncatesByCharacter) {
-    EXPECT_EQ(utf8Resize("hello", 3), "hel");
+TEST(ResizeToCodepoints, AsciiShrink_TruncatesByCharacter) {
+    EXPECT_EQ(resizeToCodepoints("hello", 3), "hel");
 }
 
-TEST(Utf8Resize, AsciiExactLength_Unchanged) {
-    EXPECT_EQ(utf8Resize("hello", 5), "hello");
+TEST(ResizeToCodepoints, AsciiExactLength_Unchanged) {
+    EXPECT_EQ(resizeToCodepoints("hello", 5), "hello");
 }
 
-TEST(Utf8Resize, MultiByteShrink_DoesNotTearCharacterInHalf) {
+TEST(ResizeToCodepoints, MultiByteShrink_DoesNotTearCharacterInHalf) {
     std::string str = "aбc"; // 3 codepoints, 4 bytes
-    std::string result = utf8Resize(str, 2);
+    std::string result = resizeToCodepoints(str, 2);
     EXPECT_EQ(result, "aб");           // whole codepoints kept, not a mangled trailing byte
     EXPECT_EQ(charCount(result), 2u);
 }
 
-TEST(Utf8Resize, MultiByteGrow_PadsToCorrectDisplayedWidth) {
+TEST(ResizeToCodepoints, MultiByteGrow_PadsToCorrectDisplayedWidth) {
     std::string str = "世界"; // 2 codepoints, 6 bytes
-    std::string result = utf8Resize(str, 5, ' ');
+    std::string result = resizeToCodepoints(str, 5, ' ');
     EXPECT_EQ(charCount(result), 5u); // 2 real characters + 3 padding spaces, not measured in bytes
     EXPECT_EQ(result, "世界   ");
 }
 
-TEST(Utf8Resize, ShrinkToZero_ReturnsEmptyString) {
-    EXPECT_EQ(utf8Resize("hello", 0), "");
+TEST(ResizeToCodepoints, ShrinkToZero_ReturnsEmptyString) {
+    EXPECT_EQ(resizeToCodepoints("hello", 0), "");
+}
+
+
+// ============================================================================
+// TESTS - resizeToDisplayWidth()
+// ============================================================================
+
+TEST(ResizeToDisplayWidth, AsciiGrow_PadsWithFillChar) {
+    EXPECT_EQ(resizeToDisplayWidth("hi", 5, '-'), "hi---");
+}
+
+TEST(ResizeToDisplayWidth, AsciiShrink_TruncatesByColumn) {
+    EXPECT_EQ(resizeToDisplayWidth("hello", 3), "hel");
+}
+
+TEST(ResizeToDisplayWidth, CjkGrow_PadsByRemainingColumnsNotCharacterCount) {
+    std::string str = "世界"; // 2 codepoints, 4 display columns (2 each)
+    std::string result = resizeToDisplayWidth(str, 6, ' ');
+    EXPECT_EQ(lineDisplayWidth(result), 6u); // 4 columns of content + 2 padding columns
+    EXPECT_EQ(result, "世界  ");
+}
+
+TEST(ResizeToDisplayWidth, CjkShrink_TruncatesAtColumnBudgetNotCharacterCount) {
+    std::string str = "世界"; // 2 codepoints, 4 display columns
+    std::string result = resizeToDisplayWidth(str, 2); // budget only fits ONE double-width char
+    EXPECT_EQ(result, "世");
+    EXPECT_EQ(lineDisplayWidth(result), 2u);
 }
 
 TEST(CharCount, CJKCharacters_CountsCodepoints) {

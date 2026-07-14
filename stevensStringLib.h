@@ -11,6 +11,26 @@
  * If you'd like to buy me a coffee or send me a tip for my work on this library, you can do that here: https://ko-fi.com/bucephalus_studios
  * 
  * Thank you very, very much for being interested in my code! I hope it serves you well <3
+ *
+ * @par Encoding convention
+ * Every function in this library takes and returns UTF-8 encoded std::string - that is the one
+ * canonical form all string-processing logic here (character counting, display width, wrapping,
+ * resizing, etc.) operates on. This isn't a limitation of what this library can work with, it's a
+ * deliberate design choice: a function that measures/cuts/counts characters has to decode bytes
+ * into characters somehow, and that decoding step is different per encoding, so every function
+ * has to either (a) assume one fixed, already-decoded form, or (b) carry per-encoding branching
+ * internally. Since (a) and (b) do the exact same decode work either way, (a) is strictly
+ * better: callers who already have UTF-8 (the common case, and what std::string conventionally
+ * holds throughout most C++ code) pay zero conversion cost, and callers chaining several
+ * operations on the same non-UTF-8 source (e.g. charCount() then wrapToWidth() then
+ * resizeToCodepoints()) decode once instead of once per call.
+ *
+ * For text that starts or ends in a different Unicode transformation format, convert at that
+ * boundary with utf8to16()/utf16to8() (UTF-16) or utf8to32()/utf32to8() (UTF-32) - use the
+ * result with every other function in this library normally. Legacy 8-bit charsets (Shift-JIS,
+ * Windows-1252, etc.) aren't supported by this library - they use an entirely different
+ * character-numbering scheme from Unicode and would need real per-encoding mapping tables to
+ * convert, which is a job for a dedicated conversion library, not something this library invents.
  */
 
 
@@ -37,6 +57,172 @@
 
 namespace stevensStringLib
 {
+    /**
+     * Implementation details not meant to be called directly by users of this header-only
+     * library (stevensStringLib has no compiled .cpp/private section to hide these behind, so
+     * this namespace is the idiomatic header-only-library substitute - same convention used by
+     * e.g. {fmt} and nlohmann::json).
+    */
+    namespace detail
+    {
+        /**
+         * The display width (0/1/2 terminal columns) of a single already-decoded Unicode
+         * codepoint, via utf8proc_charwidth() (the Unicode East Asian Width property). Shared
+         * building block behind lineDisplayWidth(), findWrapCut(), and truncateToDisplayWidth()
+         * so all three agree on one width answer per codepoint.
+         *
+         * The cast to utf8proc_int32_t is not an encoding conversion - char32_t (C++'s built-in
+         * codepoint type) and utf8proc_int32_t (utf8proc's own C-library integer typedef for the
+         * same concept) are two independently-named types for the identical 32-bit value; the
+         * cast only satisfies the C API's parameter type, no bits change.
+         *
+         * @param codepoint - A single, already-decoded Unicode codepoint.
+         *
+         * @retval size_t - The number of terminal columns this codepoint occupies (0, 1, or 2).
+        */
+        inline size_t codepointDisplayWidth(char32_t codepoint)
+        {
+            int charWidth = utf8proc_charwidth(static_cast<utf8proc_int32_t>(codepoint));
+            return static_cast<size_t>(std::max(0, charWidth));
+        }
+
+
+        /**
+         * Byte offsets into a line, returned by findWrapCut().
+        */
+        struct WrapCut
+        {
+            size_t segmentEnd; // byte offset where this wrapped segment ends (exclusive)
+            size_t nextStart;  // byte offset where the next segment should start (skips a break space, if used)
+        };
+
+
+        /**
+         * Given a single line of UTF-8 text (no embedded line breaks) and a maximum display width
+         * (in terminal columns), find where to cut it so the first piece fits within maxWidth
+         * columns - preferring to break at the last space that fits (so words aren't split across
+         * lines), and falling back to a force-break if no space is found. Implementation detail
+         * behind the public wrapToWidth() - see that function's doc comment for the public API.
+         *
+         * Operates as a single forward streaming pass over line's UTF-8 bytes (via utf8::next()),
+         * remembering the byte offset of the last space seen as it walks. This answers both "does
+         * it fit" and "where's the best break point" in one pass with no std::u32string decode -
+         * by the time the width budget would be exceeded, the best break point (if any) is
+         * already known from having been tracked during the same walk, so no separate backward
+         * search is needed.
+         *
+         * Always makes forward progress: if even the very first codepoint alone exceeds maxWidth,
+         * it is still consumed rather than returning a zero-length cut (a single glyph can't be
+         * wrapped internally - the same tradeoff real terminals and word processors make when a
+         * column is narrower than one character).
+         *
+         * @param line - A single line of UTF-8 text (no embedded line breaks).
+         * @param maxWidth - The maximum number of terminal columns available for this line.
+         *
+         * @retval WrapCut - segmentEnd/nextStart are both line.length() if the whole line fits.
+        */
+        inline WrapCut findWrapCut(const std::string_view & line, size_t maxWidth)
+        {
+            if(line.empty())
+            {
+                return { 0, 0 };
+            }
+
+            size_t width = 0;
+            size_t lastSpaceStart = std::string_view::npos; // byte offset where the last-seen space starts
+            size_t lastSpaceEnd = std::string_view::npos;   // byte offset right after that space
+
+            auto it = line.begin();
+            const auto end = line.end();
+
+            while(it != end)
+            {
+                auto codepointStart = it;
+                size_t startOffset = static_cast<size_t>(codepointStart - line.begin());
+                utf8::utfchar32_t codepoint = utf8::next(it, end); // advances it past this codepoint
+                size_t afterOffset = static_cast<size_t>(it - line.begin());
+
+                size_t codepointWidth = codepointDisplayWidth(codepoint);
+                if(width + codepointWidth > maxWidth)
+                {
+                    // If the codepoint that just overflowed is itself a space (and isn't the
+                    // very first codepoint - see the forward-progress guarantee below), everything
+                    // before it fit exactly, and the space itself is dropped from the output when
+                    // used as a break point (see nextStart above) - so it doesn't need to "fit" to
+                    // be a valid, in fact ideal, break point right at the boundary.
+                    if(codepoint == U' ' && startOffset > 0)
+                    {
+                        return { startOffset, afterOffset };
+                    }
+                    if(lastSpaceStart != std::string_view::npos)
+                    {
+                        return { lastSpaceStart, lastSpaceEnd };
+                    }
+                    // No usable space - force-break, but guarantee at least one codepoint of
+                    // forward progress (see doc comment above).
+                    size_t cut = (startOffset == 0) ? afterOffset : startOffset;
+                    return { cut, cut };
+                }
+
+                width += codepointWidth;
+                if(codepoint == U' ')
+                {
+                    lastSpaceStart = startOffset;
+                    lastSpaceEnd = afterOffset;
+                }
+            }
+
+            return { line.length(), line.length() };
+        }
+
+
+        /**
+         * Given a single line of UTF-8 text (no embedded line breaks) and a maximum display width
+         * (in terminal columns), return the byte offset marking the end of the longest leading
+         * prefix that fits within maxWidth columns. Unlike findWrapCut(), this has no concept of
+         * "words" to avoid splitting - a straight truncation. Implementation detail behind the
+         * public resizeToDisplayWidth() - see that function's doc comment for the public API.
+         *
+         * Same forward-progress guarantee as findWrapCut(): a non-empty line always yields at
+         * least one codepoint's worth of bytes, even if that codepoint alone exceeds maxWidth.
+         *
+         * @param line - A single line of UTF-8 text (no embedded line breaks).
+         * @param maxWidth - The maximum number of terminal columns available.
+         *
+         * @retval size_t - Byte offset in line marking the end of the prefix that fits
+         *                  (line.length() if the whole thing fits).
+        */
+        inline size_t truncateToDisplayWidth(const std::string_view & line, size_t maxWidth)
+        {
+            if(line.empty())
+            {
+                return 0;
+            }
+
+            size_t width = 0;
+            auto it = line.begin();
+            const auto end = line.end();
+
+            while(it != end)
+            {
+                auto codepointStart = it;
+                size_t startOffset = static_cast<size_t>(codepointStart - line.begin());
+                utf8::utfchar32_t codepoint = utf8::next(it, end);
+                size_t afterOffset = static_cast<size_t>(it - line.begin());
+
+                size_t codepointWidth = codepointDisplayWidth(codepoint);
+                if(width + codepointWidth > maxWidth)
+                {
+                    return (startOffset == 0) ? afterOffset : startOffset;
+                }
+                width += codepointWidth;
+            }
+
+            return line.length();
+        }
+    }
+
+
     /**
      * @deprecated
      * In C++23 and onward, please use the std::string::contains() method instead of this function.
@@ -351,15 +537,22 @@ namespace stevensStringLib
 
         //If separator is empty, split into individual characters (codepoints, not bytes - a raw
         //byte-by-byte split would shred a multi-byte character, e.g. Cyrillic/CJK, into invalid
-        //fragments)
+        //fragments). Walks the original UTF-8 bytes once via utf8::next() and slices each
+        //codepoint's byte range directly out of str - no need to decode into a std::u32string
+        //and re-encode each codepoint back to UTF-8, since we never need the decoded codepoint
+        //value itself, only where each character starts and ends.
         if(separator.empty())
         {
-            std::u32string codepoints = utf8::utf8to32(str);
             std::vector<std::string> separatedStrings;
-            separatedStrings.reserve(codepoints.length());
-            for(char32_t c : codepoints)
+            separatedStrings.reserve(str.length()); // upper bound - codepoints <= bytes
+
+            auto it = str.begin();
+            const auto end = str.end();
+            while(it != end)
             {
-                separatedStrings.push_back(utf8::utf32to8(std::u32string_view(&c, 1)));
+                auto charStart = it;
+                utf8::next(it, end); // advances it past one codepoint
+                separatedStrings.emplace_back(charStart, it);
             }
             return separatedStrings;
         }
@@ -1014,74 +1207,65 @@ namespace stevensStringLib
 
 
     /**
-     * Given a std::string and integer describing the total number of characters that can exist in a line of text,
-     * wrap the text by adding newlines between words so it may fit within a certain width.
-     * 
+     * Given a std::string and a maximum display width (in terminal columns), wrap the text by
+     * adding newlines between words so it fits within that width.
+     *
+     * Wraps by display width, not byte count or codepoint count - a line of CJK/fullwidth text
+     * wraps at the correct on-screen column instead of overflowing by up to 2x (each such
+     * codepoint occupies 2 terminal columns). Plain ASCII content wraps identically to before,
+     * since codepoint count, byte count, and display width all coincide for it.
+     *
      * @param str - The std::string which we wish to wrap to a certain width.
-     * @param wrapWidth - The width in number of characters we wish to wrap to each line.
-     * 
-     * @retval std::string - A modified version of the parameter str, with newlines added to it so that it fits within
-     *         a certain character width.
-     *  
+     * @param wrapWidth - The maximum display width (terminal columns) of every wrapped line
+     *                    after the first.
+     * @param firstLineWidth - The maximum display width of only the very first wrapped segment,
+     *                         for callers continuing text onto an already-partially-filled row
+     *                         (e.g. printing several differently-styled pieces on the same visual
+     *                         line - see stevensTerminal's curses_wwrap_withTokens()). Pass
+     *                         std::string::npos (the default) to use wrapWidth for every line,
+     *                         including the first - the ordinary case of starting at a fresh line.
+     *
+     * @retval std::string - A modified version of the parameter str, with newlines added to it so
+     *         that it fits within the given display width.
     */
     inline std::string wrapToWidth(     const std::string & str,
-                                        size_t wrapWidth   )
+                                        size_t wrapWidth,
+                                        size_t firstLineWidth = std::string::npos   )
     {
         //If we have a wrapWidth of zero, we can't fit anything in a column of size zero. Return the empty string.
         if(wrapWidth == 0)
         {
             return "";
         }
+        if(firstLineWidth == std::string::npos)
+        {
+            firstLineWidth = wrapWidth;
+        }
 
         std::istringstream in(str);
         std::string line;
-        std::string word;
         std::string output = "";
-        size_t lineCutOffIndex = 0;
         int numberOfLines = countLines(str);
         int currLineNum = 0;
+        bool firstSegment = true;
 
         while(getline(in,line))
         {
-            lineCutOffIndex = 0;
             while(!line.empty())
             {
-                //Check to see if we need to wrap this line around
-                if(line.length() > wrapWidth)
-                {
-                    //Find the last space in the std::string that fits on the line
-                    lineCutOffIndex = line.rfind(' ', wrapWidth);
-                    //If we can't find a space in the std::string and the std::string is too long, we just cut the line and wrap to the next line
-                    if(lineCutOffIndex == std::string::npos)
-                    {
-                        //Add as much of the line as we can to the output and then add a newline
-                        output.append(line, 0, wrapWidth);
-                        output += '\n';
-                        //Continue looping until the rest of the line is added to the output
-                        if(wrapWidth > line.length())
-                        {
-                            line = "";
-                            break;
-                        }
-                        else
-                        {
-                            line = line.substr(wrapWidth);
-                        }
-                    }
-                    //If we find a space...
-                    else
-                    {
-                        //Add the part of the std::string before the cut off point to the output
-                        output += line.substr(0, lineCutOffIndex) + "\n";
-                        //Set the line equal to the cut off portion of the std::string and continue looping until the rest of the line is added to the output
-                        line = line.substr(lineCutOffIndex+1);
-                    }
-                }
-                else
+                size_t budget = firstSegment ? firstLineWidth : wrapWidth;
+                firstSegment = false;
+
+                detail::WrapCut cut = detail::findWrapCut(line, budget);
+                //If the whole remainder of the line fits, output it as-is and we're done with this line
+                if(cut.segmentEnd == line.length() && cut.nextStart == line.length())
                 {
                     output += line;
                     break;
                 }
+                //Otherwise, output the piece that fits and continue with what's left
+                output += line.substr(0, cut.segmentEnd) + "\n";
+                line = line.substr(cut.nextStart);
             }
             currLineNum++;
             //Add a new line when printing the next line from the std::string
@@ -1146,8 +1330,7 @@ namespace stevensStringLib
                     "lineDisplayWidth() is only defined for a single line (matching POSIX wcswidth()'s "
                     "single-line contract). Split multi-line text into individual lines first.");
             }
-            int charWidth = utf8proc_charwidth(static_cast<utf8proc_int32_t>(codepoint));
-            width += static_cast<size_t>(std::max(0, charWidth));
+            width += detail::codepointDisplayWidth(codepoint);
         }
         return width;
     }
@@ -1162,19 +1345,57 @@ namespace stevensStringLib
      * displayed width when growing. This truncates/pads by codepoint instead, so the resulting string's
      * codepoint count always matches desiredLength exactly, with no torn characters.
      *
+     * Named to parallel resizeToDisplayWidth() (its display-width-based sibling, right below).
+     *
      * @param utf8Str - A UTF-8 encoded std::string to resize.
      * @param desiredLength - The desired number of codepoints (characters) in the result.
      * @param fillChar - The (single-byte) character to pad with if growing the string.
      *
      * @retval std::string - utf8Str resized to desiredLength codepoints.
     */
-    inline std::string utf8Resize( const std::string_view & utf8Str,
-                                    size_t desiredLength,
-                                    char fillChar = ' ' )
+    inline std::string resizeToCodepoints( const std::string_view & utf8Str,
+                                            size_t desiredLength,
+                                            char fillChar = ' ' )
     {
         std::u32string codepoints = utf8::utf8to32(utf8Str);
         codepoints.resize(desiredLength, static_cast<char32_t>(static_cast<unsigned char>(fillChar)));
         return utf8::utf32to8(codepoints);
+    }
+
+
+    /**
+     * Resize a UTF-8 encoded std::string to an exact display width (in terminal columns) rather
+     * than codepoint count - the display-width-aware sibling of resizeToCodepoints().
+     *
+     * resizeToCodepoints() truncates/pads by codepoint count, so on double-width content (CJK,
+     * fullwidth punctuation) the resulting string's actual on-screen width can differ from what
+     * was asked for (e.g. resizing to 5 codepoints of CJK text yields 10 display columns, not 5).
+     * This truncates/pads by display width instead, so the result occupies exactly desiredWidth
+     * columns on screen - except in the edge case where a single leading double-width codepoint
+     * alone exceeds desiredWidth, where it is still included rather than dropped entirely (a
+     * glyph can't be half-truncated - same tradeoff documented on findWrapCut()).
+     *
+     * @param utf8Str - A UTF-8 encoded std::string to resize.
+     * @param desiredWidth - The desired display width (terminal columns) of the result.
+     * @param fillChar - The (single-byte, single-column) character to pad with if growing.
+     *
+     * @retval std::string - utf8Str resized to desiredWidth display columns.
+    */
+    inline std::string resizeToDisplayWidth(   const std::string_view & utf8Str,
+                                                size_t desiredWidth,
+                                                char fillChar = ' ' )
+    {
+        size_t currentWidth = lineDisplayWidth(utf8Str);
+        if(currentWidth > desiredWidth)
+        {
+            size_t cutOffset = detail::truncateToDisplayWidth(utf8Str, desiredWidth);
+            return std::string(utf8Str.substr(0, cutOffset));
+        }
+        if(currentWidth < desiredWidth)
+        {
+            return std::string(utf8Str) + std::string(desiredWidth - currentWidth, fillChar);
+        }
+        return std::string(utf8Str);
     }
 
 
@@ -1210,6 +1431,50 @@ namespace stevensStringLib
     inline std::string utf32to8(const std::u32string_view & utf32Str)
     {
         return utf8::utf32to8(utf32Str);
+    }
+
+
+    /**
+     * Decode a UTF-8 encoded std::string into a std::u16string (UTF-16), one std::u16string element
+     * per UTF-16 code unit (not per codepoint - characters outside the Basic Multilingual Plane are
+     * represented as a surrogate pair, i.e. two elements, same as UTF-16 itself). Thin wrapper
+     * around utf8cpp's utf8::utf8to16() - named to match it directly, mirroring utf8to32()'s
+     * pattern for a different target format.
+     *
+     * For clients that need to interoperate with an API that natively works in UTF-16 (e.g. a
+     * Windows wide-string API, or another library's UChar-based buffer) - stevensStringLib's own
+     * functions all take/return UTF-8 std::string, so convert at this boundary rather than
+     * threading an encoding parameter through every function (see charCount()'s naming convention
+     * notes: UTF-8 std::string is this library's one internal canonical form).
+     *
+     * Operates on an already-in-memory std::u16string, not a raw byte buffer - no alignment or
+     * byte-order ambiguity, since a std::u16string's char16_t elements are just numbers in memory,
+     * native by construction. Decoding truly-untyped raw bytes of unknown/external UTF-16 byte
+     * order (a file, a network stream) is a separate, harder problem this does not attempt to
+     * solve - not implemented, since nothing in this codebase has that need yet.
+     *
+     * @param utf8Str - A UTF-8 encoded std::string.
+     *
+     * @retval std::u16string - The same characters, UTF-16 encoded.
+    */
+    inline std::u16string utf8to16(const std::string_view & utf8Str)
+    {
+        return utf8::utf8to16(utf8Str);
+    }
+
+
+    /**
+     * Encode a std::u16string (UTF-16) into a UTF-8 encoded std::string. Thin wrapper around
+     * utf8cpp's utf8::utf16to8() - named to match it directly. The inverse of utf8to16() - see
+     * that function's doc comment.
+     *
+     * @param utf16Str - A std::u16string of UTF-16 code units.
+     *
+     * @retval std::string - The same characters, UTF-8 encoded.
+    */
+    inline std::string utf16to8(const std::u16string_view & utf16Str)
+    {
+        return utf8::utf16to8(utf16Str);
     }
 
 
