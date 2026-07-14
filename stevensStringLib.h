@@ -31,7 +31,8 @@
 #include<unordered_map>
 #include<random>
 
-#include<utf8.h> // utf8cpp - UTF-8 <-> UTF-32 codec, see utf8ToUtf32()/circularIndex()
+#include<utf8.h> // utf8cpp - UTF-8 <-> UTF-32 codec, see utf8to32()/circularIndex()
+#include<utf8proc.h> // per-codepoint display width (East Asian Width), see lineDisplayWidth()
 
 
 namespace stevensStringLib
@@ -348,14 +349,17 @@ namespace stevensStringLib
             return stevensStringLib::separate( str, separator[0], omitEmptyStrings );
         }
 
-        //If separator is empty, split into individual characters
+        //If separator is empty, split into individual characters (codepoints, not bytes - a raw
+        //byte-by-byte split would shred a multi-byte character, e.g. Cyrillic/CJK, into invalid
+        //fragments)
         if(separator.empty())
         {
+            std::u32string codepoints = utf8::utf8to32(str);
             std::vector<std::string> separatedStrings;
-            separatedStrings.reserve(str.length());
-            for(char c : str)
+            separatedStrings.reserve(codepoints.length());
+            for(char32_t c : codepoints)
             {
-                separatedStrings.emplace_back(1, c);
+                separatedStrings.push_back(utf8::utf32to8(std::u32string_view(&c, 1)));
             }
             return separatedStrings;
         }
@@ -1091,17 +1095,61 @@ namespace stevensStringLib
     /**
      * Return the number of Unicode codepoints (characters) in a UTF-8 encoded std::string.
      *
-     * Unlike std::string::length()/size(), which count bytes, this counts characters - a single
-     * multi-byte character (Cyrillic, CJK, box-drawing glyphs, etc.) counts as 1, not 2-4. Backed by
-     * utf8cpp, which throws utf8::invalid_utf8 on malformed input rather than silently miscounting.
+     * Naming convention used throughout stevensStringLib: length() (std::string's own) means byte
+     * count; charCount() means codepoint (character) count. A single multi-byte character (Cyrillic,
+     * CJK, box-drawing glyphs, etc.) counts as 1 here, not 2-4 like it would under length(). Streams
+     * over str counting codepoint boundaries directly (utf8::distance()) rather than materializing a
+     * std::u32string - this only needs a single linear pass, no random access. Backed by utf8cpp,
+     * which throws utf8::invalid_utf8 on malformed input rather than silently miscounting.
      *
-     * @param utf8Str - A UTF-8 encoded std::string.
+     * @param str - A UTF-8 encoded std::string.
      *
-     * @retval size_t - The number of codepoints (characters) in utf8Str.
+     * @retval size_t - The number of codepoints (characters) in str.
     */
-    inline size_t utf8Length(const std::string_view & utf8Str)
+    inline size_t charCount(const std::string_view & str)
     {
-        return utf8::utf8to32(utf8Str).length();
+        return utf8::distance(str.begin(), str.end());
+    }
+
+
+    /**
+     * Return the display width (in terminal columns) of a single line of UTF-8 encoded text.
+     *
+     * Codepoint count (charCount()) is not the same as display width: most characters (Latin,
+     * Cyrillic, etc.) occupy 1 terminal column, but CJK/fullwidth characters occupy 2, and combining
+     * marks occupy 0. This sums each codepoint's actual column width via utf8proc_charwidth() (the
+     * Unicode East Asian Width property), so a 5-codepoint CJK string correctly reports width 10, not
+     * width 5.
+     *
+     * Like POSIX wcswidth(), this is only defined for a single line: throws if str contains a line
+     * break (LF, CR, or the Unicode line/paragraph separators), the same way wcswidth() returns -1
+     * (undefined) rather than silently summing across line breaks as if they were printable content.
+     * Split multi-line text into individual lines and call this per line.
+     *
+     * @param str - A single line of UTF-8 encoded text (no embedded line breaks).
+     *
+     * @retval size_t - The number of terminal columns str would occupy when displayed.
+     * @throws std::invalid_argument if str contains a line break.
+    */
+    inline size_t lineDisplayWidth(const std::string_view & str)
+    {
+        size_t width = 0;
+        auto it = str.begin();
+        const auto end = str.end();
+        while(it != end)
+        {
+            utf8::utfchar32_t codepoint = utf8::next(it, end);
+            if(codepoint == U'\n' || codepoint == U'\r' || codepoint == 0x2028 || codepoint == 0x2029)
+            {
+                throw std::invalid_argument(
+                    "stevensStringLib::lineDisplayWidth() error: str contains a line break - "
+                    "lineDisplayWidth() is only defined for a single line (matching POSIX wcswidth()'s "
+                    "single-line contract). Split multi-line text into individual lines first.");
+            }
+            int charWidth = utf8proc_charwidth(static_cast<utf8proc_int32_t>(codepoint));
+            width += static_cast<size_t>(std::max(0, charWidth));
+        }
+        return width;
     }
 
 

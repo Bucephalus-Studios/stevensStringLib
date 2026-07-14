@@ -4,13 +4,24 @@ project(stevensStringLib LANGUAGES CXX)
 include(FetchContent)
 
 # Header-only UTF-8 codec (encode/decode/validate against std::u32string) used by circularIndex()
-# and other codepoint-aware string functions - see utf8ToUtf32()/utf32ToUtf8() in stevensStringLib.h.
+# and other codepoint-aware string functions - see utf8to32()/utf32to8() in stevensStringLib.h.
 FetchContent_Declare(utf8cpp
     GIT_REPOSITORY https://github.com/nemtrif/utfcpp.git
     GIT_TAG        v4.1.1
     GIT_SHALLOW    TRUE
 )
 FetchContent_MakeAvailable(utf8cpp)
+
+# Per-codepoint display width (East Asian Width property) used by lineDisplayWidth() - codepoint count
+# alone isn't display width, since CJK/fullwidth characters render as 2 terminal columns.
+FetchContent_Declare(utf8proc
+    GIT_REPOSITORY https://github.com/JuliaStrings/utf8proc.git
+    GIT_TAG        v2.11.3
+    GIT_SHALLOW    TRUE
+)
+set(UTF8PROC_INSTALL OFF CACHE BOOL "" FORCE)
+set(UTF8PROC_ENABLE_TESTING OFF CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(utf8proc)
 
 add_library(stevensStringLib INTERFACE)
 add_library(stevensStringLib::stevensStringLib ALIAS stevensStringLib)
@@ -20,7 +31,7 @@ target_include_directories(stevensStringLib INTERFACE
     $<INSTALL_INTERFACE:include>
 )
 target_compile_features(stevensStringLib INTERFACE cxx_std_17)
-target_link_libraries(stevensStringLib INTERFACE utf8cpp)
+target_link_libraries(stevensStringLib INTERFACE utf8cpp utf8proc)
 
 option(STEVENSSTRINGLIB_BUILD_TESTS "Build tests" OFF)
 option(STEVENSSTRINGLIB_BUILD_BENCHMARKS "Build benchmarks" OFF)

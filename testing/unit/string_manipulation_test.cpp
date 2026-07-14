@@ -72,6 +72,14 @@ TEST(Separate, EmptySeparator_SplitsIntoChars) {
     EXPECT_EQ(result, expected);
 }
 
+TEST(Separate, EmptySeparator_MultiByteSplitsIntoWholeCodepoints) {
+    // "aбc" - 'a' (1 byte) + Cyrillic 'б' (2 bytes) + 'c' (1 byte). A byte-by-byte split would
+    // shred 'б' into two invalid single-byte fragments instead of keeping it whole.
+    auto result = separate("aбc", "");
+    std::vector<std::string> expected = {"a", "б", "c"};
+    EXPECT_EQ(result, expected);
+}
+
 TEST(Separate, NoSeparatorFound_ReturnsWholeString) {
     auto result = separate("no separators here", "@");
     EXPECT_EQ(result.size(), 1);
@@ -521,21 +529,21 @@ TEST(CircularIndex, MixedAsciiAndMultiByte_IndexesByCodepointNotByte) {
 }
 
 // ============================================================================
-// TESTS - utf8Length()
+// TESTS - charCount()
 // ============================================================================
 
-TEST(Utf8Length, AsciiString_CountsBytes) {
-    EXPECT_EQ(utf8Length("hello"), 5u);
+TEST(CharCount, AsciiString_CountsCharacters) {
+    EXPECT_EQ(charCount("hello"), 5u);
 }
 
-TEST(Utf8Length, EmptyString_ReturnsZero) {
-    EXPECT_EQ(utf8Length(""), 0u);
+TEST(CharCount, EmptyString_ReturnsZero) {
+    EXPECT_EQ(charCount(""), 0u);
 }
 
-TEST(Utf8Length, MultiByteCharacters_CountsCodepointsNotBytes) {
+TEST(CharCount, MultiByteCharacters_CountsCodepointsNotBytes) {
     std::string str = "aбc"; // 4 bytes, but 3 codepoints
     EXPECT_EQ(str.length(), 4u);    // byte count
-    EXPECT_EQ(utf8Length(str), 3u); // codepoint count
+    EXPECT_EQ(charCount(str), 3u);  // codepoint count
 }
 
 // ============================================================================
@@ -558,13 +566,13 @@ TEST(Utf8Resize, MultiByteShrink_DoesNotTearCharacterInHalf) {
     std::string str = "aбc"; // 3 codepoints, 4 bytes
     std::string result = utf8Resize(str, 2);
     EXPECT_EQ(result, "aб");           // whole codepoints kept, not a mangled trailing byte
-    EXPECT_EQ(utf8Length(result), 2u);
+    EXPECT_EQ(charCount(result), 2u);
 }
 
 TEST(Utf8Resize, MultiByteGrow_PadsToCorrectDisplayedWidth) {
     std::string str = "世界"; // 2 codepoints, 6 bytes
     std::string result = utf8Resize(str, 5, ' ');
-    EXPECT_EQ(utf8Length(result), 5u); // 2 real characters + 3 padding spaces, not measured in bytes
+    EXPECT_EQ(charCount(result), 5u); // 2 real characters + 3 padding spaces, not measured in bytes
     EXPECT_EQ(result, "世界   ");
 }
 
@@ -572,8 +580,38 @@ TEST(Utf8Resize, ShrinkToZero_ReturnsEmptyString) {
     EXPECT_EQ(utf8Resize("hello", 0), "");
 }
 
-TEST(Utf8Length, CJKCharacters_CountsCodepoints) {
+TEST(CharCount, CJKCharacters_CountsCodepoints) {
     std::string str = "世界"; // 2 codepoints, 3 bytes each = 6 bytes
     EXPECT_EQ(str.length(), 6u);
-    EXPECT_EQ(utf8Length(str), 2u);
+    EXPECT_EQ(charCount(str), 2u);
+}
+
+// ============================================================================
+// TESTS - lineDisplayWidth()
+// ============================================================================
+
+TEST(LineWidth, AsciiString_MatchesCharCount) {
+    EXPECT_EQ(lineDisplayWidth("hello"), 5u);
+}
+
+TEST(LineWidth, EmptyString_ReturnsZero) {
+    EXPECT_EQ(lineDisplayWidth(""), 0u);
+}
+
+TEST(LineWidth, Cyrillic_OneColumnPerCharacter) {
+    std::string str = "Привет"; // 6 codepoints, all single-column
+    EXPECT_EQ(charCount(str), 6u);
+    EXPECT_EQ(lineDisplayWidth(str), 6u);
+}
+
+TEST(LineWidth, CJK_TwoColumnsPerCharacter) {
+    std::string str = "世界"; // 2 codepoints, but double-width - 4 terminal columns
+    EXPECT_EQ(charCount(str), 2u);
+    EXPECT_EQ(lineDisplayWidth(str), 4u);
+}
+
+TEST(LineWidth, MixedAsciiAndCjk_SumsCorrectly) {
+    std::string str = "hi世界"; // "hi" = 2 cols, "世界" = 4 cols
+    EXPECT_EQ(charCount(str), 4u);
+    EXPECT_EQ(lineDisplayWidth(str), 6u);
 }
