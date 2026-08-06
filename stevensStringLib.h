@@ -1267,6 +1267,11 @@ namespace stevensStringLib
                 output += line.substr(0, cut.segmentEnd) + "\n";
                 line = line.substr(cut.nextStart);
             }
+            // An explicit line break ends any mid-row continuation, so it should reset the
+            // budget to the full wrapWidth - but an empty line (e.g. str starts with '\n')
+            // never enters the loop above to do that reset itself. Force it here too, or the
+            // next real line still budgets against the stale, already-crossed firstLineWidth.
+            firstSegment = false;
             currLineNum++;
             //Add a new line when printing the next line from the std::string
             output += "\n";

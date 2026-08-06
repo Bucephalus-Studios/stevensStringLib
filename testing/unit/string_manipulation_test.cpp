@@ -470,6 +470,24 @@ TEST(WrapToWidth, FirstLineWidthDefaultsToWrapWidth) {
     EXPECT_EQ(wrapToWidth(str, 9), wrapToWidth(str, 9, 9));
 }
 
+TEST(WrapToWidth, LeadingNewlineResetsFirstLineWidthBudget) {
+    // Regression test for a real cultgame HUD bug: text that starts with an explicit
+    // '\n' (e.g. a new section appended onto the tail of a longer string that's
+    // continuing mid-row from previously-printed content) should have its *own* first
+    // line get the full wrapWidth, not the tiny firstLineWidth left over from
+    // wherever the previous content stopped - the leading '\n' already moved to a
+    // fresh row, so there's nothing left to "continue". Before the fix, the empty
+    // line produced by splitting on that leading '\n' never entered the loop that
+    // resets the firstSegment flag, so the real text after it was wrongly wrapped
+    // against firstLineWidth, producing a spurious extra line.
+    std::string str = "\nthe quick brown fox";
+    // firstLineWidth of 3 would force "the" onto its own line if (incorrectly)
+    // applied here - but the leading '\n' means this text starts a fresh row, so it
+    // should wrap as if firstLineWidth was never set at all.
+    auto result = wrapToWidth(str, 20, 3);
+    EXPECT_EQ(result, "\nthe quick brown fox\n");
+}
+
 // ============================================================================
 // TESTS - countLines()
 // ============================================================================
