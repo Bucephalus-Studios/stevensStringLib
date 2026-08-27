@@ -1380,21 +1380,37 @@ namespace stevensStringLib
      * alone exceeds desiredWidth, where it is still included rather than dropped entirely (a
      * glyph can't be half-truncated - same tradeoff documented on findWrapCut()).
      *
+     * One function handles both directions (truncate OR pad) because callers laying out a fixed-
+     * width column want "make this exactly N columns" as a single operation, not two functions
+     * to pick between depending on the input's length.
+     *
      * @param utf8Str - A UTF-8 encoded std::string to resize.
      * @param desiredWidth - The desired display width (terminal columns) of the result.
      * @param fillChar - The (single-byte, single-column) character to pad with if growing.
+     * @param truncationSuffix - Appended when truncating (e.g. "..." or " (+3 more)"), so a cut-
+     *                           off value reads as truncated rather than merely short. Ignored
+     *                           when padding. Counted against desiredWidth: if the suffix alone
+     *                           is as wide as desiredWidth, it's dropped and the cut falls back
+     *                           to plain truncation rather than emitting only the suffix.
      *
      * @retval std::string - utf8Str resized to desiredWidth display columns.
     */
     inline std::string resizeToDisplayWidth(   const std::string_view & utf8Str,
                                                 size_t desiredWidth,
-                                                char fillChar = ' ' )
+                                                char fillChar = ' ',
+                                                const std::string_view & truncationSuffix = "" )
     {
         size_t currentWidth = lineDisplayWidth(utf8Str);
         if(currentWidth > desiredWidth)
         {
-            size_t cutOffset = detail::truncateToDisplayWidth(utf8Str, desiredWidth);
-            return std::string(utf8Str.substr(0, cutOffset));
+            size_t suffixWidth = truncationSuffix.empty() ? 0 : lineDisplayWidth(truncationSuffix);
+            if(suffixWidth >= desiredWidth)
+            {
+                size_t cutOffset = detail::truncateToDisplayWidth(utf8Str, desiredWidth);
+                return std::string(utf8Str.substr(0, cutOffset));
+            }
+            size_t cutOffset = detail::truncateToDisplayWidth(utf8Str, desiredWidth - suffixWidth);
+            return std::string(utf8Str.substr(0, cutOffset)) + std::string(truncationSuffix);
         }
         if(currentWidth < desiredWidth)
         {
